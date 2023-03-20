@@ -14,6 +14,9 @@
 		E445CDE829C9209700F07ACF /* RandomReminderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E445CDE729C9209700F07ACF /* RandomReminderTests.swift */; };
 		E445CDF229C9209700F07ACF /* RandomReminderUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E445CDF129C9209700F07ACF /* RandomReminderUITests.swift */; };
 		E445CDF429C9209700F07ACF /* RandomReminderUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E445CDF329C9209700F07ACF /* RandomReminderUITestsLaunchTests.swift */; };
+		E573237CABBE90FC792D0500 /* Pods_RandomReminder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B2743BE11BD9A66F0AA8E77 /* Pods_RandomReminder.framework */; };
+		F928416A494F753C35FF16C8 /* Pods_RandomReminderTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70C2202EBCFB5C022C20E95F /* Pods_RandomReminderTests.framework */; };
+		FFFA7986262DB298717DA081 /* Pods_RandomReminder_RandomReminderUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67E539CDE37E256778F105F8 /* Pods_RandomReminder_RandomReminderUITests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +37,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		155FD71BAD19102541EAAD0F /* Pods-RandomReminder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RandomReminder.release.xcconfig"; path = "Target Support Files/Pods-RandomReminder/Pods-RandomReminder.release.xcconfig"; sourceTree = "<group>"; };
+		2064B32B63E31881CC784E4A /* Pods-RandomReminderTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RandomReminderTests.debug.xcconfig"; path = "Target Support Files/Pods-RandomReminderTests/Pods-RandomReminderTests.debug.xcconfig"; sourceTree = "<group>"; };
+		4B2743BE11BD9A66F0AA8E77 /* Pods_RandomReminder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RandomReminder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		67E539CDE37E256778F105F8 /* Pods_RandomReminder_RandomReminderUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RandomReminder_RandomReminderUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		70C2202EBCFB5C022C20E95F /* Pods_RandomReminderTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RandomReminderTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8DF8E565ED892EAEBF597355 /* Pods-RandomReminderTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RandomReminderTests.release.xcconfig"; path = "Target Support Files/Pods-RandomReminderTests/Pods-RandomReminderTests.release.xcconfig"; sourceTree = "<group>"; };
+		9D1BF32F11FCEC960675BFA3 /* Pods-RandomReminder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RandomReminder.debug.xcconfig"; path = "Target Support Files/Pods-RandomReminder/Pods-RandomReminder.debug.xcconfig"; sourceTree = "<group>"; };
+		B743BAE71291D9759D767E0D /* Pods-RandomReminder-RandomReminderUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RandomReminder-RandomReminderUITests.debug.xcconfig"; path = "Target Support Files/Pods-RandomReminder-RandomReminderUITests/Pods-RandomReminder-RandomReminderUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		B8C95BF3E0E1C8B4B0B60AE3 /* Pods-RandomReminder-RandomReminderUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RandomReminder-RandomReminderUITests.release.xcconfig"; path = "Target Support Files/Pods-RandomReminder-RandomReminderUITests/Pods-RandomReminder-RandomReminderUITests.release.xcconfig"; sourceTree = "<group>"; };
 		E445CDD229C9209600F07ACF /* RandomReminder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RandomReminder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E445CDD529C9209600F07ACF /* RandomReminderApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomReminderApp.swift; sourceTree = "<group>"; };
 		E445CDD729C9209600F07ACF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -52,6 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E573237CABBE90FC792D0500 /* Pods_RandomReminder.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,6 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F928416A494F753C35FF16C8 /* Pods_RandomReminderTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -66,12 +80,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FFFA7986262DB298717DA081 /* Pods_RandomReminder_RandomReminderUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		45E942507624F8713A6BAB86 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4B2743BE11BD9A66F0AA8E77 /* Pods_RandomReminder.framework */,
+				67E539CDE37E256778F105F8 /* Pods_RandomReminder_RandomReminderUITests.framework */,
+				70C2202EBCFB5C022C20E95F /* Pods_RandomReminderTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9A7CD08E66D1F9757C415DDE /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				9D1BF32F11FCEC960675BFA3 /* Pods-RandomReminder.debug.xcconfig */,
+				155FD71BAD19102541EAAD0F /* Pods-RandomReminder.release.xcconfig */,
+				B743BAE71291D9759D767E0D /* Pods-RandomReminder-RandomReminderUITests.debug.xcconfig */,
+				B8C95BF3E0E1C8B4B0B60AE3 /* Pods-RandomReminder-RandomReminderUITests.release.xcconfig */,
+				2064B32B63E31881CC784E4A /* Pods-RandomReminderTests.debug.xcconfig */,
+				8DF8E565ED892EAEBF597355 /* Pods-RandomReminderTests.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		E445CDC929C9209600F07ACF = {
 			isa = PBXGroup;
 			children = (
@@ -79,6 +118,8 @@
 				E445CDE629C9209700F07ACF /* RandomReminderTests */,
 				E445CDF029C9209700F07ACF /* RandomReminderUITests */,
 				E445CDD329C9209600F07ACF /* Products */,
+				9A7CD08E66D1F9757C415DDE /* Pods */,
+				45E942507624F8713A6BAB86 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -136,6 +177,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E445CDF729C9209700F07ACF /* Build configuration list for PBXNativeTarget "RandomReminder" */;
 			buildPhases = (
+				293DB5CF8F8C27B78D1C0B9E /* [CP] Check Pods Manifest.lock */,
 				E445CDCE29C9209600F07ACF /* Sources */,
 				E445CDCF29C9209600F07ACF /* Frameworks */,
 				E445CDD029C9209600F07ACF /* Resources */,
@@ -153,6 +195,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E445CDFA29C9209700F07ACF /* Build configuration list for PBXNativeTarget "RandomReminderTests" */;
 			buildPhases = (
+				EF5BD9E056EDC433D958BE44 /* [CP] Check Pods Manifest.lock */,
 				E445CDDF29C9209700F07ACF /* Sources */,
 				E445CDE029C9209700F07ACF /* Frameworks */,
 				E445CDE129C9209700F07ACF /* Resources */,
@@ -171,6 +214,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E445CDFD29C9209700F07ACF /* Build configuration list for PBXNativeTarget "RandomReminderUITests" */;
 			buildPhases = (
+				7128B343D171FE4E40CFFD11 /* [CP] Check Pods Manifest.lock */,
 				E445CDE929C9209700F07ACF /* Sources */,
 				E445CDEA29C9209700F07ACF /* Frameworks */,
 				E445CDEB29C9209700F07ACF /* Resources */,
@@ -253,6 +297,75 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		293DB5CF8F8C27B78D1C0B9E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-RandomReminder-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7128B343D171FE4E40CFFD11 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-RandomReminder-RandomReminderUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EF5BD9E056EDC433D958BE44 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-RandomReminderTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		E445CDCE29C9209600F07ACF /* Sources */ = {
@@ -408,6 +521,7 @@
 		};
 		E445CDF829C9209700F07ACF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9D1BF32F11FCEC960675BFA3 /* Pods-RandomReminder.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -446,6 +560,7 @@
 		};
 		E445CDF929C9209700F07ACF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 155FD71BAD19102541EAAD0F /* Pods-RandomReminder.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -484,6 +599,7 @@
 		};
 		E445CDFB29C9209700F07ACF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2064B32B63E31881CC784E4A /* Pods-RandomReminderTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -507,6 +623,7 @@
 		};
 		E445CDFC29C9209700F07ACF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8DF8E565ED892EAEBF597355 /* Pods-RandomReminderTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -530,6 +647,7 @@
 		};
 		E445CDFE29C9209700F07ACF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B743BAE71291D9759D767E0D /* Pods-RandomReminder-RandomReminderUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -552,6 +670,7 @@
 		};
 		E445CDFF29C9209700F07ACF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B8C95BF3E0E1C8B4B0B60AE3 /* Pods-RandomReminder-RandomReminderUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
