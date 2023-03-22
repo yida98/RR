@@ -8,50 +8,25 @@
 import SwiftUI
 
 struct DynamicToolsBackdrop: View {
-    @State var open: Bool = false
+    @Binding var isOpen: Bool
     var body: some View {
-        VStack {
-            if !open {
-                Spacer()
-            }
-            HStack {
-                    Spacer()
-                Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-                    .onTapGesture {
-                        open.toggle()
-                    }
-                    Spacer()
-            }.padding(50)
-            if !open {
-                Spacer()
-            }
+        GeometryReader { proxy in
+            DynamicToolsBackdropShape(isOpen: $isOpen, proxy: proxy)
+                .fill(Color.background)
+                .animation(.linear, value: isOpen)
         }
-        .background(
-            GeometryReader { proxy in
-                DynamicToolsBackdropShape(open: open, proxy: proxy)
-                    .fill(Color.background)
-                    .animation(.linear, value: open)
-            }
-        )
-        .padding()
-    }
-}
-
-struct DynamicToolsBackdrop_Previews: PreviewProvider {
-    static var previews: some View {
-        DynamicToolsBackdrop()
     }
 }
 
 struct DynamicToolsBackdropShape: Shape {
-    var open: Bool
+    @Binding var isOpen: Bool
     private var divotY: CGFloat
     private var radius: CGFloat
     
-    init(open: Bool, proxy: GeometryProxy) {
-        self.open = open
+    init(isOpen: Binding<Bool>, proxy: GeometryProxy) {
+        self._isOpen = isOpen
         self.radius = proxy.size.width / 10
-        self.divotY = open ? proxy.size.height + radius : proxy.size.height - radius
+        self.divotY = isOpen.wrappedValue ? proxy.size.height + radius : proxy.size.height - radius
     }
     
     var animatableData: CGFloat {
@@ -91,12 +66,12 @@ struct DynamicToolsBackdropShape: Shape {
         let leftControlX = radius
         path.addLine(to: CGPoint(x: rect.midX + (2 * radius), y: rect.maxY))
         
-            path.addCurve(to: CGPoint(x: rect.midX, y: divotY),
-                          control1: CGPoint(x: rect.midX + radius, y: rect.maxY),
-                          control2: CGPoint(x: rect.midX + radius, y: divotY))
-            path.addCurve(to: CGPoint(x: rect.midX - (2 * radius), y: rect.maxY),
-                          control1: CGPoint(x: rect.midX - radius, y: divotY),
-                          control2: CGPoint(x: rect.midX - radius, y: rect.maxY))
+        path.addCurve(to: CGPoint(x: rect.midX, y: divotY),
+                      control1: CGPoint(x: rect.midX + radius, y: rect.maxY),
+                      control2: CGPoint(x: rect.midX + radius, y: divotY))
+        path.addCurve(to: CGPoint(x: rect.midX - (2 * radius), y: rect.maxY),
+                      control1: CGPoint(x: rect.midX - radius, y: divotY),
+                      control2: CGPoint(x: rect.midX - radius, y: rect.maxY))
         
         path.addLine(to: CGPoint(x: leftControlX, y: rect.maxY))
         path.addArc(center: CGPoint(x: leftControlX, y: bottomControlY),

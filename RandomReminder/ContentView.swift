@@ -8,15 +8,21 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var isOpen: Bool = false
+    
     var body: some View {
         HStack {
             Spacer()
-            VStack {
-                RemindersView()
-                Image(systemName: "globe")
-                    .imageScale(.large)
-                    .foregroundColor(.accentColor)
-                Text("Hello, world!")
+            VStack(spacing: -20) {
+                RemindersView(isOpen: $isOpen)
+                Button {
+                    isOpen.toggle()
+                } label: {
+                    Image(systemName: "globe")
+                        .resizable()
+                        .frame(width: 40, height: 40)
+                        .foregroundColor(.accentColor)
+                }
                 Spacer()
             }
             Spacer()

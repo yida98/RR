@@ -8,17 +8,21 @@
 import SwiftUI
 
 struct RemindersView: View {
+    @Binding var isOpen: Bool
     var body: some View {
-        ScrollView(showsIndicators: false) {
-            VStack {
-                ReminderCell()
+        GeometryReader { proxy in
+            ScrollView(showsIndicators: false) {
+                VStack {
+                    ReminderCell()
+                }
             }
+            .padding(40)
+            .background(
+                DynamicToolsBackdropShape(isOpen: $isOpen, proxy: proxy)
+                    .fill(Color.background)
+            )
+            .clipShape(DynamicToolsBackdropShape(isOpen: $isOpen, proxy: proxy))
+            .animation(.linear, value: isOpen)
         }
-    }
-}
-
-struct RemindersView_Previews: PreviewProvider {
-    static var previews: some View {
-        RemindersView()
     }
 }
