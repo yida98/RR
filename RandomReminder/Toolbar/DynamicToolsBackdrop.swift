@@ -11,7 +11,7 @@ struct DynamicToolsBackdrop: View {
     @State var open: Bool = false
     var body: some View {
         VStack {
-            if open {
+            if !open {
                 Spacer()
             }
             HStack {
@@ -22,7 +22,7 @@ struct DynamicToolsBackdrop: View {
                     }
                     Spacer()
             }.padding(50)
-            if open {
+            if !open {
                 Spacer()
             }
         }

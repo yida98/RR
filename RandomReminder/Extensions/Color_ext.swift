@@ -11,4 +11,7 @@ import SwiftUI
 extension Color {
     static let background: Color = Color("Background")
     static let baseColor: Color = Color("Base")
+    
+    static let neutral: Color = Color("Neutral")
+    static let neutralOn: Color = Color("NeutralOn")
 }
