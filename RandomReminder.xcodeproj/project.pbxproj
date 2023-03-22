@@ -14,6 +14,12 @@
 		E445CDE829C9209700F07ACF /* RandomReminderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E445CDE729C9209700F07ACF /* RandomReminderTests.swift */; };
 		E445CDF229C9209700F07ACF /* RandomReminderUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E445CDF129C9209700F07ACF /* RandomReminderUITests.swift */; };
 		E445CDF429C9209700F07ACF /* RandomReminderUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E445CDF329C9209700F07ACF /* RandomReminderUITestsLaunchTests.swift */; };
+		E463FA9629CABCA500924D86 /* RemindersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E463FA9529CABCA500924D86 /* RemindersView.swift */; };
+		E463FA9829CABCAE00924D86 /* Reminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E463FA9729CABCAE00924D86 /* Reminder.swift */; };
+		E463FA9A29CABD5B00924D86 /* ReminderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E463FA9929CABD5B00924D86 /* ReminderCell.swift */; };
+		E463FA9E29CABD9800924D86 /* RemindersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E463FA9D29CABD9800924D86 /* RemindersViewModel.swift */; };
+		E463FAA029CABEDD00924D86 /* Color_ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E463FA9F29CABEDD00924D86 /* Color_ext.swift */; };
+		E463FAA429CAC00500924D86 /* DynamicToolsBackdrop.swift in Sources */ = {isa = PBXBuildFile; fileRef = E463FAA329CAC00500924D86 /* DynamicToolsBackdrop.swift */; };
 		E573237CABBE90FC792D0500 /* Pods_RandomReminder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B2743BE11BD9A66F0AA8E77 /* Pods_RandomReminder.framework */; };
 		F928416A494F753C35FF16C8 /* Pods_RandomReminderTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70C2202EBCFB5C022C20E95F /* Pods_RandomReminderTests.framework */; };
 		FFFA7986262DB298717DA081 /* Pods_RandomReminder_RandomReminderUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67E539CDE37E256778F105F8 /* Pods_RandomReminder_RandomReminderUITests.framework */; };
@@ -57,6 +63,12 @@
 		E445CDED29C9209700F07ACF /* RandomReminderUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RandomReminderUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E445CDF129C9209700F07ACF /* RandomReminderUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomReminderUITests.swift; sourceTree = "<group>"; };
 		E445CDF329C9209700F07ACF /* RandomReminderUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomReminderUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		E463FA9529CABCA500924D86 /* RemindersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindersView.swift; sourceTree = "<group>"; };
+		E463FA9729CABCAE00924D86 /* Reminder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reminder.swift; sourceTree = "<group>"; };
+		E463FA9929CABD5B00924D86 /* ReminderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderCell.swift; sourceTree = "<group>"; };
+		E463FA9D29CABD9800924D86 /* RemindersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindersViewModel.swift; sourceTree = "<group>"; };
+		E463FA9F29CABEDD00924D86 /* Color_ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Color_ext.swift; path = RandomReminder/Extensions/Color_ext.swift; sourceTree = SOURCE_ROOT; };
+		E463FAA329CAC00500924D86 /* DynamicToolsBackdrop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicToolsBackdrop.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,7 +119,6 @@
 				2064B32B63E31881CC784E4A /* Pods-RandomReminderTests.debug.xcconfig */,
 				8DF8E565ED892EAEBF597355 /* Pods-RandomReminderTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -138,6 +149,10 @@
 			children = (
 				E445CDD529C9209600F07ACF /* RandomReminderApp.swift */,
 				E445CDD729C9209600F07ACF /* ContentView.swift */,
+				E463FAA229CABFC000924D86 /* Toolbar */,
+				E463FA9C29CABD7200924D86 /* Reminder */,
+				E463FAA129CABF0100924D86 /* Extensions */,
+				E463FA9B29CABD6C00924D86 /* Model */,
 				E445CDD929C9209700F07ACF /* Assets.xcassets */,
 				E445CDDB29C9209700F07ACF /* RandomReminder.entitlements */,
 				E445CDDC29C9209700F07ACF /* Preview Content */,
@@ -168,6 +183,40 @@
 				E445CDF329C9209700F07ACF /* RandomReminderUITestsLaunchTests.swift */,
 			);
 			path = RandomReminderUITests;
+			sourceTree = "<group>";
+		};
+		E463FA9B29CABD6C00924D86 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E463FA9729CABCAE00924D86 /* Reminder.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E463FA9C29CABD7200924D86 /* Reminder */ = {
+			isa = PBXGroup;
+			children = (
+				E463FA9529CABCA500924D86 /* RemindersView.swift */,
+				E463FA9929CABD5B00924D86 /* ReminderCell.swift */,
+				E463FA9D29CABD9800924D86 /* RemindersViewModel.swift */,
+			);
+			path = Reminder;
+			sourceTree = "<group>";
+		};
+		E463FAA129CABF0100924D86 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				E463FA9F29CABEDD00924D86 /* Color_ext.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		E463FAA229CABFC000924D86 /* Toolbar */ = {
+			isa = PBXGroup;
+			children = (
+				E463FAA329CAC00500924D86 /* DynamicToolsBackdrop.swift */,
+			);
+			path = Toolbar;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -372,8 +421,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E463FA9A29CABD5B00924D86 /* ReminderCell.swift in Sources */,
+				E463FAA429CAC00500924D86 /* DynamicToolsBackdrop.swift in Sources */,
 				E445CDD829C9209600F07ACF /* ContentView.swift in Sources */,
+				E463FA9E29CABD9800924D86 /* RemindersViewModel.swift in Sources */,
 				E445CDD629C9209600F07ACF /* RandomReminderApp.swift in Sources */,
+				E463FAA029CABEDD00924D86 /* Color_ext.swift in Sources */,
+				E463FA9629CABCA500924D86 /* RemindersView.swift in Sources */,
+				E463FA9829CABCAE00924D86 /* Reminder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
