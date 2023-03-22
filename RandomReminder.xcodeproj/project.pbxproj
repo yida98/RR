@@ -20,6 +20,7 @@
 		E463FA9E29CABD9800924D86 /* RemindersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E463FA9D29CABD9800924D86 /* RemindersViewModel.swift */; };
 		E463FAA029CABEDD00924D86 /* Color_ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E463FA9F29CABEDD00924D86 /* Color_ext.swift */; };
 		E463FAA429CAC00500924D86 /* DynamicToolsBackdrop.swift in Sources */ = {isa = PBXBuildFile; fileRef = E463FAA329CAC00500924D86 /* DynamicToolsBackdrop.swift */; };
+		E463FAA629CAD2B000924D86 /* FrequencySlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E463FAA529CAD2AF00924D86 /* FrequencySlider.swift */; };
 		E573237CABBE90FC792D0500 /* Pods_RandomReminder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B2743BE11BD9A66F0AA8E77 /* Pods_RandomReminder.framework */; };
 		F928416A494F753C35FF16C8 /* Pods_RandomReminderTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70C2202EBCFB5C022C20E95F /* Pods_RandomReminderTests.framework */; };
 		FFFA7986262DB298717DA081 /* Pods_RandomReminder_RandomReminderUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67E539CDE37E256778F105F8 /* Pods_RandomReminder_RandomReminderUITests.framework */; };
@@ -69,6 +70,7 @@
 		E463FA9D29CABD9800924D86 /* RemindersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindersViewModel.swift; sourceTree = "<group>"; };
 		E463FA9F29CABEDD00924D86 /* Color_ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Color_ext.swift; path = RandomReminder/Extensions/Color_ext.swift; sourceTree = SOURCE_ROOT; };
 		E463FAA329CAC00500924D86 /* DynamicToolsBackdrop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicToolsBackdrop.swift; sourceTree = "<group>"; };
+		E463FAA529CAD2AF00924D86 /* FrequencySlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrequencySlider.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -198,6 +200,7 @@
 			children = (
 				E463FA9529CABCA500924D86 /* RemindersView.swift */,
 				E463FA9929CABD5B00924D86 /* ReminderCell.swift */,
+				E463FAA529CAD2AF00924D86 /* FrequencySlider.swift */,
 				E463FA9D29CABD9800924D86 /* RemindersViewModel.swift */,
 			);
 			path = Reminder;
@@ -424,6 +427,7 @@
 				E463FA9A29CABD5B00924D86 /* ReminderCell.swift in Sources */,
 				E463FAA429CAC00500924D86 /* DynamicToolsBackdrop.swift in Sources */,
 				E445CDD829C9209600F07ACF /* ContentView.swift in Sources */,
+				E463FAA629CAD2B000924D86 /* FrequencySlider.swift in Sources */,
 				E463FA9E29CABD9800924D86 /* RemindersViewModel.swift in Sources */,
 				E445CDD629C9209600F07ACF /* RandomReminderApp.swift in Sources */,
 				E463FAA029CABEDD00924D86 /* Color_ext.swift in Sources */,

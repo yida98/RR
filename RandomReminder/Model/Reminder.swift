@@ -14,7 +14,7 @@ struct Reminder {
     var reminderTimeFrames: [Date]
     var frequency: Frequency
     
-    enum Frequency {
+    enum Frequency: CaseIterable {
         case veryInfrequent, infrequent, frequent, veryFrequent, bombardment
     }
 }
