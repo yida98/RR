@@ -13,5 +13,9 @@ extension Color {
     static let baseColor: Color = Color("Base")
     
     static let neutral: Color = Color("Neutral")
-    static let neutralOn: Color = Color("NeutralOn")
+    static let veryInfrequent: Color = Color("VeryInfrequent")
+    static let infrequent: Color = Color("Infrequent")
+    static let frequent: Color = Color("Frequent")
+    static let veryFrequent: Color = Color("VeryFrequent")
+    static let bombardment: Color = Color("Bombardment")
 }

@@ -11,10 +11,14 @@ struct FrequencySlider: View {
     @GestureState var dragLocation: CGPoint = .zero
     @Binding var currentFrequency: Reminder.Frequency
     
+    init(currentFrequency: Binding<Reminder.Frequency>) {
+        self._currentFrequency = currentFrequency
+    }
+    
     var body: some View {
-        HStack {
+        HStack(spacing: 0) {
             ForEach(Reminder.Frequency.allCases, id: \.rawValue) { frequency in
-                Rectangle()
+                getShape(for: frequency)
                     .fill(getFill(for: frequency))
                     .id(frequency)
                     .background(dragObserver(frequency))
@@ -31,8 +35,19 @@ struct FrequencySlider: View {
         )
     }
     
+    private func getShape(for frequency: Reminder.Frequency) -> some Shape {
+        switch frequency {
+        case .veryInfrequent:
+            return IrregularParallelogram(position: .left)
+        case .bombardment:
+            return IrregularParallelogram(position: .right)
+        default:
+            return IrregularParallelogram(position: .centre)
+        }
+    }
+    
     private func getFill(for frequency: Reminder.Frequency) -> some ShapeStyle {
-        return frequency.rawValue <= currentFrequency.rawValue ? Color.neutralOn : Color.neutral
+        return frequency.rawValue <= currentFrequency.rawValue ? Color.veryInfrequent.opacity(Double((Double(frequency.rawValue + 1) / Double(5)))) : Color.neutral
     }
     
     private func dragObserver(_ id: Reminder.Frequency) -> some View {
@@ -52,5 +67,65 @@ struct FrequencySlider: View {
                 impactHeptic.impactOccurred()
             }
         }
+    }
+}
+
+struct IrregularParallelogram: Shape {
+    var position: IrregularParallelogram.Position
+    
+    func path(in rect: CGRect) -> Path {
+        let radius = rect.height / 2
+        
+        switch position {
+        case .left:
+            return leftPath(for: rect, radius: radius)
+        case .centre:
+            return centrePath(for: rect, radius: radius)
+        case .right:
+            return rightPath(for: rect, radius: radius)
+        }
+    }
+    
+    private func leftPath(for rect: CGRect, radius: CGFloat) -> Path {
+        var path = Path()
+        
+        path.move(to: CGPoint(x: radius, y: rect.minY))
+        path.addLine(to: CGPoint(x: rect.maxX, y: rect.minY))
+        path.addLine(to: CGPoint(x: rect.maxX - radius, y: rect.maxY))
+        path.addLine(to: CGPoint(x: radius, y: rect.maxY))
+        
+        path.addArc(center: CGPoint(x: radius, y: radius), radius: radius, startAngle: Angle.radians((Double.pi / 2)), endAngle: Angle.radians(-(Double.pi / 2)), clockwise: false)
+        
+        return path
+    }
+    
+    private func centrePath(for rect: CGRect, radius: CGFloat) -> Path {
+        var path = Path()
+        
+        path.move(to: CGPoint(x: radius, y: rect.minY))
+        path.addLine(to: CGPoint(x: rect.maxX, y: rect.minY))
+        path.addLine(to: CGPoint(x: rect.maxX - radius, y: rect.maxY))
+        path.addLine(to: CGPoint(x: rect.minX, y: rect.maxY))
+        path.addLine(to: CGPoint(x: radius, y: rect.minY))
+        
+        return path
+    }
+    
+    private func rightPath(for rect: CGRect, radius: CGFloat) -> Path {
+        var path = Path()
+        
+        path.move(to: CGPoint(x: radius, y: rect.minY))
+        path.addLine(to: CGPoint(x: rect.maxX - radius, y: rect.minY))
+        
+        path.addArc(center: CGPoint(x: rect.maxX - radius, y: radius), radius: radius, startAngle: Angle.radians(-(Double.pi / 2)), endAngle: Angle.radians(Double.pi / 2), clockwise: false)
+        
+        path.addLine(to: CGPoint(x: rect.minX, y: rect.maxY))
+        path.addLine(to: CGPoint(x: radius, y: rect.minY))
+        
+        return path
+    }
+    
+    enum Position {
+        case left, centre, right
     }
 }
