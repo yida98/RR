@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ReminderCell: View {
-    var color: Color = .orange
+    var color: Color = .orange.opacity(0.5)
     var title: String = "Relax your shoulders"
     var description: String = "Occurs from 1:00 to 8:00, 19:30 to 23:30"
     
@@ -18,10 +18,16 @@ struct ReminderCell: View {
     var body: some View {
         VStack {
             HStack(spacing: 20) {
-                Image(systemName: "tree")
-                    .padding()
-                    .background(RoundedRectangle(cornerRadius: 20).fill(color))
+                Text("🌴")
+                    .font(.title)
+                    .padding(10)
+                    .frame(width: 60, height: 60)
+                    .background(
+                        RoundedRectangle(cornerRadius: 16)
+                            .fill(color)
+                    )
                 VStack(alignment: .leading) {
+                    Spacer()
                     Text(title)
                         .font(.headline)
                     Text(description)

@@ -47,7 +47,7 @@ struct FrequencySlider: View {
     }
     
     private func getFill(for frequency: Reminder.Frequency) -> some ShapeStyle {
-        return frequency.rawValue <= currentFrequency.rawValue ? Color.veryInfrequent.opacity(Double((Double(frequency.rawValue + 1) / Double(5)))) : Color.neutral
+        return frequency.rawValue <= currentFrequency.rawValue ? Color.infrequent.opacity(Double((Double(frequency.rawValue + 1) / Double(10)) + 0.5)) : Color.neutral
     }
     
     private func dragObserver(_ id: Reminder.Frequency) -> some View {

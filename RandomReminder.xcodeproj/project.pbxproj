@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E4188BD629D2C815003FB654 /* Font_ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4188BD529D2C815003FB654 /* Font_ext.swift */; };
 		E445CDD629C9209600F07ACF /* RandomReminderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E445CDD529C9209600F07ACF /* RandomReminderApp.swift */; };
 		E445CDD829C9209600F07ACF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E445CDD729C9209600F07ACF /* ContentView.swift */; };
 		E445CDDA29C9209700F07ACF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E445CDD929C9209700F07ACF /* Assets.xcassets */; };
@@ -53,6 +54,7 @@
 		9D1BF32F11FCEC960675BFA3 /* Pods-RandomReminder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RandomReminder.debug.xcconfig"; path = "Target Support Files/Pods-RandomReminder/Pods-RandomReminder.debug.xcconfig"; sourceTree = "<group>"; };
 		B743BAE71291D9759D767E0D /* Pods-RandomReminder-RandomReminderUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RandomReminder-RandomReminderUITests.debug.xcconfig"; path = "Target Support Files/Pods-RandomReminder-RandomReminderUITests/Pods-RandomReminder-RandomReminderUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		B8C95BF3E0E1C8B4B0B60AE3 /* Pods-RandomReminder-RandomReminderUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RandomReminder-RandomReminderUITests.release.xcconfig"; path = "Target Support Files/Pods-RandomReminder-RandomReminderUITests/Pods-RandomReminder-RandomReminderUITests.release.xcconfig"; sourceTree = "<group>"; };
+		E4188BD529D2C815003FB654 /* Font_ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font_ext.swift; sourceTree = "<group>"; };
 		E445CDD229C9209600F07ACF /* RandomReminder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RandomReminder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E445CDD529C9209600F07ACF /* RandomReminderApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomReminderApp.swift; sourceTree = "<group>"; };
 		E445CDD729C9209600F07ACF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -210,6 +212,7 @@
 			isa = PBXGroup;
 			children = (
 				E463FA9F29CABEDD00924D86 /* Color_ext.swift */,
+				E4188BD529D2C815003FB654 /* Font_ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -430,6 +433,7 @@
 				E463FAA629CAD2B000924D86 /* FrequencySlider.swift in Sources */,
 				E463FA9E29CABD9800924D86 /* RemindersViewModel.swift in Sources */,
 				E445CDD629C9209600F07ACF /* RandomReminderApp.swift in Sources */,
+				E4188BD629D2C815003FB654 /* Font_ext.swift in Sources */,
 				E463FAA029CABEDD00924D86 /* Color_ext.swift in Sources */,
 				E463FA9629CABCA500924D86 /* RemindersView.swift in Sources */,
 				E463FA9829CABCAE00924D86 /* Reminder.swift in Sources */,

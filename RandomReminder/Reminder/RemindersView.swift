@@ -24,7 +24,7 @@ struct RemindersView: View {
                 }.transition(.asymmetric(insertion: .push(from: .top), removal: .push(from: .bottom)))
             }
         }
-        .padding(40)
+        .padding(30)
         .background(DynamicToolsBackdrop(isOpen: $isOpen))
         .mask(DynamicToolsBackdrop(isOpen: $isOpen))
         .animation(.spring(), value: isOpen)
