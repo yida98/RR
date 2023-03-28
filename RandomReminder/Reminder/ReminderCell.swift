@@ -17,11 +17,11 @@ struct ReminderCell: View {
     
     var body: some View {
         VStack {
-            HStack(spacing: 20) {
+            HStack(spacing: 14) {
                 Text("🌴")
                     .font(.title)
                     .padding(10)
-                    .frame(width: 60, height: 60)
+                    .frame(width: 50, height: 50)
                     .background(
                         RoundedRectangle(cornerRadius: 16)
                             .fill(color)
@@ -35,6 +35,7 @@ struct ReminderCell: View {
                         .lineLimit(2)
                         .minimumScaleFactor(0.8)
                 }
+                Spacer()
             }
             FrequencySlider(currentFrequency: $frequency)
         }

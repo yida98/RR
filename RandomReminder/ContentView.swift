@@ -23,6 +23,14 @@ struct ContentView: View {
                         .frame(width: 40, height: 40)
                         .foregroundColor(.accentColor)
                 }
+                Group {
+                    if isOpen {
+                        DetailAdjustmentView()
+                    }
+                }
+                .transition(.asymmetric(insertion: .push(from: .bottom), removal: .push(from: .top)))
+                .animation(.spring(), value: isOpen)
+
                 Spacer()
             }
             Spacer()
