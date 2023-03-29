@@ -14,6 +14,8 @@
 		E4188BDF29D38B8F003FB654 /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4188BDE29D38B8F003FB654 /* Application.swift */; };
 		E4188BE129D39884003FB654 /* ColorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4188BE029D39884003FB654 /* ColorCell.swift */; };
 		E4188BE329D411C0003FB654 /* EmojiTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4188BE229D411C0003FB654 /* EmojiTextField.swift */; };
+		E4188BE529D41B81003FB654 /* EditorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4188BE429D41B81003FB654 /* EditorViewModel.swift */; };
+		E4188BE729D41CB7003FB654 /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4188BE629D41CB7003FB654 /* ContentViewModel.swift */; };
 		E445CDD629C9209600F07ACF /* RandomReminderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E445CDD529C9209600F07ACF /* RandomReminderApp.swift */; };
 		E445CDD829C9209600F07ACF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E445CDD729C9209600F07ACF /* ContentView.swift */; };
 		E445CDDA29C9209700F07ACF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E445CDD929C9209700F07ACF /* Assets.xcassets */; };
@@ -67,6 +69,8 @@
 		E4188BDE29D38B8F003FB654 /* Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Application.swift; path = RandomReminder/Extensions/Application.swift; sourceTree = SOURCE_ROOT; };
 		E4188BE029D39884003FB654 /* ColorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorCell.swift; sourceTree = "<group>"; };
 		E4188BE229D411C0003FB654 /* EmojiTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiTextField.swift; sourceTree = "<group>"; };
+		E4188BE429D41B81003FB654 /* EditorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewModel.swift; sourceTree = "<group>"; };
+		E4188BE629D41CB7003FB654 /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
 		E445CDD229C9209600F07ACF /* RandomReminder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RandomReminder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E445CDD529C9209600F07ACF /* RandomReminderApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomReminderApp.swift; sourceTree = "<group>"; };
 		E445CDD729C9209600F07ACF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -146,6 +150,7 @@
 				E4188BE229D411C0003FB654 /* EmojiTextField.swift */,
 				E4188BE029D39884003FB654 /* ColorCell.swift */,
 				E4188BDA29D2D0FF003FB654 /* AsymmetricalRoundedRectangle.swift */,
+				E4188BE429D41B81003FB654 /* EditorViewModel.swift */,
 			);
 			path = Editor;
 			sourceTree = "<group>";
@@ -177,6 +182,7 @@
 			children = (
 				E445CDD529C9209600F07ACF /* RandomReminderApp.swift */,
 				E445CDD729C9209600F07ACF /* ContentView.swift */,
+				E4188BE629D41CB7003FB654 /* ContentViewModel.swift */,
 				E4188BD929D2C974003FB654 /* Editor */,
 				E463FAA229CABFC000924D86 /* Toolbar */,
 				E463FA9C29CABD7200924D86 /* Reminder */,
@@ -465,7 +471,9 @@
 				E4188BDF29D38B8F003FB654 /* Application.swift in Sources */,
 				E4188BD629D2C815003FB654 /* Font_ext.swift in Sources */,
 				E463FAA029CABEDD00924D86 /* Color_ext.swift in Sources */,
+				E4188BE529D41B81003FB654 /* EditorViewModel.swift in Sources */,
 				E4188BE329D411C0003FB654 /* EmojiTextField.swift in Sources */,
+				E4188BE729D41CB7003FB654 /* ContentViewModel.swift in Sources */,
 				E463FA9629CABCA500924D86 /* RemindersView.swift in Sources */,
 				E4188BDB29D2D0FF003FB654 /* AsymmetricalRoundedRectangle.swift in Sources */,
 				E463FA9829CABCAE00924D86 /* Reminder.swift in Sources */,

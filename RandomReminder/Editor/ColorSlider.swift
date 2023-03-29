@@ -9,25 +9,21 @@ import SwiftUI
 import Combine
 
 struct ColorSlider: View {
+    @ObservedObject var viewModel: EditorViewModel
+    
     // MARK: - Color slider
     @State private var selectedRect: Int = 0
     @State private var isUpdating: Bool = false
     var padding: CGFloat
-    private let onEnd: CurrentValueSubject<CGFloat, Never>
-    private let onChange: CurrentValueSubject<CGFloat, Never>
     private let scrollCoordinateSpace = "scroll"
+    @State var prevXOffset: CGFloat = 0
     
     // MARK: - Emoji
     @State var symbol: String = "A"
     
-    init(padding: CGFloat) {
+    init(viewModel: EditorViewModel, padding: CGFloat) {
+        self.viewModel = viewModel
         self.padding = padding
-        
-        let detector = CurrentValueSubject<CGFloat, Never>(0)
-        self.onEnd = detector
-        
-        let constantEmission = CurrentValueSubject<CGFloat, Never>(0)
-        self.onChange = constantEmission
     }
     
     var body: some View {
@@ -50,24 +46,27 @@ struct ColorSlider: View {
                                 value: -$0.frame(in: .named(scrollCoordinateSpace)).origin.x)
                         })
                         .onPreferenceChange(ViewOffsetKey.self) {
-                            onEnd.send($0)
-                            onChange.send($0)
+                            viewModel.onEnd.send($0)
+                            if prevXOffset != $0 {
+                                viewModel.onChange.send($0)
+                            }
                         }
                     }
                     .coordinateSpace(name: scrollCoordinateSpace)
-                    .onReceive(onEnd
+                    .onReceive(viewModel.onEnd
                         .debounce(for: .seconds(0.2), scheduler: DispatchQueue.main)
                         .dropFirst()
                         .eraseToAnyPublisher()) { xOffset in
                         DispatchQueue.main.async {
                             scroll(to: self.selectedRect, with: scrollProxy, geometryProxy)
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                                 /// Delay is required because of sprint animation from above (0.55 minimum)
                                 self.isUpdating = false
                             }
                         }
                     }
-                    .onReceive(onChange.eraseToAnyPublisher()) { xOffset in
+                    .onReceive(viewModel.onChange.eraseToAnyPublisher()) { xOffset in
+                        prevXOffset = xOffset
                         if !isUpdating {
                             DispatchQueue.main.async {
                                 self.isUpdating = true
@@ -77,10 +76,7 @@ struct ColorSlider: View {
                     .onAppear {
                         DispatchQueue.main.async {
                             scrollProxy.scrollTo(self.selectedRect, anchor: self.anchorUnitPoint(for: geometryProxy))
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
-                                /// Delay is required because of transition animation
-                                self.isUpdating = false
-                            }
+                            self.isUpdating = false
                         }
                     }
                 

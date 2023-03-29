@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
+    @ObservedObject var viewModel = ContentViewModel()
     @State var isOpen: Bool = false
     
     var body: some View {
@@ -25,7 +26,7 @@ struct ContentView: View {
                 }
                 Group {
                     if isOpen {
-                        DetailAdjustmentView()
+                        DetailAdjustmentView(viewModel: viewModel.getEditorViewModel())
                     }
                 }
                 .transition(.asymmetric(insertion: .push(from: .bottom), removal: .push(from: .top)))
