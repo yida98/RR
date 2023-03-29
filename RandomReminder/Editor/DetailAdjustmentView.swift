@@ -23,6 +23,7 @@ struct DetailAdjustmentView: View {
                         AsymmetricalRoundedRectangle(10, 24, 24, 24)
                             .fill(Color.snooze)
                     }
+                    .opacity(0.6)
                 Spacer()
                 Text("Delete")
                     .foregroundColor(.background)
@@ -32,13 +33,14 @@ struct DetailAdjustmentView: View {
                         AsymmetricalRoundedRectangle(24, 10, 24, 24)
                             .fill(Color.delete)
                     }
+                    .opacity(0.6)
             }
             .padding(20)
             ColorSlider(viewModel: viewModel, padding: 40)
             TextField("Title", text: $title)
                 .foregroundColor(.background)
                 .font(.largeTitle)
-                .padding(40)
+                .padding(.horizontal, 40)
         }
         .adaptsToKeyboard()
         .ignoresSafeArea()
