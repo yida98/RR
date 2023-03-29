@@ -34,19 +34,19 @@
 		1B8E7F89346801CCF632A691E32CAEA5 /* Pods-RandomReminderTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-RandomReminderTests.release.xcconfig"; sourceTree = "<group>"; };
 		248C4338EF7BFA775F0E3334D7B33889 /* Pods-RandomReminder.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-RandomReminder.modulemap"; sourceTree = "<group>"; };
 		2C69785F6DFFB346EB9BFF4B363F2587 /* Pods-RandomReminder-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-RandomReminder-acknowledgements.plist"; sourceTree = "<group>"; };
-		30E3A29D15A9B88A5F02BA44CB6A27C2 /* Pods-RandomReminder */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-RandomReminder"; path = Pods_RandomReminder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		30E3A29D15A9B88A5F02BA44CB6A27C2 /* Pods_RandomReminder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RandomReminder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		374DB361503DAF88AC37E09584CEAE8A /* Pods-RandomReminder-RandomReminderUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-RandomReminder-RandomReminderUITests.release.xcconfig"; sourceTree = "<group>"; };
 		5E038EA8FA9EDB4B14158B1CAD0F6797 /* Pods-RandomReminderTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-RandomReminderTests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		732A06F83C3F95F6B7896204E598E19A /* Pods-RandomReminder-RandomReminderUITests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-RandomReminder-RandomReminderUITests-acknowledgements.markdown"; sourceTree = "<group>"; };
-		7550C1395C2976624372CA4847A48042 /* Pods-RandomReminder-RandomReminderUITests */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-RandomReminder-RandomReminderUITests"; path = Pods_RandomReminder_RandomReminderUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7550C1395C2976624372CA4847A48042 /* Pods_RandomReminder_RandomReminderUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RandomReminder_RandomReminderUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		78691083B72E374A522C9BE7C36CE583 /* Pods-RandomReminder-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-RandomReminder-umbrella.h"; sourceTree = "<group>"; };
 		7C362032F57B2AD459DC4DBD3C63AE7E /* Pods-RandomReminder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-RandomReminder.debug.xcconfig"; sourceTree = "<group>"; };
 		7FDC7EB5CF6205B93351107CECC60A3E /* Pods-RandomReminderTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-RandomReminderTests-dummy.m"; sourceTree = "<group>"; };
 		922FC8AF2A7069BFC774D6523E7FA7C6 /* Pods-RandomReminder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-RandomReminder.release.xcconfig"; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		A44D18B8109FA9C735E7696DFA135DD5 /* Pods-RandomReminder-RandomReminderUITests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-RandomReminder-RandomReminderUITests-dummy.m"; sourceTree = "<group>"; };
-		A73CAFD5E278A1592D68FBF9999BC7A2 /* Pods-RandomReminderTests */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-RandomReminderTests"; path = Pods_RandomReminderTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A73CAFD5E278A1592D68FBF9999BC7A2 /* Pods_RandomReminderTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RandomReminderTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7C06CCA41C779E887931E7CC16C9841 /* Pods-RandomReminder-RandomReminderUITests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-RandomReminder-RandomReminderUITests.modulemap"; sourceTree = "<group>"; };
 		B175844957DD6F21E278A64DF3868932 /* Pods-RandomReminderTests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-RandomReminderTests.modulemap"; sourceTree = "<group>"; };
 		B75E429622A36C0C9806C07AC6206F53 /* Pods-RandomReminder-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-RandomReminder-dummy.m"; sourceTree = "<group>"; };
@@ -147,9 +147,9 @@
 		B81328243E27EE454F996E790556D915 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				30E3A29D15A9B88A5F02BA44CB6A27C2 /* Pods-RandomReminder */,
-				7550C1395C2976624372CA4847A48042 /* Pods-RandomReminder-RandomReminderUITests */,
-				A73CAFD5E278A1592D68FBF9999BC7A2 /* Pods-RandomReminderTests */,
+				30E3A29D15A9B88A5F02BA44CB6A27C2 /* Pods_RandomReminder.framework */,
+				7550C1395C2976624372CA4847A48042 /* Pods_RandomReminder_RandomReminderUITests.framework */,
+				A73CAFD5E278A1592D68FBF9999BC7A2 /* Pods_RandomReminderTests.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -227,7 +227,7 @@
 			);
 			name = "Pods-RandomReminder";
 			productName = Pods_RandomReminder;
-			productReference = 30E3A29D15A9B88A5F02BA44CB6A27C2 /* Pods-RandomReminder */;
+			productReference = 30E3A29D15A9B88A5F02BA44CB6A27C2 /* Pods_RandomReminder.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		822358EB17FD92B3F28AD8A70C3F31CC /* Pods-RandomReminderTests */ = {
@@ -246,7 +246,7 @@
 			);
 			name = "Pods-RandomReminderTests";
 			productName = Pods_RandomReminderTests;
-			productReference = A73CAFD5E278A1592D68FBF9999BC7A2 /* Pods-RandomReminderTests */;
+			productReference = A73CAFD5E278A1592D68FBF9999BC7A2 /* Pods_RandomReminderTests.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		A211659CAFFF6D3D128D3C8FD2E7C591 /* Pods-RandomReminder-RandomReminderUITests */ = {
@@ -264,7 +264,7 @@
 			);
 			name = "Pods-RandomReminder-RandomReminderUITests";
 			productName = Pods_RandomReminder_RandomReminderUITests;
-			productReference = 7550C1395C2976624372CA4847A48042 /* Pods-RandomReminder-RandomReminderUITests */;
+			productReference = 7550C1395C2976624372CA4847A48042 /* Pods_RandomReminder_RandomReminderUITests.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -274,7 +274,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1300;
-				LastUpgradeCheck = 1300;
+				LastUpgradeCheck = 1420;
 			};
 			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 14.0";
@@ -372,7 +372,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "Target Support Files/Pods-RandomReminderTests/Pods-RandomReminderTests-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -408,7 +408,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "Target Support Files/Pods-RandomReminder/Pods-RandomReminder-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -465,6 +465,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -483,7 +484,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -511,7 +512,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "Target Support Files/Pods-RandomReminder-RandomReminderUITests/Pods-RandomReminder-RandomReminderUITests-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -548,7 +549,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "Target Support Files/Pods-RandomReminder/Pods-RandomReminder-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -584,7 +585,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "Target Support Files/Pods-RandomReminderTests/Pods-RandomReminderTests-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -621,7 +622,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "Target Support Files/Pods-RandomReminder-RandomReminderUITests/Pods-RandomReminder-RandomReminderUITests-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -677,6 +678,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -692,7 +694,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
