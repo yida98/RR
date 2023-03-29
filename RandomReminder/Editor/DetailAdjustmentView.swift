@@ -32,10 +32,12 @@ struct DetailAdjustmentView: View {
                             .fill(Color.delete)
                     }
             }
+            .padding(20)
+            ColorSlider(padding: 40)
             TextField("Title", text: $title)
                 .foregroundColor(.background)
                 .font(.largeTitle)
+                .padding(20)
         }
-        .padding(20)
     }
 }

@@ -10,6 +10,9 @@
 		E4188BD629D2C815003FB654 /* Font_ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4188BD529D2C815003FB654 /* Font_ext.swift */; };
 		E4188BD829D2C96E003FB654 /* DetailAdjustmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4188BD729D2C96E003FB654 /* DetailAdjustmentView.swift */; };
 		E4188BDB29D2D0FF003FB654 /* AsymmetricalRoundedRectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4188BDA29D2D0FF003FB654 /* AsymmetricalRoundedRectangle.swift */; };
+		E4188BDD29D2E0C0003FB654 /* ColorSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4188BDC29D2E0C0003FB654 /* ColorSlider.swift */; };
+		E4188BDF29D38B8F003FB654 /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4188BDE29D38B8F003FB654 /* Application.swift */; };
+		E4188BE129D39884003FB654 /* ColorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4188BE029D39884003FB654 /* ColorCell.swift */; };
 		E445CDD629C9209600F07ACF /* RandomReminderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E445CDD529C9209600F07ACF /* RandomReminderApp.swift */; };
 		E445CDD829C9209600F07ACF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E445CDD729C9209600F07ACF /* ContentView.swift */; };
 		E445CDDA29C9209700F07ACF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E445CDD929C9209700F07ACF /* Assets.xcassets */; };
@@ -59,6 +62,9 @@
 		E4188BD529D2C815003FB654 /* Font_ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font_ext.swift; sourceTree = "<group>"; };
 		E4188BD729D2C96E003FB654 /* DetailAdjustmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailAdjustmentView.swift; sourceTree = "<group>"; };
 		E4188BDA29D2D0FF003FB654 /* AsymmetricalRoundedRectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsymmetricalRoundedRectangle.swift; sourceTree = "<group>"; };
+		E4188BDC29D2E0C0003FB654 /* ColorSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSlider.swift; sourceTree = "<group>"; };
+		E4188BDE29D38B8F003FB654 /* Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Application.swift; path = RandomReminder/Extensions/Application.swift; sourceTree = SOURCE_ROOT; };
+		E4188BE029D39884003FB654 /* ColorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorCell.swift; sourceTree = "<group>"; };
 		E445CDD229C9209600F07ACF /* RandomReminder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RandomReminder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E445CDD529C9209600F07ACF /* RandomReminderApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomReminderApp.swift; sourceTree = "<group>"; };
 		E445CDD729C9209600F07ACF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -134,6 +140,8 @@
 			isa = PBXGroup;
 			children = (
 				E4188BD729D2C96E003FB654 /* DetailAdjustmentView.swift */,
+				E4188BDC29D2E0C0003FB654 /* ColorSlider.swift */,
+				E4188BE029D39884003FB654 /* ColorCell.swift */,
 				E4188BDA29D2D0FF003FB654 /* AsymmetricalRoundedRectangle.swift */,
 			);
 			path = Editor;
@@ -207,6 +215,7 @@
 			isa = PBXGroup;
 			children = (
 				E463FA9729CABCAE00924D86 /* Reminder.swift */,
+				E4188BDE29D38B8F003FB654 /* Application.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -441,6 +450,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E4188BDD29D2E0C0003FB654 /* ColorSlider.swift in Sources */,
 				E463FA9A29CABD5B00924D86 /* ReminderCell.swift in Sources */,
 				E4188BD829D2C96E003FB654 /* DetailAdjustmentView.swift in Sources */,
 				E463FAA429CAC00500924D86 /* DynamicToolsBackdrop.swift in Sources */,
@@ -448,6 +458,8 @@
 				E463FAA629CAD2B000924D86 /* FrequencySlider.swift in Sources */,
 				E463FA9E29CABD9800924D86 /* RemindersViewModel.swift in Sources */,
 				E445CDD629C9209600F07ACF /* RandomReminderApp.swift in Sources */,
+				E4188BE129D39884003FB654 /* ColorCell.swift in Sources */,
+				E4188BDF29D38B8F003FB654 /* Application.swift in Sources */,
 				E4188BD629D2C815003FB654 /* Font_ext.swift in Sources */,
 				E463FAA029CABEDD00924D86 /* Color_ext.swift in Sources */,
 				E463FA9629CABCA500924D86 /* RemindersView.swift in Sources */,

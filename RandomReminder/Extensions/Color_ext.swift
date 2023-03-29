@@ -23,4 +23,13 @@ extension Color {
     // MARK: Details
     static let snooze: Color = Color("Snooze")
     static let delete: Color = Color("Delete")
+    // Color Slider
+    static let colorSlider1: Color = Color("ColorSlider1")
+    static let colorSlider2: Color = Color("ColorSlider2")
+    static let colorSlider3: Color = Color("ColorSlider3")
+    static let colorSlider4: Color = Color("ColorSlider4")
+    static let colorSlider5: Color = Color("ColorSlider5")
+    static let colorSlider6: Color = Color("ColorSlider6")
+    static let colorSlider7: Color = Color("ColorSlider7")
+    static let colorSlider8: Color = Color("ColorSlider8")
 }
