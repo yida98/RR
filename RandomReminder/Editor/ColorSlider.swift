@@ -9,12 +9,16 @@ import SwiftUI
 import Combine
 
 struct ColorSlider: View {
+    // MARK: - Color slider
     @State private var selectedRect: Int = 0
     @State private var isUpdating: Bool = false
     var padding: CGFloat
     private let onEnd: CurrentValueSubject<CGFloat, Never>
     private let onChange: CurrentValueSubject<CGFloat, Never>
     private let scrollCoordinateSpace = "scroll"
+    
+    // MARK: - Emoji
+    @State var symbol: String = "A"
     
     init(padding: CGFloat) {
         self.padding = padding
@@ -52,7 +56,7 @@ struct ColorSlider: View {
                     }
                     .coordinateSpace(name: scrollCoordinateSpace)
                     .onReceive(onEnd
-                        .debounce(for: .seconds(0.15), scheduler: DispatchQueue.main)
+                        .debounce(for: .seconds(0.2), scheduler: DispatchQueue.main)
                         .dropFirst()
                         .eraseToAnyPublisher()) { xOffset in
                         DispatchQueue.main.async {
@@ -90,9 +94,13 @@ struct ColorSlider: View {
                                     scroll(to: self.selectedRect - 1, with: scrollProxy, geometryProxy)
                                 }
                             }
-                        RoundedRectangle(cornerRadius: 24)
-                            .stroke(Color.background, lineWidth: 4)
-                            .frame(width: 70, height: 70)
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 24)
+                                .stroke(Color.background, lineWidth: 4)
+                                .frame(width: 70, height: 70)
+                            EmojiTextField(text: $symbol, placeholder: "☺︎")
+                                .frame(width: 70, height: 70)
+                        }.frame(width: 74, height: 74)
                         Image(systemName: "chevron.right")
                             .bold()
                             .foregroundColor(.background)
@@ -112,7 +120,7 @@ struct ColorSlider: View {
     }
     
     private func anchorUnitPoint(for geometryProxy: GeometryProxy) -> UnitPoint {
-        let x = 1.0 - ((geometryProxy.size.width - (padding + 7.4)) / geometryProxy.size.width)
+        let x = 1.0 - ((geometryProxy.size.width - (padding + 10)) / geometryProxy.size.width)
         let y = 0.0
         return UnitPoint(x: x, y: y)
     }

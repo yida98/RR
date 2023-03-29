@@ -20,7 +20,7 @@ struct ColorCell: View {
                         .fill(fillForTab(index).opacity(opacity(for: index)))
                         .tag(index)
                         .onChange(of: localProxy.frame(in: .global)) { newValue in
-                            if newValue.minX > 0 && newValue.minX < 74 {
+                            if newValue.minX >= 0 && newValue.minX <= 74 {
                                 selectedRect = index
                             }
                         }
