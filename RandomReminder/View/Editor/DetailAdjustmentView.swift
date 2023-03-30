@@ -14,39 +14,56 @@ struct DetailAdjustmentView: View {
     @State var frequency: Reminder.Frequency = .infrequent
     
     var body: some View {
-        VStack {
+        VStack(spacing: 20) {
             HStack {
                 Text("Snooze")
-                    .foregroundColor(.background)
+                    .font(.subheadline)
+                    .foregroundColor(.snooze)
                     .bold()
-                    .frame(width: 100, height: 50)
+                    .frame(width: 80, height: 36)
                     .background {
-                        AsymmetricalRoundedRectangle(10, 24, 24, 24)
-                            .fill(Color.snooze)
+                        AsymmetricalRoundedRectangle(10, 16, 16, 16)
+                            .stroke(Color.snooze, lineWidth: 2)
                     }
                     .opacity(0.6)
                 Spacer()
                 Text("Delete")
-                    .foregroundColor(.background)
+                    .font(.subheadline)
+                    .foregroundColor(.delete)
                     .bold()
-                    .frame(width: 100, height: 50)
+                    .frame(width: 80, height: 36)
                     .background {
-                        AsymmetricalRoundedRectangle(24, 10, 24, 24)
-                            .fill(Color.delete)
+                        AsymmetricalRoundedRectangle(16, 10, 16, 16)
+                            .stroke(Color.delete, lineWidth: 2)
                     }
                     .opacity(0.6)
             }
-            .padding(20)
+            .padding(.horizontal, 30)
             ColorSlider(viewModel: viewModel, padding: 40)
-            TextField("Title", text: $title)
-                .foregroundColor(.background)
-                .font(.largeTitle)
-                .padding(.horizontal, 40)
             VStack {
-                FrequencySlider(currentFrequency: $frequency)
-                    .frame(height: 10)
-                    .padding(.horizontal, 30)
-                    .padding(.bottom, 20)
+                HStack {
+                    Text("TITLE")
+                        .subtitle()
+                    Spacer()
+                }
+                TextField("Title", text: $title)
+                    .foregroundColor(.accentColor)
+                    .bold()
+                    .font(.largeTitle)
+            }
+            .padding(.horizontal, 50)
+            VStack {
+                VStack {
+                    HStack {
+                        Text("FREQUENCY")
+                            .subtitle()
+                        Spacer()
+                    }
+                    FrequencySlider(currentFrequency: $frequency)
+                        .frame(height: 10)
+                }
+                .padding(.horizontal, 30)
+                .padding(.bottom, 20)
                 HStack(alignment: .bottom) {
                     Text("midnight")
                         .rotatedCaption(angle: Angle(degrees: -90))
@@ -59,9 +76,8 @@ struct DetailAdjustmentView: View {
                 }
                 .padding(20)
                 Text("ACTIVE TIMES")
-                    .foregroundColor(.accentColor)
+                    .subtitle()
                     .bold()
-                    .font(.caption)
                     .padding(8)
                     .background(
                         RoundedRectangle(cornerRadius: 10)
@@ -79,13 +95,9 @@ struct DetailAdjustmentView: View {
                 }
                 .padding(20)
             }
-            .padding(.vertical, 20)
-            .background(
-                AsymmetricalRoundedRectangle(10, 10, 50, 50)
-                    .stroke(Color.background, lineWidth: 2)
-            )
-            .padding(20)
+            .padding(.horizontal, 20)
         }
+        .padding(.top, 10)
         .adaptsToKeyboard()
         .ignoresSafeArea()
     }
@@ -99,6 +111,13 @@ extension Text {
             .fixedSize()
             .frame(width: 10)
             .rotationEffect(angle)
+    }
+    
+    func subtitle() -> some View {
+        self
+            .font(.caption)
+            .bold()
+            .foregroundColor(.accentColor.opacity(0.5))
     }
 }
 

@@ -18,10 +18,10 @@ struct AsymmetricalRoundedRectangle: Shape {
     func path(in rect: CGRect) -> Path {
         var path = Path()
         
-        let tlc = min(radii.tlc, rect.maxX - radii.trc, rect.maxY - radii.blc)
-        let trc = min(radii.trc, rect.maxX - radii.tlc, rect.maxY - radii.brc)
-        let brc = min(radii.brc, rect.maxX - radii.blc, rect.maxY - radii.trc)
-        let blc = min(radii.blc, rect.maxX - radii.brc, rect.maxY - radii.tlc)
+        let tlc = min(radii.tlc, rect.width - radii.trc, rect.height - radii.blc)
+        let trc = min(radii.trc, rect.width - radii.tlc, rect.height - radii.brc)
+        let brc = min(radii.brc, rect.width - radii.blc, rect.height - radii.trc)
+        let blc = min(radii.blc, rect.width - radii.brc, rect.height - radii.tlc)
         
         let tlControlX = tlc
         let tlControlY = tlc

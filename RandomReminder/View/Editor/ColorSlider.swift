@@ -20,6 +20,7 @@ struct ColorSlider: View {
     
     // MARK: - Emoji
     @State var symbol: String = "A"
+    @FocusState var isTyping: Bool
     
     init(viewModel: EditorViewModel, padding: CGFloat) {
         self.viewModel = viewModel
@@ -94,8 +95,19 @@ struct ColorSlider: View {
                             RoundedRectangle(cornerRadius: 24)
                                 .stroke(Color.background, lineWidth: 4)
                                 .frame(width: 70, height: 70)
-                            EmojiTextField(text: $symbol, placeholder: "☺︎")
+                            TextField("☺︎", text: $symbol)
+                                .font(.largeTitle)
+                                .bold()
+                                .focused($isTyping)
+                                .foregroundColor(.accentColor)
+                                .multilineTextAlignment(.center)
                                 .frame(width: 70, height: 70)
+                                .onChange(of: symbol) { newValue in
+                                    if let last = newValue.last {
+                                        symbol = String(last)
+                                        isTyping.toggle()
+                                    }
+                                }
                         }.frame(width: 74, height: 74)
                         Image(systemName: "chevron.right")
                             .bold()
@@ -142,5 +154,18 @@ struct ViewOffsetKey: PreferenceKey {
     
     static func reduce(value: inout Value, nextValue: () -> Value) {
         value += nextValue()
+    }
+}
+
+public extension UITextField
+{
+    override var textInputMode: UITextInputMode?
+    {
+        let locale = Locale(identifier: "emoji")
+        
+        return
+            UITextInputMode.activeInputModes.first(where: { $0.primaryLanguage == locale.identifier })
+            ??
+            super.textInputMode
     }
 }
