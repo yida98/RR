@@ -8,12 +8,10 @@
 import SwiftUI
 
 struct ReminderCell: View {
-    var color: Color = .orange.opacity(0.5)
-    var title: String = "Relax your shoulders"
-    var description: String = "Occurs from 1:00 to 8:00, 19:30 to 23:30"
+    var reminder: Reminder
     
     // TODO: Remove
-    @State var frequency: Reminder.Frequency = .infrequent
+    @State var frequency: Int = 1
     
     var body: some View {
         VStack {
@@ -24,13 +22,13 @@ struct ReminderCell: View {
                     .frame(width: 50, height: 50)
                     .background(
                         RoundedRectangle(cornerRadius: 16)
-                            .fill(color)
+                            .fill(color(for: reminder.colorChoice))
                     )
                 VStack(alignment: .leading) {
                     Spacer()
                     Text(title)
                         .font(.headline)
-                    Text(description)
+                    Text(reminder.getTimeFrameString())
                         .font(.caption)
                         .lineLimit(2)
                         .minimumScaleFactor(0.8)
@@ -42,11 +40,12 @@ struct ReminderCell: View {
         .padding()
         .background(RoundedRectangle(cornerRadius: 20).fill(.white))
     }
-}
-
-struct ReminderCell_Previews: PreviewProvider {
-    static var previews: some View {
-        ReminderCell()
-            .background(Color.baseColor)
+    
+    private func color(for choice: Int16) -> Color {
+        return Reminder.colors[Int(choice) % 8]
+    }
+    
+    private var title: String {
+        reminder.title ?? ""
     }
 }

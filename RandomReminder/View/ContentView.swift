@@ -16,7 +16,7 @@ struct ContentView: View {
         HStack {
             Spacer()
             VStack(spacing: -20) {
-                RemindersView(isOpen: $isOpen)
+                RemindersView(viewModel: viewModel, isOpen: $isOpen)
                 Button {
                     withAnimation {
                         isOpen.toggle()

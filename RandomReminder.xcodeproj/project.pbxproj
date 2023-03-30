@@ -33,6 +33,8 @@
 		E47240EE29D4DF5A00C064D8 /* WaveLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47240ED29D4DF5A00C064D8 /* WaveLayout.swift */; };
 		E47240F029D5008A00C064D8 /* TimeSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47240EF29D5008A00C064D8 /* TimeSelector.swift */; };
 		E47240F229D55DD900C064D8 /* DimensionalButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47240F129D55DD900C064D8 /* DimensionalButtonStyle.swift */; };
+		E47240F529D61EFA00C064D8 /* ReminderModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E47240F329D61EFA00C064D8 /* ReminderModel.xcdatamodeld */; };
+		E47240F729D61F1700C064D8 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47240F629D61F1700C064D8 /* DataManager.swift */; };
 		E573237CABBE90FC792D0500 /* Pods_RandomReminder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B2743BE11BD9A66F0AA8E77 /* Pods_RandomReminder.framework */; };
 		F928416A494F753C35FF16C8 /* Pods_RandomReminderTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70C2202EBCFB5C022C20E95F /* Pods_RandomReminderTests.framework */; };
 		FFFA7986262DB298717DA081 /* Pods_RandomReminder_RandomReminderUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67E539CDE37E256778F105F8 /* Pods_RandomReminder_RandomReminderUITests.framework */; };
@@ -95,6 +97,8 @@
 		E47240ED29D4DF5A00C064D8 /* WaveLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveLayout.swift; sourceTree = "<group>"; };
 		E47240EF29D5008A00C064D8 /* TimeSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSelector.swift; sourceTree = "<group>"; };
 		E47240F129D55DD900C064D8 /* DimensionalButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DimensionalButtonStyle.swift; sourceTree = "<group>"; };
+		E47240F429D61EFA00C064D8 /* ReminderModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ReminderModel.xcdatamodel; sourceTree = "<group>"; };
+		E47240F629D61F1700C064D8 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -225,6 +229,8 @@
 			children = (
 				E463FA9729CABCAE00924D86 /* Reminder.swift */,
 				E4188BDE29D38B8F003FB654 /* Application.swift */,
+				E47240F329D61EFA00C064D8 /* ReminderModel.xcdatamodeld */,
+				E47240F629D61F1700C064D8 /* DataManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -489,12 +495,14 @@
 				E4188BDD29D2E0C0003FB654 /* ColorSlider.swift in Sources */,
 				E463FA9A29CABD5B00924D86 /* ReminderCell.swift in Sources */,
 				E4188BD829D2C96E003FB654 /* DetailAdjustmentView.swift in Sources */,
+				E47240F729D61F1700C064D8 /* DataManager.swift in Sources */,
 				E463FAA429CAC00500924D86 /* DynamicToolsBackdrop.swift in Sources */,
 				E445CDD829C9209600F07ACF /* ContentView.swift in Sources */,
 				E463FAA629CAD2B000924D86 /* FrequencySlider.swift in Sources */,
 				E463FA9E29CABD9800924D86 /* RemindersViewModel.swift in Sources */,
 				E445CDD629C9209600F07ACF /* RandomReminderApp.swift in Sources */,
 				E4188BE129D39884003FB654 /* ColorCell.swift in Sources */,
+				E47240F529D61EFA00C064D8 /* ReminderModel.xcdatamodeld in Sources */,
 				E4188BDF29D38B8F003FB654 /* Application.swift in Sources */,
 				E4188BD629D2C815003FB654 /* Font_ext.swift in Sources */,
 				E463FAA029CABEDD00924D86 /* Color_ext.swift in Sources */,
@@ -862,6 +870,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		E47240F329D61EFA00C064D8 /* ReminderModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				E47240F429D61EFA00C064D8 /* ReminderModel.xcdatamodel */,
+			);
+			currentVersion = E47240F429D61EFA00C064D8 /* ReminderModel.xcdatamodel */;
+			path = ReminderModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = E445CDCA29C9209600F07ACF /* Project object */;
 }

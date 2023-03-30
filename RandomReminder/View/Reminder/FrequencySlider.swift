@@ -9,15 +9,15 @@ import SwiftUI
 
 struct FrequencySlider: View {
     @GestureState var dragLocation: CGPoint = .zero
-    @Binding var currentFrequency: Reminder.Frequency
+    @Binding var currentFrequency: Int
     
-    init(currentFrequency: Binding<Reminder.Frequency>) {
+    init(currentFrequency: Binding<Int>) {
         self._currentFrequency = currentFrequency
     }
     
     var body: some View {
         HStack(spacing: 0) {
-            ForEach(Reminder.Frequency.allCases, id: \.rawValue) { frequency in
+            ForEach(0..<5, id: \.self) { frequency in
                 getShape(for: frequency)
                     .fill(getFill(for: frequency))
                     .id(frequency)
@@ -35,22 +35,21 @@ struct FrequencySlider: View {
         )
     }
     
-    private func getShape(for frequency: Reminder.Frequency) -> some Shape {
-        switch frequency {
-        case .veryInfrequent:
+    private func getShape(for frequency: Int) -> some Shape {
+        if frequency == 0 {
             return IrregularParallelogram(position: .left)
-        case .bombardment:
+        } else if frequency >= 4 {
             return IrregularParallelogram(position: .right)
-        default:
+        } else {
             return IrregularParallelogram(position: .centre)
         }
     }
     
-    private func getFill(for frequency: Reminder.Frequency) -> some ShapeStyle {
-        return frequency.rawValue <= currentFrequency.rawValue ? Color.bombardment.opacity(Double((Double(frequency.rawValue + 1) / Double(10)) + 0.5)) : Color.neutral.opacity(0.5)
+    private func getFill(for frequency: Int) -> some ShapeStyle {
+        return frequency <= currentFrequency ? Color.bombardment.opacity(Double((Double(frequency + 1) / Double(10)) + 0.5)) : Color.neutral.opacity(0.5)
     }
     
-    private func dragObserver(_ id: Reminder.Frequency) -> some View {
+    private func dragObserver(_ id: Int) -> some View {
         GeometryReader { proxy in
             if proxy.frame(in: .global).contains(dragLocation) {
                 updateFrequency(id)
@@ -59,7 +58,7 @@ struct FrequencySlider: View {
         }
     }
     
-    private func updateFrequency(_ frequency: Reminder.Frequency) {
+    private func updateFrequency(_ frequency: Int) {
         if currentFrequency != frequency {
             DispatchQueue.main.async {
                 self.currentFrequency = frequency

@@ -36,8 +36,7 @@ struct ColorCell: View {
     }
     
     private func fillForTab(_ index: Int) -> Color {
-        let colors: [Color] = [.colorSlider1, .colorSlider2, .colorSlider3, .colorSlider4, .colorSlider5, .colorSlider6, .colorSlider7, .colorSlider8]
-        return colors[index % 8]
+        return Reminder.colors[index % 8]
     }
     
     private func opacity(for index: Int) -> CGFloat {
