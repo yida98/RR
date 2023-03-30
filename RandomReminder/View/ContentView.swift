@@ -17,7 +17,9 @@ struct ContentView: View {
             VStack(spacing: -20) {
                 RemindersView(isOpen: $isOpen)
                 Button {
-                    isOpen.toggle()
+                    withAnimation {
+                        isOpen.toggle()
+                    }
                 } label: {
                     Image(systemName: "globe")
                         .resizable()
