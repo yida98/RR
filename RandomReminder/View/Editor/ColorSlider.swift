@@ -40,7 +40,7 @@ struct ColorSlider: View {
                                     }
                             }
                         }
-                        .padding(.trailing, Constant.screenBounds.width - 50)
+                        .padding(.trailing, Constant.screenBounds.width - 90)
                         .padding(.leading, padding)
                         .background(GeometryReader {
                             Color.clear.preference(key: ViewOffsetKey.self,

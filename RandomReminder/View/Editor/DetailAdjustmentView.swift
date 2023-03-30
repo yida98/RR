@@ -79,10 +79,6 @@ struct DetailAdjustmentView: View {
                     .subtitle()
                     .bold()
                     .padding(8)
-                    .background(
-                        RoundedRectangle(cornerRadius: 10)
-                            .stroke(.background, lineWidth: 1)
-                    )
                 HStack(alignment: .top) {
                     Text("midday")
                         .rotatedCaption(angle: Angle(degrees: -90))
