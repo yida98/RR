@@ -10,30 +10,57 @@ import SwiftUI
 struct TimeSelector: View {
     
     @State var isOn: [Bool] = [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+    @GestureState var dragLocation: CGPoint = .zero
+    @State var direction: Bool?
+    
+    var systemImage: String
+    var alignment: Edge.Set
+    var phase: Angle
+    var tint: Color = .green
     
     var body: some View {
         GeometryReader { proxy in
             ZStack {
-                WaveLayout(phase: Angle(radians: Double.pi / 2), frequency: 2) {
-                    ForEach(0..<24) { index in
-                        RoundedRectangle(cornerRadius: 10)
-                            .fill(isOn[index] ? .green : .green.opacity(0.5))
-                            .frame(width: 8, height: isOn[index] ? 20 : 8)
+                WaveLayout(phase: phase, frequency: 2.2) {
+                    ForEach(0..<12) { index in
+                        Rectangle()
+                            .fill(.clear)
+                            .overlay {
+                                RoundedRectangle(cornerRadius: 10)
+                                    .fill(isOn[index] ? tint : tint.opacity(0.5))
+                                    .frame(width: 8, height: isOn[index] ? 20 : 8)
+                            }
                             .onTapGesture {
+                                direction = nil
                                 isOn[index].toggle()
                             }
+                            .background(dragObserver(id: index))
+                            .frame(maxWidth: proxy.size.width / 12, idealHeight: 20)
                     }
                 }
-                Image(systemName: "sun.and.horizon")
+                .highPriorityGesture(
+                    DragGesture(minimumDistance: 0.1, coordinateSpace: .global)
+                        .updating($dragLocation, body: { value, state, transaction in
+                            state = value.location
+                        })
+                        .onEnded({ value in
+                            direction = nil
+                        })
+                )
+                .onChange(of: isOn) { newValue in
+                    let feedback = UIImpactFeedbackGenerator(style: .soft)
+                    feedback.impactOccurred()
+                }
+                Image(systemName: systemImage)
                     .resizable()
                     .scaledToFit()
-                    .padding(.top, proxy.size.height / 2)
-                    .foregroundColor(isAllDay() ? .green : .green.opacity(0.5))
+                    .padding(alignment, proxy.size.height / 2)
+                    .foregroundColor(isAllDay() ? tint : tint.opacity(0.5))
                     .onTapGesture {
                         toggleAllIsOn()
                     }
             }
-            .animation(.spring(), value: isOn)
+            .animation(.easeOut(duration: 0.2), value: isOn)
         }
     }
     
@@ -48,11 +75,30 @@ struct TimeSelector: View {
             values.append(newValue)
         }
         isOn = values
+        direction = nil
     }
+    
+    private func dragObserver(id: Int) -> some View {
+        GeometryReader { geometry in
+            dragObserver(geometry: geometry, id: id)
+        }
+    }
+    
+    private func dragObserver(geometry: GeometryProxy, id: Int) -> some View {
+        if geometry.frame(in: .global).contains(dragLocation) {
+            DispatchQueue.main.async {
+                if direction == nil {
+                    direction = !isOn[id]
+                }
+                isOn[id] = direction ?? !isOn[id]
+            }
+        }
+        return Rectangle().fill(Color.clear)
+      }
 }
 
 struct TimeSelector_Previews: PreviewProvider {
     static var previews: some View {
-        TimeSelector()
+        TimeSelector(systemImage: "cloud.moon", alignment: .top, phase: Angle(radians: Double.pi / 2))
     }
 }

@@ -11,6 +11,7 @@ struct DetailAdjustmentView: View {
     @ObservedObject var viewModel: EditorViewModel
 
     @State var title: String = ""
+    @State var frequency: Reminder.Frequency = .infrequent
     
     var body: some View {
         VStack {
@@ -41,12 +42,63 @@ struct DetailAdjustmentView: View {
                 .foregroundColor(.background)
                 .font(.largeTitle)
                 .padding(.horizontal, 40)
-            TimeSelector()
-                .frame(height: 50)
-                .padding(.horizontal, 20)
+            VStack {
+                FrequencySlider(currentFrequency: $frequency)
+                    .frame(height: 10)
+                    .padding(.horizontal, 30)
+                    .padding(.bottom, 20)
+                HStack(alignment: .bottom) {
+                    Text("midnight")
+                        .rotatedCaption(angle: Angle(degrees: -90))
+                        .foregroundColor(.infrequent.opacity(0.3))
+                    TimeSelector(systemImage: "sun.and.horizon", alignment: .top, phase: Angle(radians: Double.pi / 2), tint: .infrequent)
+                        .frame(height: 50)
+                    Text("midday")
+                        .rotatedCaption(angle: Angle(degrees: 90))
+                        .foregroundColor(.accentColor.opacity(0.3))
+                }
+                .padding(20)
+                Text("ACTIVE TIMES")
+                    .foregroundColor(.accentColor)
+                    .bold()
+                    .font(.caption)
+                    .padding(8)
+                    .background(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(.background, lineWidth: 1)
+                    )
+                HStack(alignment: .top) {
+                    Text("midday")
+                        .rotatedCaption(angle: Angle(degrees: -90))
+                        .foregroundColor(.accentColor.opacity(0.3))
+                    TimeSelector(systemImage: "moon.stars", alignment: .bottom, phase: Angle(radians: -Double.pi / 2), tint: .snooze)
+                        .frame(height: 50)
+                    Text("midnight")
+                        .rotatedCaption(angle: Angle(degrees: 90))
+                        .foregroundColor(.snooze.opacity(0.3))
+                }
+                .padding(20)
+            }
+            .padding(.vertical, 20)
+            .background(
+                AsymmetricalRoundedRectangle(10, 10, 50, 50)
+                    .stroke(Color.background, lineWidth: 2)
+            )
+            .padding(20)
         }
         .adaptsToKeyboard()
         .ignoresSafeArea()
+    }
+}
+
+extension Text {
+    func rotatedCaption(angle: Angle) -> some View {
+        self
+            .font(.caption)
+            .bold()
+            .fixedSize()
+            .frame(width: 10)
+            .rotationEffect(angle)
     }
 }
 
