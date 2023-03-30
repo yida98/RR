@@ -41,6 +41,9 @@ struct DetailAdjustmentView: View {
                 .foregroundColor(.background)
                 .font(.largeTitle)
                 .padding(.horizontal, 40)
+            TimeSelector()
+                .frame(height: 50)
+                .padding(.horizontal, 20)
         }
         .adaptsToKeyboard()
         .ignoresSafeArea()
@@ -82,5 +85,12 @@ struct AdaptsToKeyboard: ViewModifier {
 extension View {
     func adaptsToKeyboard() -> some View {
         return modifier(AdaptsToKeyboard())
+    }
+}
+
+
+struct DetailAdjustmentView_Previews: PreviewProvider {
+    static var previews: some View {
+        DetailAdjustmentView(viewModel: EditorViewModel(), title: "thing")
     }
 }
