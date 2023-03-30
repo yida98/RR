@@ -10,6 +10,7 @@ import SwiftUI
 struct ContentView: View {
     @ObservedObject var viewModel = ContentViewModel()
     @State var isOpen: Bool = false
+    @Namespace var bellButton
     
     var body: some View {
         HStack {
@@ -21,11 +22,29 @@ struct ContentView: View {
                         isOpen.toggle()
                     }
                 } label: {
-                    Image(systemName: "globe")
-                        .resizable()
-                        .frame(width: 40, height: 40)
-                        .foregroundColor(.accentColor)
+                    ZStack {
+                        Circle()
+                            .fill(Color.frequent)
+                            .frame(width: 50, height: 50)
+                        if isOpen {
+                            Image(systemName: "checkmark.circle.fill")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 30, height: 30)
+                                .foregroundColor(.accentColor)
+                                .matchedGeometryEffect(id: "label", in: bellButton)
+                        } else {
+                            Image(systemName: "bell.fill")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 30, height: 30)
+                                .foregroundColor(.accentColor)
+                                .matchedGeometryEffect(id: "label", in: bellButton)
+                        }
+                    }
                 }
+                .buttonStyle(DimensionalButtonStyle(baseShape: Circle()))
+                .animation(.spring(), value: isOpen)
                 Group {
                     if isOpen {
                         DetailAdjustmentView(viewModel: viewModel.getEditorViewModel())
