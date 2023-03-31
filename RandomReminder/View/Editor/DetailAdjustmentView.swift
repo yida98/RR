@@ -9,6 +9,7 @@ import SwiftUI
 
 struct DetailAdjustmentView: View {
     @ObservedObject var viewModel: EditorViewModel
+    @Binding var reminder: DummyReminder
 
     @State var title: String = ""
     @State var frequency: Int = 1
@@ -39,14 +40,14 @@ struct DetailAdjustmentView: View {
                     .opacity(0.6)
             }
             .padding(.horizontal, 30)
-            ColorSlider(viewModel: viewModel, padding: 40)
+            ColorSlider(viewModel: viewModel, reminder: $reminder, padding: 40)
             VStack {
                 HStack {
                     Text("TITLE")
                         .subtitle()
                     Spacer()
                 }
-                TextField("Title", text: $title)
+                TextField("Title", text: $reminder.title)
                     .foregroundColor(.accentColor)
                     .bold()
                     .font(.largeTitle)
@@ -59,7 +60,7 @@ struct DetailAdjustmentView: View {
                             .subtitle()
                         Spacer()
                     }
-                    FrequencySlider(currentFrequency: $frequency)
+                    FrequencySlider(currentFrequency: $reminder.frequency)
                         .frame(height: 10)
                 }
                 .padding(.horizontal, 30)
@@ -152,12 +153,5 @@ struct AdaptsToKeyboard: ViewModifier {
 extension View {
     func adaptsToKeyboard() -> some View {
         return modifier(AdaptsToKeyboard())
-    }
-}
-
-
-struct DetailAdjustmentView_Previews: PreviewProvider {
-    static var previews: some View {
-        DetailAdjustmentView(viewModel: EditorViewModel(), title: "thing")
     }
 }

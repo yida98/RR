@@ -9,9 +9,9 @@ import SwiftUI
 
 struct FrequencySlider: View {
     @GestureState var dragLocation: CGPoint = .zero
-    @Binding var currentFrequency: Int
+    @Binding var currentFrequency: Int16
     
-    init(currentFrequency: Binding<Int>) {
+    init(currentFrequency: Binding<Int16>) {
         self._currentFrequency = currentFrequency
     }
     
@@ -61,7 +61,7 @@ struct FrequencySlider: View {
     private func updateFrequency(_ frequency: Int) {
         if currentFrequency != frequency {
             DispatchQueue.main.async {
-                self.currentFrequency = frequency
+                self.currentFrequency = Int16(frequency)
                 let impactHeptic = UIImpactFeedbackGenerator(style: .light)
                 impactHeptic.impactOccurred()
             }

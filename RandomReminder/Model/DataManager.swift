@@ -64,7 +64,7 @@ class DataManager: ObservableObject {
         }
     }
     
-    func saveReminder(title: String?, icon: String?, colorChoice: Int?, id: UUID?, reminderTimeFrame: [Date]?, frequency: Int?) {
+    func saveReminder(title: String?, icon: String?, colorChoice: Int16, id: UUID?, reminderTimeFrames: [Date]?, frequency: Int16) {
         
         let context = getContext()
         guard let reminderEntity = reminderEntity else { return }
@@ -73,11 +73,15 @@ class DataManager: ObservableObject {
         entity.setValue(title, forKey: "title")
         entity.setValue(icon, forKey: "icon")
         entity.setValue(id, forKey: "id")
-        entity.setValue(reminderTimeFrame, forKey: "reminderTimeFrame")
+        entity.setValue(reminderTimeFrames, forKey: "reminderTimeFrames")
         entity.setValue(frequency, forKey: "frequency")
         entity.setValue(colorChoice, forKey: "colorChoice")
         
         saveContext()
+    }
+    
+    func saveReminder(reminder: Reminder) {
+        saveReminder(title: reminder.title, icon: reminder.icon, colorChoice: reminder.colorChoice, id: reminder.id, reminderTimeFrames: reminder.reminderTimeFrames, frequency: reminder.frequency)
     }
     
     func fetch(entity: EntityName, predicate: NSPredicate? = nil, sortDescriptors: [NSSortDescriptor]? = nil) -> Result<[NSManagedObject]?, Error> {

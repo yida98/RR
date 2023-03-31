@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ColorCell: View {
-    @Binding var selectedRect: Int
+    @Binding var selectedRect: Int16
     var index: Int
     @Binding var isUpdating: Bool
     
@@ -21,7 +21,7 @@ struct ColorCell: View {
                         .tag(index)
                         .onChange(of: localProxy.frame(in: .global)) { newValue in
                             if newValue.minX >= 0 && newValue.minX <= 74 {
-                                selectedRect = index
+                                selectedRect = Int16(index)
                             }
                         }
                         .frame(width: selectedRect == index ? 60 : 40, height: selectedRect == index ? 60 : 40)
@@ -40,7 +40,7 @@ struct ColorCell: View {
     }
     
     private func opacity(for index: Int) -> CGFloat {
-        if selectedRect == index {
+        if selectedRect == Int16(index) {
             return 1
         } else {
             if isUpdating {
