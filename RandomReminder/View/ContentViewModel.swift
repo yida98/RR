@@ -28,30 +28,13 @@ class ContentViewModel: ObservableObject {
         }
         return editorViewModel!
     }
-}
-
-class DummyReminder: ObservableObject {
-    @Published var id: UUID?
-    @Published var title: String
-    @Published var icon: String
-    @Published var colorChoice: Int
-    @Published var frequency: Int
-    @Published var reminderTimeFrames: [Date]?
     
-    init() {
-        self.id = UUID()
-        self.title = ""
-        self.icon = ""
-        self.colorChoice = 0
-        self.frequency = 2
-    }
-    
-    init(reminder: Reminder) {
-        self.id = reminder.id
-        self.title = reminder.title ?? ""
-        self.icon = reminder.icon ?? ""
-        self.colorChoice = Int(reminder.colorChoice)
-        self.frequency = Int(reminder.frequency)
-        self.reminderTimeFrames = reminder.reminderTimeFrames
+    func saveReminderUnderConstruction() {
+        DataManager.shared.saveReminder(title: reminderUnderConstruction.title,
+                                        icon: reminderUnderConstruction.icon,
+                                        colorChoice: Int16(reminderUnderConstruction.colorChoice),
+                                        id: reminderUnderConstruction.id,
+                                        reminderTimeFrames: reminderUnderConstruction.reminderTimeFrames,
+                                        frequency: Int16(reminderUnderConstruction.frequency))
     }
 }

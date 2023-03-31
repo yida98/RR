@@ -18,6 +18,9 @@ struct ContentView: View {
             VStack(spacing: -20) {
                 RemindersView(viewModel: viewModel, isOpen: $isOpen)
                 Button {
+                    if isOpen {
+                        viewModel.saveReminderUnderConstruction()
+                    }
                     withAnimation {
                         isOpen.toggle()
                     }
