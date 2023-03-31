@@ -9,9 +9,6 @@ import SwiftUI
 
 struct DetailAdjustmentView: View {
     @ObservedObject var viewModel: EditorViewModel
-
-    @State var title: String = ""
-    @State var frequency: Int = 1
     
     var body: some View {
         VStack(spacing: 20) {

@@ -14,9 +14,6 @@ struct ReminderCell: View {
         self._reminder = reminder
     }
     
-    // TODO: Remove
-    @State var frequency: Int = 1
-    
     var body: some View {
         VStack {
             HStack(spacing: 14) {
@@ -45,7 +42,7 @@ struct ReminderCell: View {
         .background(RoundedRectangle(cornerRadius: 20).fill(.white))
     }
     
-    private func color(for choice: Int16) -> Color {
-        return Reminder.colors[Int(choice) % 8]
+    private func color(for choice: Int) -> Color {
+        return Reminder.colors[(choice) % 8]
     }
 }

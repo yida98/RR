@@ -29,5 +29,8 @@ class EditorViewModel: ObservableObject {
         self._reminder = reminder
     }
     
-    
+    func select(_ index: Int) {
+        reminder.colorChoice = index
+        self.objectWillChange.send()
+    }
 }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ColorCell: View {
-    @Binding var selectedRect: Int16
+    @ObservedObject var viewModel: EditorViewModel
     var index: Int
     @Binding var isUpdating: Bool
     
@@ -16,16 +16,16 @@ struct ColorCell: View {
         GeometryReader { localProxy in
             VStack(alignment: .center, spacing: 0) {
                 HStack(alignment: .center, spacing: 0) {
-                    RoundedRectangle(cornerRadius: selectedRect == index ? 20 : 10)
+                    RoundedRectangle(cornerRadius: viewModel.reminder.colorChoice == index ? 20 : 10)
                         .fill(fillForTab(index).opacity(opacity(for: index)))
                         .tag(index)
                         .onChange(of: localProxy.frame(in: .global)) { newValue in
                             if newValue.minX >= 0 && newValue.minX <= 74 {
-                                selectedRect = Int16(index)
+                                viewModel.reminder.colorChoice = (index)
                             }
                         }
-                        .frame(width: selectedRect == index ? 60 : 40, height: selectedRect == index ? 60 : 40)
-                        .animation(.easeIn(duration: 0.2), value: selectedRect)
+                        .frame(width: viewModel.reminder.colorChoice == index ? 60 : 40, height: viewModel.reminder.colorChoice == index ? 60 : 40)
+                        .animation(.easeIn(duration: 0.2), value: viewModel.reminder.colorChoice)
                         .animation(.easeIn(duration: 0.2), value: isUpdating)
                 }
                 .frame(width: 74, height: 74)
@@ -40,7 +40,7 @@ struct ColorCell: View {
     }
     
     private func opacity(for index: Int) -> CGFloat {
-        if selectedRect == Int16(index) {
+        if viewModel.reminder.colorChoice == (index) {
             return 1
         } else {
             if isUpdating {

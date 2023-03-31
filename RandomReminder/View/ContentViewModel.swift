@@ -21,8 +21,12 @@ class ContentViewModel: ObservableObject {
         DataManager.shared.fetchAllReminders() ?? []
     }
     
+    var editorViewModel: EditorViewModel?
     func getEditorViewModel() -> EditorViewModel {
-        return EditorViewModel(reminder: _reminderUnderConstruction)
+        if editorViewModel == nil {
+            editorViewModel = EditorViewModel(reminder: _reminderUnderConstruction)
+        }
+        return editorViewModel!
     }
 }
 
@@ -30,8 +34,8 @@ class DummyReminder: ObservableObject {
     @Published var id: UUID?
     @Published var title: String
     @Published var icon: String
-    @Published var colorChoice: Int16
-    @Published var frequency: Int16
+    @Published var colorChoice: Int
+    @Published var frequency: Int
     @Published var reminderTimeFrames: [Date]?
     
     init() {
@@ -46,8 +50,8 @@ class DummyReminder: ObservableObject {
         self.id = reminder.id
         self.title = reminder.title ?? ""
         self.icon = reminder.icon ?? ""
-        self.colorChoice = reminder.colorChoice
-        self.frequency = reminder.frequency
+        self.colorChoice = Int(reminder.colorChoice)
+        self.frequency = Int(reminder.frequency)
         self.reminderTimeFrames = reminder.reminderTimeFrames
     }
 }

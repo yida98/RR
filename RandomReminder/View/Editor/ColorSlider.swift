@@ -12,14 +12,12 @@ struct ColorSlider: View {
     @ObservedObject var viewModel: EditorViewModel
     
     // MARK: - Color slider
-    @State private var selectedRect: Int = 0
     @State private var isUpdating: Bool = false
     var padding: CGFloat
     private let scrollCoordinateSpace = "scroll"
     @State var prevXOffset: CGFloat = 0
     
     // MARK: - Emoji
-    @State var symbol: String = "A"
     @FocusState var isTyping: Bool
     
     init(viewModel: EditorViewModel, padding: CGFloat) {
@@ -34,7 +32,7 @@ struct ColorSlider: View {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 0) {
                             ForEach(0..<8, id: \.self) { index in
-                                ColorCell(selectedRect: $viewModel.reminder.colorChoice, index: index, isUpdating: $isUpdating)
+                                ColorCell(viewModel: viewModel, index: index, isUpdating: $isUpdating)
                                     .onTapGesture {
                                         scroll(to: index, with: scrollProxy, geometryProxy)
                                     }
@@ -59,7 +57,7 @@ struct ColorSlider: View {
                         .dropFirst()
                         .eraseToAnyPublisher()) { xOffset in
                         DispatchQueue.main.async {
-                            scroll(to: self.selectedRect, with: scrollProxy, geometryProxy)
+                            scroll(to: Int(viewModel.reminder.colorChoice), with: scrollProxy, geometryProxy)
                             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                                 /// Delay is required because of sprint animation from above (0.55 minimum)
                                 self.isUpdating = false
@@ -76,7 +74,7 @@ struct ColorSlider: View {
                     }
                     .onAppear {
                         DispatchQueue.main.async {
-                            scrollProxy.scrollTo(self.selectedRect, anchor: self.anchorUnitPoint(for: geometryProxy))
+                            scrollProxy.scrollTo(viewModel.reminder.colorChoice, anchor: self.anchorUnitPoint(for: geometryProxy))
                             self.isUpdating = false
                         }
                     }
@@ -87,8 +85,8 @@ struct ColorSlider: View {
                             .foregroundColor(.background)
                             .frame(width: 20)
                             .onTapGesture {
-                                if self.selectedRect - 1 >= 0 {
-                                    scroll(to: self.selectedRect - 1, with: scrollProxy, geometryProxy)
+                                if viewModel.reminder.colorChoice - 1 >= 0 {
+                                    scroll(to: Int(viewModel.reminder.colorChoice) - 1, with: scrollProxy, geometryProxy)
                                 }
                             }
                         ZStack {
@@ -114,8 +112,8 @@ struct ColorSlider: View {
                             .foregroundColor(.background)
                             .frame(width: 20)
                             .onTapGesture {
-                                if self.selectedRect + 1 < 8 {
-                                    scroll(to: self.selectedRect + 1, with: scrollProxy, geometryProxy)
+                                if viewModel.reminder.colorChoice + 1 < 8 {
+                                    scroll(to: Int(viewModel.reminder.colorChoice) + 1, with: scrollProxy, geometryProxy)
                                 }
                             }
                         Spacer()
@@ -133,13 +131,9 @@ struct ColorSlider: View {
         return UnitPoint(x: x, y: y)
     }
     
-    private func select(_ index: Int) {
-        selectedRect = index
-    }
-    
     private func scroll(to index: Int, with scrollProxy: ScrollViewProxy, _ geometryProxy: GeometryProxy) {
-        select(index)
         DispatchQueue.main.async {
+            viewModel.select(index)
             withAnimation(.spring()) {
                 scrollProxy.scrollTo(index, anchor: self.anchorUnitPoint(for: geometryProxy))
             }
