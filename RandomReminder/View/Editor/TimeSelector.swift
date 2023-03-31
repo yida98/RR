@@ -11,6 +11,7 @@ struct TimeSelector: View {
     
     @State var isOn: [Bool] = [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
     @GestureState var dragLocation: CGPoint = .zero
+    @GestureState var isDragging: Bool = false
     @State var direction: Bool?
     
     var systemImage: String
@@ -31,7 +32,6 @@ struct TimeSelector: View {
                                     .frame(width: 8, height: isOn[index] ? 20 : 8)
                             }
                             .onTapGesture {
-                                direction = nil
                                 isOn[index].toggle()
                             }
                             .background(dragObserver(id: index))
@@ -43,13 +43,18 @@ struct TimeSelector: View {
                         .updating($dragLocation, body: { value, state, transaction in
                             state = value.location
                         })
-                        .onEnded({ value in
-                            direction = nil
+                        .updating($isDragging, body: { value, state, transaction in
+                            state = true
                         })
                 )
                 .onChange(of: isOn) { newValue in
                     let feedback = UIImpactFeedbackGenerator(style: .soft)
                     feedback.impactOccurred()
+                }
+                .onChange(of: isDragging) { newValue in
+                    if !newValue {
+                        direction = nil
+                    }
                 }
                 Image(systemName: systemImage)
                     .resizable()
@@ -75,7 +80,6 @@ struct TimeSelector: View {
             values.append(newValue)
         }
         isOn = values
-        direction = nil
     }
     
     private func dragObserver(id: Int) -> some View {
@@ -87,10 +91,12 @@ struct TimeSelector: View {
     private func dragObserver(geometry: GeometryProxy, id: Int) -> some View {
         if geometry.frame(in: .global).contains(dragLocation) {
             DispatchQueue.main.async {
-                if direction == nil {
-                    direction = !isOn[id]
+                if isDragging {
+                    if direction == nil {
+                        direction = !isOn[id]
+                    }
+                    isOn[id] = direction ?? !isOn[id]
                 }
-                isOn[id] = direction ?? !isOn[id]
             }
         }
         return Rectangle().fill(Color.clear)
