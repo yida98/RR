@@ -10,7 +10,6 @@ import Combine
 
 struct ColorSlider: View {
     @ObservedObject var viewModel: EditorViewModel
-    @Binding var reminder: DummyReminder
     
     // MARK: - Color slider
     @State private var selectedRect: Int = 0
@@ -23,9 +22,8 @@ struct ColorSlider: View {
     @State var symbol: String = "A"
     @FocusState var isTyping: Bool
     
-    init(viewModel: EditorViewModel, reminder: Binding<DummyReminder>, padding: CGFloat) {
+    init(viewModel: EditorViewModel, padding: CGFloat) {
         self.viewModel = viewModel
-        self._reminder = reminder
         self.padding = padding
     }
     
@@ -36,7 +34,7 @@ struct ColorSlider: View {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 0) {
                             ForEach(0..<8, id: \.self) { index in
-                                ColorCell(selectedRect: $reminder.colorChoice, index: index, isUpdating: $isUpdating)
+                                ColorCell(selectedRect: $viewModel.reminder.colorChoice, index: index, isUpdating: $isUpdating)
                                     .onTapGesture {
                                         scroll(to: index, with: scrollProxy, geometryProxy)
                                     }
@@ -97,16 +95,16 @@ struct ColorSlider: View {
                             RoundedRectangle(cornerRadius: 24)
                                 .stroke(Color.background, lineWidth: 4)
                                 .frame(width: 70, height: 70)
-                            TextField("☺︎", text: $reminder.icon)
+                            TextField("☺︎", text: $viewModel.reminder.icon)
                                 .font(.largeTitle)
                                 .bold()
                                 .focused($isTyping)
                                 .foregroundColor(.accentColor)
                                 .multilineTextAlignment(.center)
                                 .frame(width: 70, height: 70)
-                                .onChange(of: reminder.icon) { newValue in
+                                .onChange(of: viewModel.reminder.icon) { newValue in
                                     if let last = newValue.last {
-                                        reminder.icon = String(last)
+                                        viewModel.reminder.icon = String(last)
                                         isTyping.toggle()
                                     }
                                 }

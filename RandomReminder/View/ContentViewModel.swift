@@ -22,7 +22,7 @@ class ContentViewModel: ObservableObject {
     }
     
     func getEditorViewModel() -> EditorViewModel {
-        return EditorViewModel()
+        return EditorViewModel(reminder: _reminderUnderConstruction)
     }
 }
 

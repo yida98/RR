@@ -47,8 +47,7 @@ struct ContentView: View {
                 .animation(.spring(), value: isOpen)
                 Group {
                     if isOpen {
-                        DetailAdjustmentView(viewModel: viewModel.getEditorViewModel(),
-                                             reminder: $viewModel.reminderUnderConstruction)
+                        DetailAdjustmentView(viewModel: viewModel.getEditorViewModel())
                     }
                 }
                 .transition(.asymmetric(insertion: .push(from: .bottom), removal: .push(from: .top)))

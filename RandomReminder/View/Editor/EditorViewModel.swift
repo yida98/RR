@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import SwiftUI
 
 class EditorViewModel: ObservableObject {
     
@@ -15,13 +16,17 @@ class EditorViewModel: ObservableObject {
     let onEnd: CurrentValueSubject<CGFloat, Never>
     let onChange: PassthroughSubject<CGFloat, Never>
     
-    init() {
+    @Published var reminder: DummyReminder
+    
+    init(reminder: Published<DummyReminder>) {
         // Color slider
         let detector = CurrentValueSubject<CGFloat, Never>(0)
         self.onEnd = detector
         
         let constantEmission = PassthroughSubject<CGFloat, Never>()
         self.onChange = constantEmission
+        
+        self._reminder = reminder
     }
     
     
