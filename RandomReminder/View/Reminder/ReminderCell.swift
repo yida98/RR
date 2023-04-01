@@ -25,17 +25,18 @@ struct ReminderCell: View {
                         RoundedRectangle(cornerRadius: 16)
                             .fill(color(for: reminder.colorChoice))
                     )
-                VStack(alignment: .leading) {
+                VStack(alignment: .leading, spacing: 0) {
                     Spacer()
                     Text(reminder.title)
                         .font(.headline)
+                        .foregroundColor(.accentColor)
                     Text(Reminder.getTimeFrameString(for: reminder.reminderTimeFrames))
                         .font(.caption)
                         .foregroundColor(.shadow)
                         .lineLimit(2)
                         .minimumScaleFactor(0.6)
-                        .fixedSize(horizontal: false, vertical: true)
-                        .frame(height: 30)
+                        .frame(height: 26)
+                    Spacer()
                 }
                 Spacer()
             }

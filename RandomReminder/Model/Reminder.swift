@@ -104,7 +104,7 @@ class DummyReminder: ObservableObject {
     
     init() {
         self.id = UUID()
-        self.title = ""
+        self.title = "Reminder"
         self.icon = ""
         self.colorChoice = 0
         self.frequency = 2
@@ -113,7 +113,7 @@ class DummyReminder: ObservableObject {
     
     init(reminder: Reminder) {
         self.id = reminder.id
-        self.title = reminder.title ?? ""
+        self.title = reminder.title ?? "Reminder"
         self.icon = reminder.icon ?? ""
         self.colorChoice = Int(reminder.colorChoice)
         self.frequency = Int(reminder.frequency)
