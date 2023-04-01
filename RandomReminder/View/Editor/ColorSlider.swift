@@ -53,7 +53,7 @@ struct ColorSlider: View {
                     }
                     .coordinateSpace(name: scrollCoordinateSpace)
                     .onReceive(viewModel.onEnd
-                        .debounce(for: .seconds(0.2), scheduler: DispatchQueue.main)
+                        .debounce(for: .seconds(0.3), scheduler: DispatchQueue.main)
                         .dropFirst()
                         .eraseToAnyPublisher()) { xOffset in
                         DispatchQueue.main.async {

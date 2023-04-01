@@ -23,7 +23,8 @@ struct ColorCell: View {
                         .onChange(of: localProxy.frame(in: .global)) { newValue in
                             if newValue.minX >= 0 && newValue.minX <= 74, !firstLaunch {
                                 viewModel.reminder.colorChoice = (index)
-                                firstLaunch = true
+                            } else if firstLaunch {
+                                firstLaunch = false
                             }
                         }
                         .frame(width: viewModel.reminder.colorChoice == index ? 60 : 40, height: viewModel.reminder.colorChoice == index ? 60 : 40)

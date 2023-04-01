@@ -62,9 +62,9 @@ struct FrequencySlider: View {
         if currentFrequency != frequency {
             DispatchQueue.main.async {
                 self.currentFrequency = (frequency)
-                let impactHeptic = UIImpactFeedbackGenerator(style: .light)
-                impactHeptic.impactOccurred()
             }
+            let impactHeptic = UIImpactFeedbackGenerator(style: .light)
+            impactHeptic.impactOccurred()
         }
     }
 }
