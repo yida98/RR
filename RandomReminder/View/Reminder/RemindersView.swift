@@ -25,8 +25,12 @@ struct RemindersView: View {
                         ForEach(viewModel.reminders, id: \.id) { reminder in
                             makeReminderCell(for: reminder.id)
                                 .onTapGesture {
-                                    viewModel.reminderUnderConstruction = DummyReminder(reminder: reminder)
-                                    isOpen = true
+                                    DispatchQueue.main.async {
+                                        viewModel.reminderUnderConstruction = DummyReminder(reminder: reminder)
+                                        withAnimation {
+                                            isOpen = true
+                                        }
+                                    }
                                 }
                                 .matchedGeometryEffect(id: reminder.id, in: reminderNamespace)
                         }
