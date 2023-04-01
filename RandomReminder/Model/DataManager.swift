@@ -88,6 +88,14 @@ class DataManager: ObservableObject {
         saveContext()
     }
     
+    func deleteReminder(with id: UUID) {
+        guard let reminder = fetchReminder(id) else { return }
+        let context = getContext()
+        context.delete(reminder)
+        
+        saveContext()
+    }
+    
     func saveReminder(reminder: Reminder) {
         saveReminder(title: reminder.title, icon: reminder.icon, colorChoice: reminder.colorChoice, id: reminder.id, reminderTimeFrames: reminder.reminderTimeFrames, frequency: reminder.frequency)
     }

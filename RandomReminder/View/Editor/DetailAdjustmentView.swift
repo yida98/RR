@@ -9,6 +9,7 @@ import SwiftUI
 
 struct DetailAdjustmentView: View {
     @ObservedObject var viewModel: EditorViewModel
+    @Binding var isOpen: Bool
     
     var body: some View {
         VStack(spacing: 20) {
@@ -34,6 +35,13 @@ struct DetailAdjustmentView: View {
                             .stroke(Color.delete, lineWidth: 2)
                     }
                     .opacity(0.6)
+                    .onTapGesture {
+                        guard let id = viewModel.reminder.id else { return }
+                        DataManager.shared.deleteReminder(with: id)
+                        withAnimation {
+                            isOpen = false
+                        }
+                    }
             }
             .padding(.horizontal, 30)
             ColorSlider(viewModel: viewModel, padding: 40)

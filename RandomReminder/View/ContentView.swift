@@ -51,7 +51,7 @@ struct ContentView: View {
                 .buttonStyle(DimensionalButtonStyle(baseShape: Circle()))
                 .animation(.spring(), value: isOpen)
                 if isOpen {
-                    DetailAdjustmentView(viewModel: viewModel.getEditorViewModel())
+                    DetailAdjustmentView(viewModel: viewModel.getEditorViewModel(), isOpen: $isOpen)
                         .transition(.asymmetric(insertion: .push(from: .bottom), removal: .push(from: .top)))
                         .animation(.spring(), value: isOpen)
                 }
