@@ -106,7 +106,7 @@ class DummyReminder: ObservableObject {
         self.id = UUID()
         self.title = "Reminder"
         self.icon = ""
-        self.colorChoice = 0
+        self.colorChoice = Int.random(in: 0..<8)
         self.frequency = 2
         self.reminderTimeFrames = [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
     }
