@@ -47,6 +47,8 @@ class ContentViewModel: ObservableObject {
                                         id: reminderUnderConstruction.id,
                                         reminderTimeFrames: reminderUnderConstruction.reminderTimeFrames,
                                         frequency: Int16(reminderUnderConstruction.frequency))
+        
+        reminders = ContentViewModel.fetchReminders()
     }
     
     func makeNewReminder() {
