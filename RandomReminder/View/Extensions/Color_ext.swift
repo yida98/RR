@@ -11,6 +11,7 @@ import SwiftUI
 extension Color {
     static let background: Color = Color("Background")
     static let baseColor: Color = Color("Base")
+    static let shadow: Color = Color("Shadow")
     
     // MARK: Slider
     static let neutral: Color = Color("Neutral")

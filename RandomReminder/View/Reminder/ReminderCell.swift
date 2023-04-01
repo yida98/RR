@@ -31,8 +31,11 @@ struct ReminderCell: View {
                         .font(.headline)
                     Text(Reminder.getTimeFrameString(for: reminder.reminderTimeFrames))
                         .font(.caption)
+                        .foregroundColor(.shadow)
                         .lineLimit(2)
-                        .minimumScaleFactor(0.8)
+                        .minimumScaleFactor(0.6)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .frame(height: 30)
                 }
                 Spacer()
             }
