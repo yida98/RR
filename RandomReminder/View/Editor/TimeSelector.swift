@@ -8,11 +8,13 @@
 import SwiftUI
 
 struct TimeSelector: View {
+    @Binding var isOn: [Bool]
     
-    @State var isOn: [Bool] = [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
     @GestureState var dragLocation: CGPoint = .zero
     @GestureState var isDragging: Bool = false
     @State var direction: Bool?
+    /// View cannot observe the changes of `isOn` binding
+    @State private var bindingDidChange: Bool = false
     
     var systemImage: String
     var alignment: Edge.Set
@@ -23,7 +25,7 @@ struct TimeSelector: View {
         GeometryReader { proxy in
             ZStack {
                 WaveLayout(phase: phase, frequency: 2.2) {
-                    ForEach(0..<12) { index in
+                    ForEach(0..<isOn.count, id: \.self) { index in
                         Rectangle()
                             .fill(.clear)
                             .overlay {
@@ -32,10 +34,13 @@ struct TimeSelector: View {
                                     .frame(width: 8, height: isOn[index] ? 20 : 8)
                             }
                             .onTapGesture {
-                                isOn[index].toggle()
+                                DispatchQueue.main.async {
+                                    isOn[index].toggle()
+                                    bindingDidChange.toggle()
+                                }
                             }
                             .background(dragObserver(id: index))
-                            .frame(maxWidth: proxy.size.width / 12, idealHeight: 20)
+                            .frame(maxWidth: proxy.size.width / CGFloat(isOn.count), idealHeight: 20)
                     }
                 }
                 .highPriorityGesture(
@@ -76,10 +81,11 @@ struct TimeSelector: View {
     private func toggleAllIsOn() {
         let newValue = !isAllDay()
         var values = [Bool]()
-        for _ in 0..<24 {
+        for _ in 0..<isOn.count {
             values.append(newValue)
         }
         isOn = values
+        bindingDidChange.toggle()
     }
     
     private func dragObserver(id: Int) -> some View {
@@ -96,15 +102,10 @@ struct TimeSelector: View {
                         direction = !isOn[id]
                     }
                     isOn[id] = direction ?? !isOn[id]
+                    bindingDidChange.toggle()
                 }
             }
         }
         return Rectangle().fill(Color.clear)
       }
-}
-
-struct TimeSelector_Previews: PreviewProvider {
-    static var previews: some View {
-        TimeSelector(systemImage: "cloud.moon", alignment: .top, phase: Angle(radians: Double.pi / 2))
-    }
 }

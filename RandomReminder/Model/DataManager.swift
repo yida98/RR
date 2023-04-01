@@ -64,7 +64,7 @@ class DataManager: ObservableObject {
         }
     }
     
-    func saveReminder(title: String?, icon: String?, colorChoice: Int16, id: UUID?, reminderTimeFrames: [Date]?, frequency: Int16) {
+    func saveReminder(title: String?, icon: String?, colorChoice: Int16, id: UUID?, reminderTimeFrames: [Bool]?, frequency: Int16) {
         
         let context = getContext()
         guard let reminderEntity = reminderEntity else { return }
