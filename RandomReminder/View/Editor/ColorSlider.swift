@@ -77,6 +77,10 @@ struct ColorSlider: View {
                             scrollProxy.scrollTo(viewModel.reminder.colorChoice, anchor: self.anchorUnitPoint(for: geometryProxy))
                             self.isUpdating = false
                         }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            scrollProxy.scrollTo(viewModel.reminder.colorChoice, anchor: self.anchorUnitPoint(for: geometryProxy))
+                            self.isUpdating = false
+                        }
                     }
                 
                     HStack(spacing: 0) {

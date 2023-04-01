@@ -53,7 +53,7 @@ class DataManager: ObservableObject {
     }
     
     func fetchReminder(_ id: UUID) -> Reminder? {
-        let predicate = NSPredicate(format: "%K == %@", argumentArray: [\Reminder.id, id as NSUUID])
+        let predicate = NSPredicate(format: "%K == %@", argumentArray: ["id", id as NSUUID])
         let results = fetch(entity: .reminder, predicate: predicate)
         switch results {
         case .success(let success):
@@ -65,17 +65,25 @@ class DataManager: ObservableObject {
     }
     
     func saveReminder(title: String?, icon: String?, colorChoice: Int16, id: UUID?, reminderTimeFrames: [Bool]?, frequency: Int16) {
-        
-        let context = getContext()
-        guard let reminderEntity = reminderEntity else { return }
-        let entity = NSManagedObject(entity: reminderEntity, insertInto: context)
-        
-        entity.setValue(title, forKey: "title")
-        entity.setValue(icon, forKey: "icon")
-        entity.setValue(id, forKey: "id")
-        entity.setValue(reminderTimeFrames, forKey: "reminderTimeFrames")
-        entity.setValue(frequency, forKey: "frequency")
-        entity.setValue(colorChoice, forKey: "colorChoice")
+        if let id = id, let reminder = fetchReminder(id) {
+            reminder.setValue(title, forKey: "title")
+            reminder.setValue(icon, forKey: "icon")
+            reminder.setValue(id, forKey: "id")
+            reminder.setValue(reminderTimeFrames, forKey: "reminderTimeFrames")
+            reminder.setValue(frequency, forKey: "frequency")
+            reminder.setValue(colorChoice, forKey: "colorChoice")
+        } else {
+            let context = getContext()
+            guard let reminderEntity = reminderEntity else { return }
+            let entity = NSManagedObject(entity: reminderEntity, insertInto: context)
+            
+            entity.setValue(title, forKey: "title")
+            entity.setValue(icon, forKey: "icon")
+            entity.setValue(id, forKey: "id")
+            entity.setValue(reminderTimeFrames, forKey: "reminderTimeFrames")
+            entity.setValue(frequency, forKey: "frequency")
+            entity.setValue(colorChoice, forKey: "colorChoice")
+        }
         
         saveContext()
     }

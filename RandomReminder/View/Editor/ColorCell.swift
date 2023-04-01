@@ -11,6 +11,7 @@ struct ColorCell: View {
     @ObservedObject var viewModel: EditorViewModel
     var index: Int
     @Binding var isUpdating: Bool
+    @State private var firstLaunch: Bool = true
     
     var body: some View {
         GeometryReader { localProxy in
@@ -20,8 +21,9 @@ struct ColorCell: View {
                         .fill(fillForTab(index).opacity(opacity(for: index)))
                         .tag(index)
                         .onChange(of: localProxy.frame(in: .global)) { newValue in
-                            if newValue.minX >= 0 && newValue.minX <= 74 {
+                            if newValue.minX >= 0 && newValue.minX <= 74, !firstLaunch {
                                 viewModel.reminder.colorChoice = (index)
+                                firstLaunch = true
                             }
                         }
                         .frame(width: viewModel.reminder.colorChoice == index ? 60 : 40, height: viewModel.reminder.colorChoice == index ? 60 : 40)

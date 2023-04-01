@@ -120,3 +120,9 @@ class DummyReminder: ObservableObject {
         self.reminderTimeFrames = reminder.reminderTimeFrames ?? [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
     }
 }
+
+extension DummyReminder: Equatable {
+    static func == (lhs: DummyReminder, rhs: DummyReminder) -> Bool {
+        lhs.id == rhs.id
+    }
+}

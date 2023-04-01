@@ -18,9 +18,11 @@ struct ContentView: View {
             VStack(spacing: -20) {
                 RemindersView(viewModel: viewModel, isOpen: $isOpen)
                 Button {
-//                    if isOpen {
-//                        viewModel.saveReminderUnderConstruction()
-//                    }
+                    if isOpen {
+                        viewModel.saveReminderUnderConstruction()
+                    } else {
+                        viewModel.makeNewReminder()
+                    }
                     withAnimation {
                         isOpen.toggle()
                     }
@@ -48,13 +50,11 @@ struct ContentView: View {
                 }
                 .buttonStyle(DimensionalButtonStyle(baseShape: Circle()))
                 .animation(.spring(), value: isOpen)
-                Group {
-                    if isOpen {
-                        DetailAdjustmentView(viewModel: viewModel.getEditorViewModel())
-                    }
+                if isOpen {
+                    DetailAdjustmentView(viewModel: viewModel.getEditorViewModel())
+                        .transition(.asymmetric(insertion: .push(from: .bottom), removal: .push(from: .top)))
+                        .animation(.spring(), value: isOpen)
                 }
-                .transition(.asymmetric(insertion: .push(from: .bottom), removal: .push(from: .top)))
-                .animation(.spring(), value: isOpen)
 
                 Spacer()
             }

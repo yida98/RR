@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 class ContentViewModel: ObservableObject {
     
@@ -15,6 +16,16 @@ class ContentViewModel: ObservableObject {
     init() {
         self.reminders = ContentViewModel.fetchReminders()
         self.reminderUnderConstruction = DummyReminder()
+        setupNotifications()
+    }
+    
+    private func setupNotifications() {
+        NotificationCenter.default.addObserver(forName: UIApplication.willTerminateNotification, object: nil, queue: .main) { [weak self] _ in
+            guard let strongSelf = self else { return }
+            for reminder in strongSelf.reminders {
+                DataManager.shared.saveReminder(reminder: reminder)
+            }
+        }
     }
     
     static func fetchReminders() -> [Reminder] {
@@ -36,5 +47,21 @@ class ContentViewModel: ObservableObject {
                                         id: reminderUnderConstruction.id,
                                         reminderTimeFrames: reminderUnderConstruction.reminderTimeFrames,
                                         frequency: Int16(reminderUnderConstruction.frequency))
+    }
+    
+    func makeNewReminder() {
+        self.reminderUnderConstruction = DummyReminder()
+        self.editorViewModel = nil
+    }
+    
+    func updateReminder(_ id: UUID, reminder: DummyReminder) {
+        if let index = reminders.firstIndex(where: { $0.id == id }) {
+            reminders[index].id = reminder.id
+            reminders[index].title = reminder.title
+            reminders[index].icon = reminder.icon
+            reminders[index].colorChoice = Int16(reminder.colorChoice)
+            reminders[index].frequency = Int16(reminder.frequency)
+            reminders[index].reminderTimeFrames = reminder.reminderTimeFrames
+        }
     }
 }

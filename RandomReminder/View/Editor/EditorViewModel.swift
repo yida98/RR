@@ -13,7 +13,7 @@ class EditorViewModel: ObservableObject {
     
     // MARK: - Color slider
     
-    let onEnd: CurrentValueSubject<CGFloat, Never>
+    let onEnd: PassthroughSubject<CGFloat, Never>
     let onChange: PassthroughSubject<CGFloat, Never>
     
     @Published var reminder: DummyReminder
@@ -23,7 +23,7 @@ class EditorViewModel: ObservableObject {
     
     init(reminder: Published<DummyReminder>) {
         // Color slider
-        let detector = CurrentValueSubject<CGFloat, Never>(0)
+        let detector = PassthroughSubject<CGFloat, Never>()
         self.onEnd = detector
         
         let constantEmission = PassthroughSubject<CGFloat, Never>()
