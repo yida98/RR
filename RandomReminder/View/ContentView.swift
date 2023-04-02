@@ -32,7 +32,7 @@ struct ContentView: View {
                             .fill(Color.frequent)
                             .frame(width: 50, height: 50)
                         if isOpen {
-                            Image(systemName: "checkmark.circle.fill")
+                            Image(systemName: "checkmark.circle")
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 30, height: 30)

@@ -11,6 +11,8 @@ struct DetailAdjustmentView: View {
     @ObservedObject var viewModel: EditorViewModel
     @Binding var isOpen: Bool
     
+    @State private var offset: CGFloat = 4
+    
     var body: some View {
         VStack(spacing: 20) {
             HStack {
@@ -24,6 +26,21 @@ struct DetailAdjustmentView: View {
                             .stroke(Color.snooze, lineWidth: 2)
                     }
                     .opacity(0.6)
+                Spacer()
+                VStack {
+                    Spacer()
+                    Text("▲")
+                        .multilineTextAlignment(.center)
+                        .foregroundColor(.accentColor)
+                        .font(.caption)
+                        .offset(y: offset)
+                        .animation(.linear(duration: 0.5).repeatCount(7), value: offset)
+                        .onAppear {
+                            offset = 8
+                        }
+                }
+                .fixedSize()
+                .opacity(0.5)
                 Spacer()
                 Text("Delete")
                     .font(.subheadline)
