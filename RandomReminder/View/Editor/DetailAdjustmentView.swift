@@ -11,7 +11,7 @@ struct DetailAdjustmentView: View {
     @ObservedObject var viewModel: EditorViewModel
     @Binding var isOpen: Bool
     
-    @State private var offset: CGFloat = 4
+    @State private var offset: CGFloat = 5
     
     var body: some View {
         VStack(spacing: 20) {
@@ -34,9 +34,9 @@ struct DetailAdjustmentView: View {
                         .foregroundColor(.accentColor)
                         .font(.caption)
                         .offset(y: offset)
-                        .animation(.linear(duration: 0.5).repeatCount(7), value: offset)
+                        .animation(.linear(duration: 0.4).repeatCount(7), value: offset)
                         .onAppear {
-                            offset = 8
+                            offset = 10
                         }
                 }
                 .fixedSize()
