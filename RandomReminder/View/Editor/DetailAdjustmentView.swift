@@ -61,7 +61,22 @@ struct DetailAdjustmentView: View {
                     }
             }
             .padding(.horizontal, 30)
-            ColorSlider(viewModel: viewModel, padding: 40)
+            Pagination {
+                Text("1")
+                    .tag(0)
+                Text("2")
+                Image(systemName: "chevron.right")
+//                ForEach(0..<8, id: \.self) {index in
+//                    Circle()
+//                        .fill(Reminder.colors[index % 8])
+//                }
+            }
+//            ColorSlider(viewModel: viewModel, padding: 40)
+//            Pagination {
+//                Text("1")
+//                    .font(.body)
+//                    .tag(0)
+//            }
             VStack {
                 HStack {
                     Text("TITLE")
