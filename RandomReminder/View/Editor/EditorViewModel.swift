@@ -19,6 +19,7 @@ class EditorViewModel: ObservableObject {
     @Published var reminder: DummyReminder
     @Published var isOnMorning: [Bool]
     @Published var isOnAfternoon: [Bool]
+    @Published var selected: Int = 0
     var subscribers = Set<AnyCancellable>()
     
     init(reminder: Published<DummyReminder>) {

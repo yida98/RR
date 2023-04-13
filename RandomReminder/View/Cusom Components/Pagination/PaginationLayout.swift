@@ -18,12 +18,13 @@ struct PaginationLayout: Layout {
     }
     
     func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) {
-        var pt = CGPoint(x: bounds.minX, y: bounds.minY)
+        var pt = CGPoint(x: bounds.midX, y: bounds.midY)
         
         for v in subviews {
-            v.place(at: pt, anchor: .topLeading, proposal: proposal)
+            v.place(at: pt, anchor: .center, proposal: proposal)
             
-            pt.x += v.sizeThatFits(proposal).width + spacing
+//             pt.x += v.sizeThatFits(proposal).width + spacing
+            pt.x += maxSize.width + spacing
         }
     }
     

@@ -11,128 +11,14 @@ struct DetailAdjustmentView: View {
     @ObservedObject var viewModel: EditorViewModel
     @Binding var isOpen: Bool
     
-    @State private var offset: CGFloat = 5
-    
     var body: some View {
-        VStack(spacing: 20) {
-            HStack {
-                Text("Snooze")
-                    .font(.subheadline)
-                    .foregroundColor(.snooze)
-                    .bold()
-                    .frame(width: 80, height: 36)
-                    .background {
-                        AsymmetricalRoundedRectangle(10, 16, 16, 16)
-                            .stroke(Color.snooze, lineWidth: 2)
-                    }
-                    .opacity(0.6)
-                Spacer()
-                VStack {
-                    Spacer()
-                    Text("▲")
-                        .multilineTextAlignment(.center)
-                        .foregroundColor(.accentColor)
-                        .font(.caption)
-                        .offset(y: offset)
-                        .animation(.linear(duration: 0.4).repeatCount(7), value: offset)
-                        .onAppear {
-                            offset = 10
-                        }
-                }
-                .fixedSize()
-                .opacity(0.5)
-                Spacer()
-                Text("Delete")
-                    .font(.subheadline)
-                    .foregroundColor(.delete)
-                    .bold()
-                    .frame(width: 80, height: 36)
-                    .background {
-                        AsymmetricalRoundedRectangle(16, 10, 16, 16)
-                            .stroke(Color.delete, lineWidth: 2)
-                    }
-                    .opacity(0.6)
-                    .onTapGesture {
-                        guard let id = viewModel.reminder.id else { return }
-                        DataManager.shared.deleteReminder(with: id)
-                        withAnimation {
-                            isOpen = false
-                        }
-                    }
-            }
-            .padding(.horizontal, 30)
-            Pagination {
-                Text("1")
-                    .tag(0)
-                    .frame(width: 150)
-                    .background(Color.orange.opacity(0.5))
-                Text("2")
-                    .frame(width: 150)
-                    .background(Color.red.opacity(0.5))
-                Image(systemName: "chevron.right")
-                    .frame(width: 150)
-                    .background(Color.yellow.opacity(0.5))
-                Image(systemName: "chevron.right")
-                    .frame(width: 150)
-                    .background(Color.green.opacity(0.5))
-//                ForEach(0..<8, id: \.self) {index in
-//                    Circle()
-//                        .fill(Reminder.colors[index % 8])
-//                }
-            }
+        Self._printChanges()
+        return VStack(spacing: 20) {
+            UtilityBar(viewModel: viewModel, isOpen: $isOpen)
+            ColorPicker(selected: $viewModel.selected)
 //            ColorSlider(viewModel: viewModel, padding: 40)
-            VStack {
-                HStack {
-                    Text("TITLE")
-                        .subtitle()
-                    Spacer()
-                }
-                TextField("Title", text: $viewModel.reminder.title)
-                    .foregroundColor(.accentColor)
-                    .bold()
-                    .font(.largeTitle)
-            }
-            .padding(.horizontal, 50)
-            VStack {
-                VStack {
-                    HStack {
-                        Text("FREQUENCY")
-                            .subtitle()
-                        Spacer()
-                    }
-                    FrequencySlider(currentFrequency: $viewModel.reminder.frequency)
-                        .frame(height: 10)
-                }
-                .padding(.horizontal, 30)
-                .padding(.bottom, 20)
-                HStack(alignment: .bottom) {
-                    Text("midnight")
-                        .rotatedCaption(angle: Angle(degrees: -90))
-                        .foregroundColor(.infrequent.opacity(0.3))
-                    TimeSelector(isOn: $viewModel.isOnMorning, systemImage: "sun.and.horizon", alignment: .top, phase: Angle(radians: Double.pi / 2), tint: .infrequent)
-                        .frame(height: 50)
-                    Text("midday")
-                        .rotatedCaption(angle: Angle(degrees: 90))
-                        .foregroundColor(.accentColor.opacity(0.3))
-                }
-                .padding(20)
-                Text("ACTIVE TIMES")
-                    .subtitle()
-                    .bold()
-                    .padding(8)
-                HStack(alignment: .top) {
-                    Text("midday")
-                        .rotatedCaption(angle: Angle(degrees: -90))
-                        .foregroundColor(.accentColor.opacity(0.3))
-                    TimeSelector(isOn: $viewModel.isOnAfternoon, systemImage: "moon.stars", alignment: .bottom, phase: Angle(radians: -Double.pi / 2), tint: .snooze)
-                        .frame(height: 50)
-                    Text("midnight")
-                        .rotatedCaption(angle: Angle(degrees: 90))
-                        .foregroundColor(.snooze.opacity(0.3))
-                }
-                .padding(20)
-            }
-            .padding(.horizontal, 20)
+            TitleEditor(viewModel: viewModel)
+            FrequencyEditor(viewModel: viewModel)
         }
         .padding(.top, 10)
         .adaptsToKeyboard()

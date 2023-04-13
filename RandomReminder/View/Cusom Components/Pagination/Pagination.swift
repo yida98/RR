@@ -8,18 +8,27 @@
 import Foundation
 import SwiftUI
 
-struct Pagination<Content: View>: View {
+struct Pagination<Content: View, Frame: View>: View {
     @ObservedObject var coordinator: PaginationCoordinator
     @GestureState private var dragOffset: CGSize = .zero
     @GestureState private var isDragging: Bool = false
     
-    init(@ViewBuilder _ content: () -> Content) {
-        self.coordinator = PaginationCoordinator(content)
+    private var clipped: Bool
+    
+    private var frame: Frame
+    
+    init(selected: Binding<Int>, clipped: Bool = true, @ViewBuilder _ content: () -> Content, @ViewBuilder frame: (() -> Frame) = { EmptyView() }) {
+        self.clipped = clipped
+        self.coordinator = PaginationCoordinator(selected: selected, content)
+        
+        self.frame = frame()
+        print("initing")
     }
     
     var body: some View {
         VStack {
             HStack {
+                Text("\(coordinator.children.count)")
                 Text("\(coordinator.maxSize.height)")
                 Text("\(coordinator.maxSize.width)")
                 Text("\(coordinator.selected)")
@@ -31,13 +40,12 @@ struct Pagination<Content: View>: View {
                             .tag(index)
                             .locationIsInView($coordinator.selected, id: index, frame: proxy.frame(in: .global))
                     }
-                    .offset(x: coordinator.real_x_offset)
-                    .animation(.linear, value: coordinator.baseOffset)
+                    .offset(x: coordinator.realOffset_x)
                 }
                 .frame(width: coordinator.maxSize.width, height: coordinator.maxSize.height)
-                .background(
-                    Color.blue
-                )
+                .overlay {
+                    frame
+                }
                 .onChange(of: isDragging) { newValue in
                     if !newValue {
                         withAnimation {
@@ -51,7 +59,7 @@ struct Pagination<Content: View>: View {
                             withAnimation {
                                 let translation = value.decreasingTranslation(limit: coordinator.maxSize)
                                 DispatchQueue.main.async {
-                                    self.coordinator.real_x_offset = self.coordinator.baseOffset + translation.width
+                                    self.coordinator.realOffset_x = self.coordinator.baseOffset + translation.width
                                 }
                                 state = translation
                             }
