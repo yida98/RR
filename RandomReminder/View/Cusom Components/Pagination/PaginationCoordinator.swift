@@ -7,56 +7,44 @@
 
 import Foundation
 import SwiftUI
+import Combine
 
 class PaginationCoordinator: ObservableObject {
+    @Published var selected: Int = 0
+    @Published var maxSize: CGSize = .zero
+    @Published var baseOffset: CGFloat = .zero
+    @Published var real_x_offset: CGFloat = .zero
     let children: [AnyView]
+    private var subscriber = Set<AnyCancellable>()
     
     init<Content: View>(@ViewBuilder _ content: () -> Content) {
         self.children = content().getSubviews()
+
+        $maxSize.sink { [weak self] newValue in
+            guard let strongSelf = self, newValue != strongSelf.maxSize else { return }
+            let currentOffset = PaginationCoordinator.baseOffset_x(at: strongSelf.selected, frameWidth: newValue.width, totalWidth: newValue.width * CGFloat(strongSelf.children.count))
+            strongSelf.baseOffset = currentOffset
+            strongSelf.real_x_offset = currentOffset
+        }.store(in: &subscriber)
+    }
+    
+    func scroll() {
+        let offset = PaginationCoordinator.baseOffset_x(at: selected, frameWidth: maxSize.width, totalWidth: maxSize.width * CGFloat(children.count))
+        baseOffset = offset
+        real_x_offset = offset
+    }
+    
+    static func baseOffset_x(at selection: Int, frameWidth: CGFloat, totalWidth: CGFloat) -> CGFloat {
+        let widthDeficit: CGFloat = (totalWidth / 2.0)
+        
+        let rawOffset = CGFloat(selection) * -frameWidth - (frameWidth / 2)
+        let result = rawOffset + widthDeficit
+        
+        print(widthDeficit, rawOffset, result)
+        return result
     }
     
     func getChild(at index: Int) -> AnyView {
         children[index]
-    }
-}
-
-struct PaginationLayout: Layout {
-    let spacing: CGFloat = 10
-    @Binding var maxSize: CGSize
-    
-    func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {
-        let size = computeSizeParameters(proposal: proposal, subviews: subviews)
-        return CGSize(width: size.width, height: size.maxHeight)
-    }
-    
-    func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) {
-        var pt = CGPoint(x: bounds.minX, y: bounds.minY)
-        
-        for v in subviews {
-            v.place(at: pt, anchor: .topLeading, proposal: proposal)
-            
-            pt.x += v.sizeThatFits(proposal).width + spacing
-        }
-    }
-    
-    private func computeSizeParameters(proposal: ProposedViewSize, subviews: Subviews) -> Size {
-        let sizes = subviews.map { $0.sizeThatFits(proposal) }
-        
-        let maxWidth = sizes.reduce(sizes.first?.width ?? .zero) { max($0, $1.width) }
-        
-        let totalSpacing: CGFloat = spacing * (CGFloat(subviews.count) - 1)
-        let maxHeight: CGFloat = sizes.reduce(.zero) { max($0, $1.height) }
-        let trueWidth: CGFloat = sizes.reduce(.zero) { $0 + $1.width } + totalSpacing
-        
-        DispatchQueue.main.async {
-            maxSize = CGSize(width: maxWidth, height: maxHeight)
-        }
-        
-        return Size(maxHeight: maxHeight, width: trueWidth)
-    }
-    
-    struct Size {
-        var maxHeight: CGFloat
-        var width: CGFloat
     }
 }

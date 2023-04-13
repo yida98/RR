@@ -11,8 +11,7 @@ import SwiftUI
 struct Pagination<Content: View>: View {
     @ObservedObject var coordinator: PaginationCoordinator
     @GestureState private var dragOffset: CGSize = .zero
-    
-    @State var maxSize: CGSize = .zero
+    @GestureState private var isDragging: Bool = false
     
     init(@ViewBuilder _ content: () -> Content) {
         self.coordinator = PaginationCoordinator(content)
@@ -21,30 +20,94 @@ struct Pagination<Content: View>: View {
     var body: some View {
         VStack {
             HStack {
-                Text("\(maxSize.height)")
-                Text("\(maxSize.width)")
+                Text("\(coordinator.maxSize.height)")
+                Text("\(coordinator.maxSize.width)")
+                Text("\(coordinator.selected)")
             }
-            PaginationLayout(maxSize: $maxSize) {
-                ForEach(coordinator.children.indices, id: \.self) { index in
-                    coordinator.getChild(at: index)
+            GeometryReader { proxy in
+                PaginationLayout(maxSize: $coordinator.maxSize) {
+                    ForEach(coordinator.children.indices, id: \.self) { index in
+                        coordinator.getChild(at: index)
+                            .tag(index)
+                            .locationIsInView($coordinator.selected, id: index, frame: proxy.frame(in: .global))
+                    }
+                    .offset(x: coordinator.real_x_offset)
+                    .animation(.linear, value: coordinator.baseOffset)
                 }
-                .offset(x: dragOffset.width)
-                .animation(.linear, value: dragOffset)
+                .frame(width: coordinator.maxSize.width, height: coordinator.maxSize.height)
+                .background(
+                    Color.blue
+                )
+                .onChange(of: isDragging) { newValue in
+                    if !newValue {
+                        withAnimation {
+                            coordinator.scroll()
+                        }
+                    }
+                }
+                .gesture(
+                    DragGesture(minimumDistance: 1, coordinateSpace: .global)
+                        .updating($dragOffset, body: { value, state, transaction in
+                            withAnimation {
+                                let translation = value.decreasingTranslation(limit: coordinator.maxSize)
+                                DispatchQueue.main.async {
+                                    self.coordinator.real_x_offset = self.coordinator.baseOffset + translation.width
+                                }
+                                state = translation
+                            }
+                        })
+                        .updating($isDragging, body: { value, state, transaction in
+                            state = true
+                        })
+                )
             }
-            .frame(width: maxSize.width, height: maxSize.height)
-            .background(
-                Color.blue
-            )
-            .gesture(
-                DragGesture(coordinateSpace: .global)
-                    .updating($dragOffset, body: { value, state, transaction in
-                        state = value.translation
-                    })
-            )
         }
-        .frame(maxWidth: .infinity)
         .background(Color.white)
     }
 }
 
+extension DragGesture.Value {
+    func decreasingTranslation(limit: CGSize) -> CGSize {
+        // y = ((limit * 2) / pi) * arctan((pi * x) / limit)
+        
+        let x_directional_multiplier: CGFloat = self.translation.width >= 0 ? 1 : -1
+        let y_directional_multiplier: CGFloat = self.translation.height >= 0 ? 1 : -1
+        
+        let x_multiplier = CGFloat((limit.width * 2.0) / Double.pi) * atan((self.translation.width.magnitude * Double.pi) / limit.width)
+        let y_multiplier = CGFloat((limit.height * 2.0) / Double.pi) * atan((self.translation.height.magnitude * Double.pi) / limit.height)
+        
+        let newWidth = x_directional_multiplier * min(x_multiplier, limit.width)
+        let newHeight = y_directional_multiplier * min(y_multiplier, limit.height)
+        
+        return CGSize(width: newWidth, height: newHeight)
+    }
+}
 
+extension View {
+    func locationIsInView<Tag: Hashable>(_ selected: Binding<Tag>, id: Tag, frame: CGRect) -> some View {
+        modifier(LocationReader(selected: selected, id: id, frame: frame))
+    }
+}
+
+struct LocationReader<Tag: Hashable>: ViewModifier {
+    @Binding var selected: Tag
+    let id: Tag
+    let frame: CGRect
+    
+    func body(content: Content) -> some View {
+        content
+            .background(
+                GeometryReader { proxy in
+                    Color.clear
+                        .onChange(of: proxy.frame(in: .global)) { newValue in
+                            let point = CGPoint(x: newValue.midX, y: newValue.midY)
+                            if frame.contains(point) {
+                                DispatchQueue.main.async {
+                                    selected = id
+                                }
+                            }
+                        }
+                }
+            )
+    }
+}
