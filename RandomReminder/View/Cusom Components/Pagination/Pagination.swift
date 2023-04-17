@@ -22,7 +22,6 @@ struct Pagination<Content: View, Frame: View>: View {
         self.coordinator = PaginationCoordinator(selected: selected, content)
         
         self.frame = frame()
-        print("initing")
     }
     
     var body: some View {
@@ -53,24 +52,24 @@ struct Pagination<Content: View, Frame: View>: View {
                         }
                     }
                 }
-                .gesture(
-                    DragGesture(minimumDistance: 1, coordinateSpace: .global)
-                        .updating($dragOffset, body: { value, state, transaction in
-                            withAnimation {
-                                let translation = value.decreasingTranslation(limit: coordinator.maxSize)
-                                DispatchQueue.main.async {
-                                    self.coordinator.realOffset_x = self.coordinator.baseOffset + translation.width
-                                }
-                                state = translation
-                            }
-                        })
-                        .updating($isDragging, body: { value, state, transaction in
-                            state = true
-                        })
-                )
             }
         }
         .background(Color.white)
+        .gesture(
+            DragGesture(minimumDistance: 1, coordinateSpace: .global)
+                .updating($dragOffset, body: { value, state, transaction in
+                    withAnimation {
+                        let translation = value.decreasingTranslation(limit: coordinator.maxSize)
+                        DispatchQueue.main.async {
+                            self.coordinator.realOffset_x = self.coordinator.baseOffset + translation.width
+                        }
+                        state = translation
+                    }
+                })
+                .updating($isDragging, body: { value, state, transaction in
+                    state = true
+                })
+        )
     }
 }
 

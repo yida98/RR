@@ -21,7 +21,7 @@ struct PaginationLayout: Layout {
         var pt = CGPoint(x: bounds.midX, y: bounds.midY)
         
         for v in subviews {
-            v.place(at: pt, anchor: .center, proposal: proposal)
+            v.place(at: pt, anchor: .center, proposal: .unspecified)
             
 //             pt.x += v.sizeThatFits(proposal).width + spacing
             pt.x += maxSize.width + spacing
@@ -29,7 +29,7 @@ struct PaginationLayout: Layout {
     }
     
     private func computeSizeParameters(proposal: ProposedViewSize, subviews: Subviews) -> Size {
-        let sizes = subviews.map { $0.sizeThatFits(proposal) }
+        let sizes = subviews.map { $0.sizeThatFits(.unspecified) }
         
         let maxWidth = sizes.reduce(sizes.first?.width ?? .zero) { max($0, $1.width) }
         

@@ -18,7 +18,11 @@ class PaginationCoordinator: ObservableObject {
     private var subscriber = Set<AnyCancellable>()
     
     init<Content: View>(selected: Binding<Int>, @ViewBuilder _ content: () -> Content) {
-        self.children = content().getSubviews()
+        if let content = content() as? Decomposable {
+            self.children = content.decompose()
+        } else {
+            self.children = content().getSubviews()
+        }
         self._selected = selected
         self.maxSize = .zero
 
