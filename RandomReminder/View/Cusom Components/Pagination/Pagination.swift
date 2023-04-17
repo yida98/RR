@@ -13,13 +13,15 @@ struct Pagination<Content: View, Frame: View>: View {
     @GestureState private var dragOffset: CGSize = .zero
     @GestureState private var isDragging: Bool = false
     
+    private var spacing: CGFloat
     private var clipped: Bool
     
     private var frame: Frame
     
-    init(selected: Binding<Int>, clipped: Bool = true, @ViewBuilder _ content: () -> Content, @ViewBuilder frame: (() -> Frame) = { EmptyView() }) {
+    init(spacing: CGFloat = 0, selected: Binding<Int>, clipped: Bool = true, @ViewBuilder _ content: () -> Content, @ViewBuilder frame: (() -> Frame) = { EmptyView() }) {
+        self.spacing = spacing
         self.clipped = clipped
-        self.coordinator = PaginationCoordinator(selected: selected, content)
+        self.coordinator = PaginationCoordinator(spacing: spacing, selected: selected, content)
         
         self.frame = frame()
     }
@@ -28,12 +30,10 @@ struct Pagination<Content: View, Frame: View>: View {
         VStack {
             HStack {
                 Text("\(coordinator.children.count)")
-                Text("\(coordinator.maxSize.height)")
-                Text("\(coordinator.maxSize.width)")
                 Text("\(coordinator.selected)")
             }
             GeometryReader { proxy in
-                PaginationLayout(maxSize: $coordinator.maxSize) {
+                PaginationLayout(spacing: spacing, maxSize: $coordinator.maxSize) {
                     ForEach(coordinator.children.indices, id: \.self) { index in
                         coordinator.getChild(at: index)
                             .tag(index)
@@ -59,7 +59,7 @@ struct Pagination<Content: View, Frame: View>: View {
             DragGesture(minimumDistance: 1, coordinateSpace: .global)
                 .updating($dragOffset, body: { value, state, transaction in
                     withAnimation {
-                        let translation = value.decreasingTranslation(limit: coordinator.maxSize)
+                        let translation = value.decreasingTranslation(limit: coordinator.getCellSize())
                         DispatchQueue.main.async {
                             self.coordinator.realOffset_x = self.coordinator.baseOffset + translation.width
                         }

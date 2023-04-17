@@ -12,12 +12,15 @@ import Combine
 class PaginationCoordinator: ObservableObject {
     @Binding var selected: Int
     @Published var maxSize: CGSize
+    var spacing: CGFloat
     @Published var baseOffset: CGFloat = .zero
     @Published var realOffset_x: CGFloat = .zero
     let children: [AnyView]
     private var subscriber = Set<AnyCancellable>()
     
-    init<Content: View>(selected: Binding<Int>, @ViewBuilder _ content: () -> Content) {
+    init<Content: View>(spacing: CGFloat, selected: Binding<Int>, @ViewBuilder _ content: () -> Content) {
+        self.spacing = spacing
+        
         if let content = content() as? Decomposable {
             self.children = content.decompose()
         } else {
@@ -36,8 +39,16 @@ class PaginationCoordinator: ObservableObject {
         }.store(in: &subscriber)
     }
     
+    func getCellSize() -> CGSize {
+        var size = self.maxSize
+        size.width += spacing
+        size.height += spacing
+        return size
+    }
+    
     func scroll() {
-        let offset = PaginationCoordinator.baseOffset_x(at: selected, frameWidth: maxSize.width, totalWidth: maxSize.width * CGFloat(children.count))
+        let totalWidth = (getCellSize().width * CGFloat(children.count)) - spacing
+        let offset = PaginationCoordinator.baseOffset_x(at: selected, frameWidth: getCellSize().width, totalWidth: totalWidth)
         baseOffset = offset
         realOffset_x = offset
     }

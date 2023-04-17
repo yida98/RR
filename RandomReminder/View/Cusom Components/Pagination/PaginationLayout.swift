@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 struct PaginationLayout: Layout {
-    let spacing: CGFloat = 0
+    let spacing: CGFloat
     @Binding var maxSize: CGSize
     
     func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {
