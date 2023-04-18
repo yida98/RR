@@ -15,6 +15,7 @@ struct DetailAdjustmentView: View {
         Self._printChanges()
         return VStack(spacing: 20) {
             UtilityBar(viewModel: viewModel, isOpen: $isOpen)
+            Text("\(viewModel.selected)")
             ColorPicker(selected: $viewModel.selected)
 //            ColorSlider(viewModel: viewModel, padding: 40)
             TitleEditor(viewModel: viewModel)

@@ -9,55 +9,76 @@ import Foundation
 import SwiftUI
 
 struct Pagination<Content: View, Frame: View>: View {
-    @ObservedObject var coordinator: PaginationCoordinator
     @GestureState private var dragOffset: CGSize = .zero
     @GestureState private var isDragging: Bool = false
+    @State var baseOffset: CGFloat = .zero
+    @State var realOffset_x: CGFloat = .zero
     
     private var spacing: CGFloat
     private var clipped: Bool
     
     private var frame: Frame
+    @State var maxSize: CGSize = CGSize(width: 1, height: 1)
+    @Binding var selected: Int
+    
+    
+    private let children: [AnyView]
     
     init(spacing: CGFloat = 0, selected: Binding<Int>, clipped: Bool = true, @ViewBuilder _ content: () -> Content, @ViewBuilder frame: (() -> Frame) = { EmptyView() }) {
         self.spacing = spacing
         self.clipped = clipped
-        self.coordinator = PaginationCoordinator(spacing: spacing, selected: selected, content)
-        
         self.frame = frame()
+        self._selected = selected
+        
+        if let content = content() as? Decomposable {
+            self.children = content.decompose()
+        } else {
+            self.children = content().getSubviews()
+        }
     }
     
     var body: some View {
         VStack {
             GeometryReader { proxy in
-                PaginationLayout(spacing: spacing, maxSize: $coordinator.maxSize) {
-                    ForEach(coordinator.children.indices, id: \.self) { index in
-                        coordinator.getChild(at: index)
-                            .tag(index)
-                            .locationIsInView($coordinator.selected, id: index, frame: proxy.frame(in: .global))
+                PaginationLayout(spacing: spacing) {
+                    ForEach(children.indices, id: \.self) { index in
+                        getChild(at: index)
+                            .locationIsInView($selected, id: index, frame: proxy.frame(in: .global))
+                            .background(
+                                GeometryReader { proxy in
+                                    Color.clear
+                                        .onChange(of: proxy.frame(in: .global)) { newValue in
+                                            if maxSize.width < proxy.size.width {
+                                                maxSize = proxy.size
+                                                scroll(cellSize: maxSize)
+                                            }
+                                        }
+                                }
+                            )
                     }
-                    .offset(x: coordinator.realOffset_x)
+                    .offset(x: realOffset_x)
                 }
-                .frame(width: coordinator.maxSize.width, height: coordinator.maxSize.height)
+                .frame(width: maxSize.width, height: maxSize.height)
                 .overlay {
                     frame
                 }
                 .onChange(of: isDragging) { newValue in
                     if !newValue {
                         withAnimation {
-                            coordinator.scroll()
+                            scroll(cellSize: maxSize)
                         }
                     }
                 }
             }
         }
-        .frame(width: coordinator.maxSize.width, height: coordinator.maxSize.height)
+        .frame(width: maxSize.width, height: maxSize.height)
         .gesture(
             DragGesture(minimumDistance: 1, coordinateSpace: .global)
                 .updating($dragOffset, body: { value, state, transaction in
                     withAnimation {
-                        let translation = value.decreasingTranslation(limit: coordinator.getCellSize())
+                        let translation = value.decreasingTranslation(limit: getTotalCellSize(from: maxSize))
                         DispatchQueue.main.async {
-                            self.coordinator.realOffset_x = self.coordinator.baseOffset + translation.width
+                            self.realOffset_x = self.baseOffset + translation.width
                         }
                         state = translation
                     }
@@ -66,6 +87,35 @@ struct Pagination<Content: View, Frame: View>: View {
                     state = true
                 })
         )
+    }
+    
+    func getChild(at index: Int) -> AnyView {
+        children[index]
+    }
+    
+    // MARK: Offset calculations
+    
+    func getTotalCellSize(from cellSize: CGSize) -> CGSize {
+        var size = cellSize
+        size.width += spacing
+        size.height += spacing
+        return size
+    }
+    
+    func getTotalFrameWidth(with cellSize: CGSize) -> CGFloat {
+        CGFloat((cellSize.width * CGFloat(children.count)) + (spacing * CGFloat(children.count - 1)))
+    }
+    
+    func scroll(cellSize: CGSize) {
+        let totalWidth = getTotalFrameWidth(with: cellSize)
+        let offset = Pagination.baseOffset_x(at: selected, frameWidth: getTotalCellSize(from: cellSize).width, totalWidth: totalWidth)
+        baseOffset = offset
+        realOffset_x = offset
+        print(getTotalCellSize(from: cellSize).width , totalWidth, offset)
+    }
+    
+    static func baseOffset_x(at selection: Int, frameWidth: CGFloat, totalWidth: CGFloat) -> CGFloat {
+        CGFloat(selection) * -frameWidth
     }
 }
 

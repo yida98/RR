@@ -36,7 +36,6 @@
 		E47240F529D61EFA00C064D8 /* ReminderModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E47240F329D61EFA00C064D8 /* ReminderModel.xcdatamodeld */; };
 		E47240F729D61F1700C064D8 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47240F629D61F1700C064D8 /* DataManager.swift */; };
 		E47240F929DF845100C064D8 /* Pagination.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47240F829DF845100C064D8 /* Pagination.swift */; };
-		E47240FB29E6152E00C064D8 /* PaginationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47240FA29E6152E00C064D8 /* PaginationCoordinator.swift */; };
 		E47240FE29E6156B00C064D8 /* View+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47240FD29E6156B00C064D8 /* View+ext.swift */; };
 		E48D451929E77AF80059DB84 /* PaginationLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48D451829E77AF80059DB84 /* PaginationLayout.swift */; };
 		E48D451B29E8C7E60059DB84 /* ColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48D451A29E8C7E60059DB84 /* ColorPicker.swift */; };
@@ -109,7 +108,6 @@
 		E47240F429D61EFA00C064D8 /* ReminderModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ReminderModel.xcdatamodel; sourceTree = "<group>"; };
 		E47240F629D61F1700C064D8 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		E47240F829DF845100C064D8 /* Pagination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Pagination.swift; path = "RandomReminder/View/Cusom Components/Pagination/Pagination.swift"; sourceTree = SOURCE_ROOT; };
-		E47240FA29E6152E00C064D8 /* PaginationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationCoordinator.swift; sourceTree = "<group>"; };
 		E47240FD29E6156B00C064D8 /* View+ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+ext.swift"; sourceTree = "<group>"; };
 		E48D451829E77AF80059DB84 /* PaginationLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationLayout.swift; sourceTree = "<group>"; };
 		E48D451A29E8C7E60059DB84 /* ColorPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPicker.swift; sourceTree = "<group>"; };
@@ -315,7 +313,6 @@
 			isa = PBXGroup;
 			children = (
 				E47240F829DF845100C064D8 /* Pagination.swift */,
-				E47240FA29E6152E00C064D8 /* PaginationCoordinator.swift */,
 				E48D451829E77AF80059DB84 /* PaginationLayout.swift */,
 				E47240FD29E6156B00C064D8 /* View+ext.swift */,
 				E48D452229EE03E40059DB84 /* Decomposable.swift */,
@@ -531,7 +528,6 @@
 				E463FA9A29CABD5B00924D86 /* ReminderCell.swift in Sources */,
 				E4188BD829D2C96E003FB654 /* DetailAdjustmentView.swift in Sources */,
 				E47240F729D61F1700C064D8 /* DataManager.swift in Sources */,
-				E47240FB29E6152E00C064D8 /* PaginationCoordinator.swift in Sources */,
 				E463FAA429CAC00500924D86 /* DynamicToolsBackdrop.swift in Sources */,
 				E445CDD829C9209600F07ACF /* ContentView.swift in Sources */,
 				E48D451B29E8C7E60059DB84 /* ColorPicker.swift in Sources */,
