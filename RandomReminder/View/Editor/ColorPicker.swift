@@ -15,27 +15,11 @@ struct ColorPicker: View {
     
     var body: some View {
         Pagination(spacing: 20, selected: $selected) {
-            Text("1")
-                .tag(0)
-//                .frame(width: 150)
-                .background(Color.orange.opacity(0.5))
-                .padding()
-                .background(Color.orange.opacity(0.2))
-            Text("2")
-//                .frame(width: 150)
-                .background(Color.red.opacity(0.5))
-            Image(systemName: "chevron.right")
-//                .frame(width: 150)
-                .background(Color.yellow.opacity(0.5))
-            Image(systemName: "chevron.right")
-                .frame(width: 150)
-                .background(Color.green.opacity(0.5))
-//            ForEach(vals, id: \.self) { val in
-//                Text("\(val)")
-//            }
-            ForEach(0..<8, id: \.self) {index in
-                Circle()
-                    .fill(.blue)
+            ForEach(0..<8, id: \.self) { index in
+                RoundedRectangle(cornerRadius: 20)
+                    .fill(Reminder.colors[index % 8])
+                    .frame(width: 50, height: 50)
+                    .padding()
             }
         } frame: {
             RoundedRectangle(cornerRadius: 20)

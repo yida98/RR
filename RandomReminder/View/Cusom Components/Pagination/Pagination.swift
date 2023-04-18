@@ -28,10 +28,6 @@ struct Pagination<Content: View, Frame: View>: View {
     
     var body: some View {
         VStack {
-            HStack {
-                Text("\(coordinator.children.count)")
-                Text("\(coordinator.selected)")
-            }
             GeometryReader { proxy in
                 PaginationLayout(spacing: spacing, maxSize: $coordinator.maxSize) {
                     ForEach(coordinator.children.indices, id: \.self) { index in
@@ -54,7 +50,7 @@ struct Pagination<Content: View, Frame: View>: View {
                 }
             }
         }
-        .background(Color.white)
+        .frame(width: coordinator.maxSize.width, height: coordinator.maxSize.height)
         .gesture(
             DragGesture(minimumDistance: 1, coordinateSpace: .global)
                 .updating($dragOffset, body: { value, state, transaction in

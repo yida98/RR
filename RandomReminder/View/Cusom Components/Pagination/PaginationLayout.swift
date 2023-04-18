@@ -12,12 +12,25 @@ struct PaginationLayout: Layout {
     let spacing: CGFloat
     @Binding var maxSize: CGSize
     
-    func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {
+    struct CacheData {
+        var size: Size
+    }
+    
+    func makeCache(subviews: Subviews) -> CacheData {
+        let size = computeSizeParameters(proposal: .unspecified, subviews: subviews)
+        return CacheData(size: size)
+    }
+    
+    func updateCache(_ cache: inout CacheData, subviews: Subviews) {
+        cache.size = computeSizeParameters(proposal: .unspecified, subviews: subviews)
+    }
+    
+    func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout CacheData) -> CGSize {
         let size = computeSizeParameters(proposal: proposal, subviews: subviews)
         return CGSize(width: size.width, height: size.maxHeight)
     }
     
-    func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) {
+    func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout CacheData) {
         var pt = CGPoint(x: bounds.midX, y: bounds.midY)
         
         for v in subviews {

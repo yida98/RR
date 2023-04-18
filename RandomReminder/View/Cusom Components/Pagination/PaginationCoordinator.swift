@@ -46,8 +46,12 @@ class PaginationCoordinator: ObservableObject {
         return size
     }
     
+    func getTotalFrameWidth() -> CGFloat {
+        CGFloat((getCellSize().width * CGFloat(children.count)) - spacing)
+    }
+    
     func scroll() {
-        let totalWidth = (getCellSize().width * CGFloat(children.count)) - spacing
+        let totalWidth = getTotalFrameWidth()
         let offset = PaginationCoordinator.baseOffset_x(at: selected, frameWidth: getCellSize().width, totalWidth: totalWidth)
         baseOffset = offset
         realOffset_x = offset
