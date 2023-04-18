@@ -12,11 +12,11 @@ struct DetailAdjustmentView: View {
     @Binding var isOpen: Bool
     
     var body: some View {
-        Self._printChanges()
+//        Self._printChanges()
         return VStack(spacing: 20) {
             UtilityBar(viewModel: viewModel, isOpen: $isOpen)
-            Text("\(viewModel.selected)")
-            ColorPicker(selected: $viewModel.selected)
+            Text("\(viewModel.reminder.colorChoice)")
+            ColorPicker(viewModel: viewModel)
 //            ColorSlider(viewModel: viewModel, padding: 40)
             TitleEditor(viewModel: viewModel)
             FrequencyEditor(viewModel: viewModel)

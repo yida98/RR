@@ -20,7 +20,7 @@ struct Pagination<Content: View, Frame: View>: View {
     private var frame: Frame
     @State var maxSize: CGSize = CGSize(width: 1, height: 1)
     @Binding var selected: Int
-    
+    @State private var readSelection: Int = .zero
     
     private let children: [AnyView]
     
@@ -29,21 +29,22 @@ struct Pagination<Content: View, Frame: View>: View {
         self.clipped = clipped
         self.frame = frame()
         self._selected = selected
-        
         if let content = content() as? Decomposable {
             self.children = content.decompose()
         } else {
             self.children = content().getSubviews()
         }
+        self.readSelection = selected.wrappedValue
     }
     
     var body: some View {
         VStack {
+            Text("\(readSelection)")
             GeometryReader { proxy in
                 PaginationLayout(spacing: spacing) {
                     ForEach(children.indices, id: \.self) { index in
                         getChild(at: index)
-                            .locationIsInView($selected, id: index, frame: proxy.frame(in: .global))
+                            .locationIsInView($readSelection, id: index, frame: proxy.frame(in: .global), shouldRead: !isDragging)
                             .background(
                                 GeometryReader { proxy in
                                     Color.clear
@@ -56,16 +57,31 @@ struct Pagination<Content: View, Frame: View>: View {
                                 }
                             )
                     }
+                    .frame(width: maxSize.width, height: maxSize.height)
                     .offset(x: realOffset_x)
+                    .animation(.linear, value: realOffset_x)
                 }
                 .frame(width: maxSize.width, height: maxSize.height)
                 .overlay {
                     frame
                 }
-                .onChange(of: isDragging) { newValue in
+                .onChange(of: isDragging, perform: { newValue in
                     if !newValue {
-                        withAnimation {
-                            scroll(cellSize: maxSize)
+                        DispatchQueue.main.async {
+                            withAnimation(.linear) {
+                                scroll(cellSize: maxSize)
+                            }
+                        }
+                    }
+                })
+                .onChange(of: selected) { [selected] newValue in
+                    print(selected, newValue)
+                    if selected != newValue && readSelection != newValue && !isDragging {
+                        DispatchQueue.main.async {
+                            readSelection = newValue
+                            withAnimation(.linear) {
+                                scroll(cellSize: maxSize)
+                            }
                         }
                     }
                 }
@@ -73,15 +89,13 @@ struct Pagination<Content: View, Frame: View>: View {
         }
         .frame(width: maxSize.width, height: maxSize.height)
         .gesture(
-            DragGesture(minimumDistance: 1, coordinateSpace: .global)
+            DragGesture(minimumDistance: 0, coordinateSpace: .global)
                 .updating($dragOffset, body: { value, state, transaction in
-                    withAnimation {
-                        let translation = value.decreasingTranslation(limit: getTotalCellSize(from: maxSize))
-                        DispatchQueue.main.async {
-                            self.realOffset_x = self.baseOffset + translation.width
-                        }
-                        state = translation
+                    let translation = value.decreasingTranslation(limit: getTotalCellSize(from: maxSize))
+                    DispatchQueue.main.async {
+                        self.realOffset_x = self.baseOffset + translation.width
                     }
+                    state = translation
                 })
                 .updating($isDragging, body: { value, state, transaction in
                     state = true
@@ -108,10 +122,10 @@ struct Pagination<Content: View, Frame: View>: View {
     
     func scroll(cellSize: CGSize) {
         let totalWidth = getTotalFrameWidth(with: cellSize)
-        let offset = Pagination.baseOffset_x(at: selected, frameWidth: getTotalCellSize(from: cellSize).width, totalWidth: totalWidth)
+        let offset = Pagination.baseOffset_x(at: readSelection, frameWidth: getTotalCellSize(from: cellSize).width, totalWidth: totalWidth)
         baseOffset = offset
         realOffset_x = offset
-        print(getTotalCellSize(from: cellSize).width , totalWidth, offset)
+        selected = readSelection
     }
     
     static func baseOffset_x(at selection: Int, frameWidth: CGFloat, totalWidth: CGFloat) -> CGFloat {
@@ -137,8 +151,8 @@ extension DragGesture.Value {
 }
 
 extension View {
-    func locationIsInView<Tag: Hashable>(_ selected: Binding<Tag>, id: Tag, frame: CGRect) -> some View {
-        modifier(LocationReader(selected: selected, id: id, frame: frame))
+    func locationIsInView<Tag: Hashable>(_ selected: Binding<Tag>, id: Tag, frame: CGRect, shouldRead: Bool) -> some View {
+        modifier(LocationReader(selected: selected, id: id, frame: frame, shouldRead: shouldRead))
     }
 }
 
@@ -146,6 +160,7 @@ struct LocationReader<Tag: Hashable>: ViewModifier {
     @Binding var selected: Tag
     let id: Tag
     let frame: CGRect
+    let shouldRead: Bool
     
     func body(content: Content) -> some View {
         content
@@ -154,7 +169,7 @@ struct LocationReader<Tag: Hashable>: ViewModifier {
                     Color.clear
                         .onChange(of: proxy.frame(in: .global)) { newValue in
                             let point = CGPoint(x: newValue.midX, y: newValue.midY)
-                            if frame.contains(point) {
+                            if frame.contains(point) && selected != id {
                                 DispatchQueue.main.async {
                                     selected = id
                                 }
