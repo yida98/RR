@@ -15,7 +15,6 @@ struct DetailAdjustmentView: View {
 //        Self._printChanges()
         return VStack(spacing: 20) {
             UtilityBar(viewModel: viewModel, isOpen: $isOpen)
-            Text("\(viewModel.reminder.colorChoice)")
             ColorPicker(viewModel: viewModel)
 //            ColorSlider(viewModel: viewModel, padding: 40)
             TitleEditor(viewModel: viewModel)

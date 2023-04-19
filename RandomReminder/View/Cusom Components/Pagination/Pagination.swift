@@ -20,7 +20,7 @@ struct Pagination<Content: View, Frame: View>: View {
     private var frame: Frame
     @State var maxSize: CGSize = CGSize(width: 1, height: 1)
     @Binding var selected: Int
-    @State private var readSelection: Int = .zero
+    @State private var readSelection: Int
     
     private let children: [AnyView]
     
@@ -34,24 +34,23 @@ struct Pagination<Content: View, Frame: View>: View {
         } else {
             self.children = content().getSubviews()
         }
-        self.readSelection = selected.wrappedValue
+        self._readSelection = .init(initialValue: selected.wrappedValue)
     }
     
     var body: some View {
         VStack {
-            Text("\(readSelection)")
             GeometryReader { proxy in
                 PaginationLayout(spacing: spacing) {
                     ForEach(children.indices, id: \.self) { index in
                         getChild(at: index)
-                            .locationIsInView($readSelection, id: index, frame: proxy.frame(in: .global), shouldRead: !isDragging)
+                            .locationIsInView($readSelection, id: index, frame: proxy.frame(in: .global))
                             .background(
                                 GeometryReader { proxy in
                                     Color.clear
                                         .onChange(of: proxy.frame(in: .global)) { newValue in
                                             if maxSize.width < proxy.size.width {
                                                 maxSize = proxy.size
-                                                scroll(cellSize: maxSize)
+                                                resetOffsets(cellSize: maxSize)
                                             }
                                         }
                                 }
@@ -75,7 +74,6 @@ struct Pagination<Content: View, Frame: View>: View {
                     }
                 })
                 .onChange(of: selected) { [selected] newValue in
-                    print(selected, newValue)
                     if selected != newValue && readSelection != newValue && !isDragging {
                         DispatchQueue.main.async {
                             readSelection = newValue
@@ -120,11 +118,15 @@ struct Pagination<Content: View, Frame: View>: View {
         CGFloat((cellSize.width * CGFloat(children.count)) + (spacing * CGFloat(children.count - 1)))
     }
     
-    func scroll(cellSize: CGSize) {
+    func resetOffsets(cellSize: CGSize) {
         let totalWidth = getTotalFrameWidth(with: cellSize)
         let offset = Pagination.baseOffset_x(at: readSelection, frameWidth: getTotalCellSize(from: cellSize).width, totalWidth: totalWidth)
         baseOffset = offset
         realOffset_x = offset
+    }
+    
+    func scroll(cellSize: CGSize) {
+        resetOffsets(cellSize: cellSize)
         selected = readSelection
     }
     
@@ -151,8 +153,8 @@ extension DragGesture.Value {
 }
 
 extension View {
-    func locationIsInView<Tag: Hashable>(_ selected: Binding<Tag>, id: Tag, frame: CGRect, shouldRead: Bool) -> some View {
-        modifier(LocationReader(selected: selected, id: id, frame: frame, shouldRead: shouldRead))
+    func locationIsInView<Tag: Hashable>(_ selected: Binding<Tag>, id: Tag, frame: CGRect) -> some View {
+        modifier(LocationReader(selected: selected, id: id, frame: frame))
     }
 }
 
@@ -160,7 +162,6 @@ struct LocationReader<Tag: Hashable>: ViewModifier {
     @Binding var selected: Tag
     let id: Tag
     let frame: CGRect
-    let shouldRead: Bool
     
     func body(content: Content) -> some View {
         content

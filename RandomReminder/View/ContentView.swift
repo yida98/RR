@@ -8,12 +8,13 @@
 import SwiftUI
 
 struct ContentView: View {
-    @ObservedObject var viewModel = ContentViewModel()
+    @StateObject var viewModel = ContentViewModel()
     @State var isOpen: Bool = false
     @Namespace var bellButton
     
     var body: some View {
-        HStack {
+        Self._printChanges()
+        return HStack {
             Spacer()
             VStack(spacing: -20) {
                 RemindersView(viewModel: viewModel, isOpen: $isOpen)
@@ -61,11 +62,5 @@ struct ContentView: View {
             Spacer()
         }
         .background(Color.baseColor)
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
     }
 }

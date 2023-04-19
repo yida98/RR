@@ -16,6 +16,7 @@ class EditorViewModel: ObservableObject {
     let onEnd: PassthroughSubject<CGFloat, Never>
     let onChange: PassthroughSubject<CGFloat, Never>
     
+    @Published var hasEnded: Bool = true
     @Published var reminder: DummyReminder
     @Published var isOnMorning: [Bool]
     @Published var isOnAfternoon: [Bool]
@@ -56,6 +57,16 @@ class EditorViewModel: ObservableObject {
                 newValues.append(contentsOf: $0)
                 self.reminder.reminderTimeFrames = newValues
                 self.objectWillChange.send()
+            }
+            .store(in: &subscribers)
+        
+        onEnd
+            .debounce(for: .seconds(0.3), scheduler: DispatchQueue.main)
+            .dropFirst()
+            .sink { _ in
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    self.hasEnded = true
+                }
             }
             .store(in: &subscribers)
     }
