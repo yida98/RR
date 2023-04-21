@@ -13,8 +13,7 @@ struct ContentView: View {
     @Namespace var bellButton
     
     var body: some View {
-        Self._printChanges()
-        return HStack {
+        HStack {
             Spacer()
             VStack(spacing: -20) {
                 RemindersView(viewModel: viewModel, isOpen: $isOpen)
