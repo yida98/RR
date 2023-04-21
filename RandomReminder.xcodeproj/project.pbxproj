@@ -43,6 +43,7 @@
 		E48D451F29E8C94D0059DB84 /* TitleEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48D451E29E8C94D0059DB84 /* TitleEditor.swift */; };
 		E48D452129E8C99A0059DB84 /* FrequencyEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48D452029E8C99A0059DB84 /* FrequencyEditor.swift */; };
 		E48D452329EE03E40059DB84 /* Decomposable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48D452229EE03E40059DB84 /* Decomposable.swift */; };
+		E48D452729F351E50059DB84 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48D452629F351E50059DB84 /* NotificationManager.swift */; };
 		E573237CABBE90FC792D0500 /* Pods_RandomReminder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B2743BE11BD9A66F0AA8E77 /* Pods_RandomReminder.framework */; };
 		F928416A494F753C35FF16C8 /* Pods_RandomReminderTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70C2202EBCFB5C022C20E95F /* Pods_RandomReminderTests.framework */; };
 		FFFA7986262DB298717DA081 /* Pods_RandomReminder_RandomReminderUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67E539CDE37E256778F105F8 /* Pods_RandomReminder_RandomReminderUITests.framework */; };
@@ -115,6 +116,7 @@
 		E48D451E29E8C94D0059DB84 /* TitleEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleEditor.swift; sourceTree = "<group>"; };
 		E48D452029E8C99A0059DB84 /* FrequencyEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrequencyEditor.swift; sourceTree = "<group>"; };
 		E48D452229EE03E40059DB84 /* Decomposable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Decomposable.swift; sourceTree = "<group>"; };
+		E48D452629F351E50059DB84 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -248,6 +250,7 @@
 			isa = PBXGroup;
 			children = (
 				E463FA9729CABCAE00924D86 /* Reminder.swift */,
+				E48D452629F351E50059DB84 /* NotificationManager.swift */,
 				E4188BDE29D38B8F003FB654 /* Application.swift */,
 				E47240F329D61EFA00C064D8 /* ReminderModel.xcdatamodeld */,
 				E47240F629D61F1700C064D8 /* DataManager.swift */,
@@ -544,6 +547,7 @@
 				E4188BD629D2C815003FB654 /* Font_ext.swift in Sources */,
 				E463FAA029CABEDD00924D86 /* Color_ext.swift in Sources */,
 				E47240F029D5008A00C064D8 /* TimeSelector.swift in Sources */,
+				E48D452729F351E50059DB84 /* NotificationManager.swift in Sources */,
 				E48D451929E77AF80059DB84 /* PaginationLayout.swift in Sources */,
 				E4188BE529D41B81003FB654 /* EditorViewModel.swift in Sources */,
 				E4188BE329D411C0003FB654 /* EmojiTextField.swift in Sources */,
