@@ -22,6 +22,9 @@ struct ColorPicker: View {
     init(viewModel: EditorViewModel) {
         self.viewModel = viewModel
         self._readSelection = .init(initialValue: viewModel.reminder.colorChoice)
+        
+        UIToolbar.appearance().setBackgroundImage(UIImage(), forToolbarPosition: .any, barMetrics: .default)
+        UIToolbar.appearance().clipsToBounds = true
     }
     
     var body: some View {
@@ -97,11 +100,35 @@ struct ColorPicker: View {
                             isTyping.toggle()
                         }
                     }
+                    .submitLabel(.done)
             }
             .frame(width: frameSize.width, height: frameSize.height)
             Spacer()
         }
         .padding(.horizontal, 40)
+        .toolbar {
+            ToolbarItemGroup(placement: .keyboard) {
+                Spacer()
+                Button {
+                    UIApplication.shared.endEditing()
+                } label: {
+                    Image(systemName: "keyboard.chevron.compact.down.fill")
+                        .foregroundColor(.background)
+                        .padding(4)
+                        .padding(.horizontal, 6)
+                        .background(
+                            RoundedRectangle(cornerRadius: 8)
+                                .fill(Color.baseColor)
+                                .overlay {
+                                    RoundedRectangle(cornerRadius: 8)
+                                        .stroke(Color.white)
+                                }
+                            
+                        )
+                }
+            }
+        }
+        .ignoresSafeArea(.keyboard)
     }
     
     

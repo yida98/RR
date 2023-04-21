@@ -60,6 +60,6 @@ struct ContentView: View {
             }
             Spacer()
         }
-        .background(Color.baseColor)
+        .background(Color.baseColor.ignoresSafeArea())
     }
 }
