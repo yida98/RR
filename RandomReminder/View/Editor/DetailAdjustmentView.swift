@@ -12,11 +12,14 @@ struct DetailAdjustmentView: View {
     @Binding var isOpen: Bool
     
     var body: some View {
-        VStack(spacing: 20) {
+        VStack(spacing: 50) {
             UtilityBar(viewModel: viewModel, isOpen: $isOpen)
-            ColorPicker(viewModel: viewModel)
-            TitleEditor(viewModel: viewModel)
-            FrequencyEditor(viewModel: viewModel)
+            VStack(spacing: 40) {
+                ColorPicker(viewModel: viewModel)
+                TitleEditor(viewModel: viewModel)
+                FrequencyEditor(viewModel: viewModel)
+            }
+            Spacer()
         }
         .padding(.top, 10)
         .adaptsToKeyboard()
