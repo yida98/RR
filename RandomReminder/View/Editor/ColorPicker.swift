@@ -80,7 +80,6 @@ struct ColorPicker: View {
                         impactHeptic.impactOccurred()
                     }
                     .onChange(of: isDragging) { newValue in
-                        print("isDragging \(newValue)")
                         viewModel.shouldDim = false
                         viewModel.isDraggingPublisher.send(newValue)
                     }
