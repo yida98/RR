@@ -64,13 +64,16 @@ class EditorViewModel: ObservableObject {
             }
             .store(in: &subscribers)
         
-        isDraggingPublisher.debounce(for: .seconds(0.3), scheduler: DispatchQueue.main).sink { newValue in
-            if !newValue {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                    self.shouldDim = true
-                    self.objectWillChange.send()
+        isDraggingPublisher
+            .debounce(for: .seconds(1), scheduler: DispatchQueue.main)
+            .dropFirst()
+            .sink { newValue in
+                if !newValue {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                        self.shouldDim = true
+                        self.objectWillChange.send()
+                    }
                 }
-            }
         }.store(in: &subscribers)
     }
     

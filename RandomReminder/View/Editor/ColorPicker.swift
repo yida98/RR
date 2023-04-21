@@ -67,7 +67,7 @@ struct ColorPicker: View {
                                 .bold()
                                 .foregroundColor(.background)
                                 .onTapGesture {
-                                    select(min(readSelection + 1, 8))
+                                    select(min(readSelection + 1, 7))
                                     manualDim()
                                 }
                         }
@@ -80,6 +80,7 @@ struct ColorPicker: View {
                         impactHeptic.impactOccurred()
                     }
                     .onChange(of: isDragging) { newValue in
+                        print("isDragging \(newValue)")
                         viewModel.shouldDim = false
                         viewModel.isDraggingPublisher.send(newValue)
                     }
@@ -120,8 +121,9 @@ struct ColorPicker: View {
     
     private func manualDim() {
         viewModel.shouldDim = false
-        DispatchQueue.main.async {
-            self.viewModel.isDraggingPublisher.send(false)
+        viewModel.isDraggingPublisher.send(true)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            viewModel.isDraggingPublisher.send(false)
         }
     }
 }
