@@ -23,7 +23,7 @@ class EditorViewModel: ObservableObject {
     @Published var shouldDim: Bool = true
     var subscribers = Set<AnyCancellable>()
     
-    init(reminder: DummyReminder) {
+    init(reminder: Published<DummyReminder>) {
         // Color slider
         let detector = PassthroughSubject<Bool, Never>()
         self.isDraggingPublisher = detector
@@ -34,7 +34,7 @@ class EditorViewModel: ObservableObject {
         let constantEmission = PassthroughSubject<CGFloat, Never>()
         self.onChange = constantEmission
         
-        self.reminder = reminder
+        self._reminder = reminder
         
         self.isOnMorning = [Bool]()
         self.isOnAfternoon = [Bool]()
