@@ -11,6 +11,7 @@ import SwiftUI
 struct Pagination<Content: View, Frame: View>: View {
     @GestureState private var dragOffset: CGSize = .zero
     @GestureState private var isDragging: Bool = false
+    @Binding var draggingProxy: Bool
     @State var baseOffset: CGFloat = .zero
     @State var realOffset_x: CGFloat = .zero
     
@@ -24,7 +25,13 @@ struct Pagination<Content: View, Frame: View>: View {
     
     private let children: [AnyView]
     
-    init(spacing: CGFloat = 0, selected: Binding<Int>, clipped: Bool = true, @ViewBuilder _ content: () -> Content, @ViewBuilder frame: (() -> Frame) = { EmptyView() }) {
+    init(draggingProxy: Binding<Bool>,
+         spacing: CGFloat = 0,
+         selected: Binding<Int>,
+         clipped: Bool = true,
+         @ViewBuilder _ content: () -> Content,
+         @ViewBuilder frame: (() -> Frame) = { EmptyView() }) {
+        self._draggingProxy = draggingProxy
         self.spacing = spacing
         self.clipped = clipped
         self.frame = frame()
@@ -65,6 +72,7 @@ struct Pagination<Content: View, Frame: View>: View {
                     frame
                 }
                 .onChange(of: isDragging, perform: { newValue in
+                    draggingProxy = newValue
                     if !newValue {
                         DispatchQueue.main.async {
                             withAnimation(.linear) {
@@ -153,8 +161,8 @@ extension DragGesture.Value {
 }
 
 extension View {
-    func locationIsInView<Tag: Hashable>(_ selected: Binding<Tag>, id: Tag, frame: CGRect) -> some View {
-        modifier(LocationReader(selected: selected, id: id, frame: frame))
+    func locationIsInView<Tag: Hashable>(_ selected: Binding<Tag>, id: Tag, frame: CGRect, shouldRead: Bool = true) -> some View {
+        modifier(LocationReader(selected: selected, id: id, frame: frame, shouldRead: shouldRead))
     }
 }
 
@@ -162,6 +170,7 @@ struct LocationReader<Tag: Hashable>: ViewModifier {
     @Binding var selected: Tag
     let id: Tag
     let frame: CGRect
+    let shouldRead: Bool
     
     func body(content: Content) -> some View {
         content
@@ -170,7 +179,7 @@ struct LocationReader<Tag: Hashable>: ViewModifier {
                     Color.clear
                         .onChange(of: proxy.frame(in: .global)) { newValue in
                             let point = CGPoint(x: newValue.midX, y: newValue.midY)
-                            if frame.contains(point) && selected != id {
+                            if frame.contains(point) && selected != id && shouldRead {
                                 DispatchQueue.main.async {
                                     selected = id
                                 }

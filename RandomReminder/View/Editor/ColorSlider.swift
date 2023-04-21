@@ -45,7 +45,7 @@ struct ColorSlider: View {
                                 value: -$0.frame(in: .named(scrollCoordinateSpace)).origin.x)
                         })
                         .onPreferenceChange(ViewOffsetKey.self) {
-                            viewModel.onEnd.send($0)
+//                            viewModel.onEnd.send($0)
                             if prevXOffset != $0 {
                                 viewModel.onChange.send($0)
                             }

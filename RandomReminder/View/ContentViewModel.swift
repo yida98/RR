@@ -7,15 +7,24 @@
 
 import Foundation
 import UIKit
+import SwiftUI
 
 class ContentViewModel: ObservableObject {
     
     @Published var reminders: [Reminder]
     @Published var reminderUnderConstruction: DummyReminder
+    var dummyReminderBinding: Binding<DummyReminder>
     
     init() {
         self.reminders = ContentViewModel.fetchReminders()
         self.reminderUnderConstruction = DummyReminder()
+        self.dummyReminderBinding = .constant(DummyReminder())
+        
+        self.dummyReminderBinding = .init(get: { [weak self] in
+            self?.reminderUnderConstruction ?? DummyReminder()
+        }, set: { [weak self] reminder in
+            self?.reminderUnderConstruction = reminder
+        })
         setupNotifications()
     }
     
@@ -35,7 +44,7 @@ class ContentViewModel: ObservableObject {
     var editorViewModel: EditorViewModel?
     func getEditorViewModel() -> EditorViewModel {
         if editorViewModel == nil {
-            editorViewModel = EditorViewModel(reminder: _reminderUnderConstruction)
+            editorViewModel = EditorViewModel(reminder: reminderUnderConstruction)
         }
         return editorViewModel!
     }

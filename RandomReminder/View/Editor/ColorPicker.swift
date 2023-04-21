@@ -11,17 +11,18 @@ import Combine
 
 struct ColorPicker: View {
     @ObservedObject var viewModel: EditorViewModel
-    @State private var readSelection: Int = 0
-    @State private var firstLaunch: Bool = true
-    
+    @State private var readSelection: Int
+    @State private var isDragging: Bool = false
+        
     init(viewModel: EditorViewModel) {
         self.viewModel = viewModel
+        self._readSelection = .init(initialValue: viewModel.reminder.colorChoice)
     }
     
     var body: some View {
         HStack {
             GeometryReader { proxy in
-                Pagination(spacing: 10, selected: $viewModel.reminder.colorChoice) {
+                Pagination(draggingProxy: $isDragging, spacing: 10, selected: $readSelection) {
                     ForEach(0..<8, id: \.self) { index in
                         Color.clear
                             .frame(width: 80, height: 80)
@@ -33,37 +34,23 @@ struct ColorPicker: View {
                                     .padding(readSelection == index ? 10 : 20)
                                     .opacity(opacity(at: index))
                                     .animation(.linear, value: readSelection)
-                                    .animation(.linear, value: viewModel.hasEnded)
+                                    .animation(.linear, value: viewModel.shouldDim)
                             }
-                            .background(
-                                GeometryReader {
-                                    Color.clear
-                                        .locationIsInView($readSelection, id: index, frame: proxy.frame(in: .global))
-                                        .preference(key: ViewOffsetKey.self, value: -$0.frame(in: .named("Pager")).origin.x)
-                                }
-                            )
-                            .onPreferenceChange(ViewOffsetKey.self, perform: { newValue in
-                                viewModel.onEnd.send(newValue)
-                                DispatchQueue.main.async {
-                                    self.viewModel.hasEnded = false
-                                }
-                            })
                             .onTapGesture {
                                 DispatchQueue.main.async {
                                     withAnimation(.linear) {
-                                        viewModel.select(index)
+                                        select(index)
                                     }
                                 }
                             }
                     }
                 } frame: {
                     HStack {
-                        
                         Image(systemName: "chevron.left")
                             .bold()
                             .foregroundColor(.background)
                             .onTapGesture {
-                                viewModel.select(max(readSelection - 1, 0))
+                                select(max(readSelection - 1, 0))
                             }
                         
                         RoundedRectangle(cornerRadius: 25)
@@ -75,15 +62,20 @@ struct ColorPicker: View {
                             .bold()
                             .foregroundColor(.background)
                             .onTapGesture {
-                                viewModel.select(min(readSelection + 1, 8))
+                                select(min(readSelection + 1, 8))
                             }
                     }
                 }
                 .coordinateSpace(name: "Pager")
                 .frame(width: 80, height: 80)
                 .onChange(of: readSelection) { newValue in
+                    select(newValue)
                     let impactHeptic = UIImpactFeedbackGenerator(style: .light)
                     impactHeptic.impactOccurred()
+                }
+                .onChange(of: isDragging) { newValue in
+                    viewModel.shouldDim = false
+                    viewModel.isDraggingPublisher.send(newValue)
                 }
             }
             .frame(width: 80, height: 80)
@@ -97,7 +89,12 @@ struct ColorPicker: View {
         if readSelection == index {
             return 1.0
         } else {
-            return viewModel.hasEnded ? 0 : 0.5
+            return viewModel.shouldDim ? 0 : 0.5
         }
+    }
+    
+    private func select(_ index: Int) {
+        readSelection = index
+        viewModel.select(index)
     }
 }

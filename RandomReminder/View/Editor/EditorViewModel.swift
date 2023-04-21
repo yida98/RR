@@ -13,24 +13,28 @@ class EditorViewModel: ObservableObject {
     
     // MARK: - Color slider
     
+    let isDraggingPublisher: PassthroughSubject<Bool, Never>
     let onEnd: PassthroughSubject<CGFloat, Never>
     let onChange: PassthroughSubject<CGFloat, Never>
     
-    @Published var hasEnded: Bool = true
     @Published var reminder: DummyReminder
     @Published var isOnMorning: [Bool]
     @Published var isOnAfternoon: [Bool]
+    @Published var shouldDim: Bool = true
     var subscribers = Set<AnyCancellable>()
     
-    init(reminder: Published<DummyReminder>) {
+    init(reminder: DummyReminder) {
         // Color slider
-        let detector = PassthroughSubject<CGFloat, Never>()
-        self.onEnd = detector
+        let detector = PassthroughSubject<Bool, Never>()
+        self.isDraggingPublisher = detector
+        
+        let onEndDetector = PassthroughSubject<CGFloat, Never>()
+        self.onEnd = onEndDetector
         
         let constantEmission = PassthroughSubject<CGFloat, Never>()
         self.onChange = constantEmission
         
-        self._reminder = reminder
+        self.reminder = reminder
         
         self.isOnMorning = [Bool]()
         self.isOnAfternoon = [Bool]()
@@ -60,15 +64,13 @@ class EditorViewModel: ObservableObject {
             }
             .store(in: &subscribers)
         
-        onEnd
-            .debounce(for: .seconds(0.3), scheduler: DispatchQueue.main)
-            .dropFirst()
-            .sink { _ in
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                    self.hasEnded = true
+        isDraggingPublisher.debounce(for: .seconds(0.3), scheduler: DispatchQueue.main).dropFirst().sink { newValue in
+            if !newValue {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                    self.shouldDim = !newValue
                 }
             }
-            .store(in: &subscribers)
+        }.store(in: &subscribers)
     }
     
     func select(_ index: Int) {
