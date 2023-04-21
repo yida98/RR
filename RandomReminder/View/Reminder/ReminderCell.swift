@@ -27,9 +27,14 @@ struct ReminderCell: View {
                     )
                 VStack(alignment: .leading, spacing: 0) {
                     Spacer()
-                    Text(reminder.title)
-                        .font(.headline)
-                        .foregroundColor(.accentColor)
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        Text(reminder.title)
+                            .font(.headline)
+                            .foregroundColor(.accentColor)
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.7)
+                            .frame(height: 24)
+                    }
                     Text(Reminder.getTimeFrameString(for: reminder.reminderTimeFrames))
                         .font(.caption)
                         .foregroundColor(.shadow)
