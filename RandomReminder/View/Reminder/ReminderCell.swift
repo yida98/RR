@@ -26,22 +26,23 @@ struct ReminderCell: View {
                             .fill(color(for: reminder.colorChoice))
                     )
                 VStack(alignment: .leading, spacing: 0) {
-                    Spacer()
+                    Spacer(minLength: 0)
                     ScrollView(.horizontal, showsIndicators: false) {
                         Text(reminder.title)
                             .font(.headline)
                             .foregroundColor(.accentColor)
                             .lineLimit(1)
                             .minimumScaleFactor(0.7)
-                            .frame(height: 24)
+                            .frame(height: 20)
                     }
-                    Text(Reminder.getTimeFrameString(for: reminder.reminderTimeFrames))
-                        .font(.caption)
-                        .foregroundColor(.shadow)
-                        .lineLimit(2)
-                        .minimumScaleFactor(0.6)
-                        .frame(height: 26)
-                    Spacer()
+                    HStack(alignment: .bottom) {
+                        Text(Reminder.getTimeFrameString(for: reminder.reminderTimeFrames))
+                            .font(.caption)
+                            .foregroundColor(.shadow)
+                            .lineLimit(2)
+                            .minimumScaleFactor(0.6)
+                            .frame(height: 26)
+                    }
                 }
                 Spacer()
             }
