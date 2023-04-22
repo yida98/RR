@@ -45,6 +45,15 @@ struct ReminderCell: View {
                 }
                 Spacer()
             }
+            
+            HStack(spacing: 0) {
+                ForEach(DaySelector.days.indices, id: \.self) { index in
+                    Text(DaySelector.days[index])
+                        .font(.caption.weight(.bold))
+                        .frame(maxWidth: .infinity)
+                        .foregroundStyle(reminder.daysActive[index] ? Color.dullNeutral.opacity(0.5) : .background.opacity(0.5))
+                }
+            }
             FrequencySlider(currentFrequency: $reminder.frequency)
         }
         .padding()

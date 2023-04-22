@@ -47,7 +47,8 @@ class ContentViewModel: ObservableObject {
                                         colorChoice: Int16(reminderUnderConstruction.colorChoice),
                                         id: reminderUnderConstruction.id,
                                         reminderTimeFrames: reminderUnderConstruction.reminderTimeFrames,
-                                        frequency: Int16(reminderUnderConstruction.frequency))
+                                        frequency: Int16(reminderUnderConstruction.frequency),
+                                        daysActive: reminderUnderConstruction.daysActive)
         
         reminders = ContentViewModel.fetchReminders()
     }

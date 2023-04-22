@@ -8,29 +8,24 @@
 import SwiftUI
 
 struct DaySelector: View {
-    @State var daysSelected = [false, false, false, false, false, false, false]
-    let days = ["S", "M", "T", "W", "T", "F", "S"]
+    @Binding var daysSelected: [Bool]
+    static let days = ["S", "M", "T", "W", "T", "F", "S"]
     
     var body: some View {
         HStack {
-            ForEach(days.indices, id: \.self) { index in
-                Text(days[index])
+            ForEach(DaySelector.days.indices, id: \.self) { index in
+                Text(DaySelector.days[index])
                     .strokedText(daysSelected[index])
                     .frame(maxWidth: .infinity)
                     .font(.body.weight(.heavy))
                     .foregroundColor(daysSelected[index] ? .accentColor : .black)
                     .onTapGesture {
                         daysSelected[index] = !daysSelected[index]
+                        let impactHeptic = UIImpactFeedbackGenerator(style: .light)
+                        impactHeptic.impactOccurred()
                     }
             }
         }
-    }
-}
-
-struct DaySelector_Previews: PreviewProvider {
-    static var previews: some View {
-        DaySelector()
-            .background(Color.baseColor)
     }
 }
 

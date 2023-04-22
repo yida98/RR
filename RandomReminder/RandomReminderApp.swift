@@ -9,9 +9,16 @@ import SwiftUI
 
 @main
 struct RandomReminderApp: App {
+    @StateObject var appData = AppData()
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
         }
+    }
+}
+
+class AppData: ObservableObject {
+    init() {
     }
 }

@@ -13,6 +13,7 @@ extension Color {
     static let baseColor: Color = Color("Base")
     static let shadow: Color = Color("Shadow")
     static let shade: Color = Color("Shade")
+    static let dullNeutral: Color = Color("DullNeutral")
     
     // MARK: Slider
     static let neutral: Color = Color("Neutral")

@@ -101,6 +101,7 @@ class DummyReminder: ObservableObject {
     @Published var colorChoice: Int
     @Published var frequency: Int
     @Published var reminderTimeFrames: [Bool]
+    @Published var daysActive: [Bool]
     
     init() {
         self.id = UUID()
@@ -109,6 +110,7 @@ class DummyReminder: ObservableObject {
         self.colorChoice = Int.random(in: 0..<8)
         self.frequency = 2
         self.reminderTimeFrames = [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+        self.daysActive = [true, true, true, true, true, true, true]
     }
     
     init(reminder: Reminder) {
@@ -118,6 +120,7 @@ class DummyReminder: ObservableObject {
         self.colorChoice = Int(reminder.colorChoice)
         self.frequency = Int(reminder.frequency)
         self.reminderTimeFrames = reminder.reminderTimeFrames ?? [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+        self.daysActive = reminder.daysActive ?? [true, true, true, true, true, true, true]
     }
 }
 

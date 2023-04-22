@@ -39,7 +39,7 @@ struct FrequencyEditor: View {
                         .rotatedCaption(angle: Angle(degrees: 90))
                         .foregroundColor(.accentColor.opacity(0.3))
                 }
-                DaySelector()
+                DaySelector(daysSelected: $viewModel.reminder.daysActive)
                 HStack(alignment: .top) {
                     Text("12:00")
                         .rotatedCaption(angle: Angle(degrees: -90))

@@ -64,7 +64,7 @@ class DataManager: ObservableObject {
         }
     }
     
-    func saveReminder(title: String?, icon: String?, colorChoice: Int16, id: UUID?, reminderTimeFrames: [Bool]?, frequency: Int16) {
+    func saveReminder(title: String?, icon: String?, colorChoice: Int16, id: UUID?, reminderTimeFrames: [Bool]?, frequency: Int16, daysActive: [Bool]?) {
         if let id = id, let reminder = fetchReminder(id) {
             reminder.setValue(title, forKey: "title")
             reminder.setValue(icon, forKey: "icon")
@@ -72,6 +72,7 @@ class DataManager: ObservableObject {
             reminder.setValue(reminderTimeFrames, forKey: "reminderTimeFrames")
             reminder.setValue(frequency, forKey: "frequency")
             reminder.setValue(colorChoice, forKey: "colorChoice")
+            reminder.setValue(daysActive, forKey: "daysActive")
         } else {
             let context = getContext()
             guard let reminderEntity = reminderEntity else { return }
@@ -83,6 +84,7 @@ class DataManager: ObservableObject {
             entity.setValue(reminderTimeFrames, forKey: "reminderTimeFrames")
             entity.setValue(frequency, forKey: "frequency")
             entity.setValue(colorChoice, forKey: "colorChoice")
+            entity.setValue(daysActive, forKey: "daysActive")
         }
         
         saveContext()
@@ -97,7 +99,7 @@ class DataManager: ObservableObject {
     }
     
     func saveReminder(reminder: Reminder) {
-        saveReminder(title: reminder.title, icon: reminder.icon, colorChoice: reminder.colorChoice, id: reminder.id, reminderTimeFrames: reminder.reminderTimeFrames, frequency: reminder.frequency)
+        saveReminder(title: reminder.title, icon: reminder.icon, colorChoice: reminder.colorChoice, id: reminder.id, reminderTimeFrames: reminder.reminderTimeFrames, frequency: reminder.frequency, daysActive: reminder.daysActive)
     }
     
     func fetch(entity: EntityName, predicate: NSPredicate? = nil, sortDescriptors: [NSSortDescriptor]? = nil) -> Result<[NSManagedObject]?, Error> {
@@ -111,6 +113,21 @@ class DataManager: ObservableObject {
             return .success(results)
         } catch let error {
             return .failure(error)
+        }
+    }
+    
+    func purge() {
+        for entity in EntityName.allCases {
+            let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: entity.rawValue)
+            let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+
+            do {
+                try persistentContainer.persistentStoreCoordinator.execute(deleteRequest, with: getContext())
+            } catch {
+                // TODO: handle the error
+                debugPrint("error")
+                return
+            }
         }
     }
     
