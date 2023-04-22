@@ -10,7 +10,7 @@ import SwiftUI
 struct FrequencyEditor: View {
     @ObservedObject var viewModel: EditorViewModel
     var body: some View {
-        VStack(spacing: 30) {
+        VStack(spacing: 20) {
             VStack {
                 HStack {
                     Text("FREQUENCY")
@@ -21,29 +21,32 @@ struct FrequencyEditor: View {
                     .frame(height: 10)
             }
             .padding(.horizontal, 30)
-            .padding(.bottom, 20)
-            VStack(spacing: 15) {
+            VStack(spacing: 30) {
+                HStack {
+                    Text("ACTIVE TIMES")
+                        .subtitle()
+                        .bold()
+                    Spacer()
+                }
+                .padding(.horizontal, 10)
                 HStack(alignment: .bottom) {
-                    Text("midnight")
+                    Text("0:00")
                         .rotatedCaption(angle: Angle(degrees: -90))
                         .foregroundColor(.infrequent.opacity(0.3))
                     TimeSelector(isOn: $viewModel.isOnMorning, systemImage: "sun.and.horizon", alignment: .top, phase: Angle(radians: Double.pi / 2), tint: .infrequent)
                         .frame(height: 50)
-                    Text("midday")
+                    Text("12:00")
                         .rotatedCaption(angle: Angle(degrees: 90))
                         .foregroundColor(.accentColor.opacity(0.3))
                 }
-                Text("ACTIVE TIMES")
-                    .subtitle()
-                    .bold()
-                    .padding(8)
+                DaySelector()
                 HStack(alignment: .top) {
-                    Text("midday")
+                    Text("12:00")
                         .rotatedCaption(angle: Angle(degrees: -90))
                         .foregroundColor(.accentColor.opacity(0.3))
                     TimeSelector(isOn: $viewModel.isOnAfternoon, systemImage: "moon.stars", alignment: .bottom, phase: Angle(radians: -Double.pi / 2), tint: .snooze)
                         .frame(height: 50)
-                    Text("midnight")
+                    Text("0:00")
                         .rotatedCaption(angle: Angle(degrees: 90))
                         .foregroundColor(.snooze.opacity(0.3))
                 }
