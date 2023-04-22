@@ -14,7 +14,10 @@ struct ColorPicker: View {
     @State private var readSelection: Int
     @State private var isDragging: Bool = false
     
-    private var frameSize = CGSize(width: 80, height: 80)
+    static private var frameScale = Constant.screenBounds.height / 12
+    private var frameSize = CGSize(width: ColorPicker.frameScale, height: ColorPicker.frameScale)
+    private var cellSizeL = CGSize(width: ColorPicker.frameScale - 20, height: ColorPicker.frameScale - 20)
+    private var cellSizeS = CGSize(width: ColorPicker.frameScale - 30, height: ColorPicker.frameScale - 30)
     
     // MARK: - Emoji
     @FocusState var isTyping: Bool
@@ -36,10 +39,10 @@ struct ColorPicker: View {
                             Color.clear
                                 .frame(width: frameSize.width, height: frameSize.height)
                                 .overlay {
-                                    RoundedRectangle(cornerRadius: 20)
+                                    RoundedRectangle(cornerRadius: cellSizeL.width / 3.5)
                                         .fill(Reminder.colors[index % 8])
-                                        .frame(width: readSelection == index ? 60 : 50,
-                                               height: readSelection == index ? 60 : 50)
+                                        .frame(width: readSelection == index ? cellSizeL.width : cellSizeS.width,
+                                               height: readSelection == index ? cellSizeL.height : cellSizeS.height)
                                         .padding(readSelection == index ? 10 : 20)
                                         .opacity(opacity(at: index))
                                         .animation(.linear, value: readSelection)
@@ -62,9 +65,9 @@ struct ColorPicker: View {
                                     select(max(readSelection - 1, 0))
                                     manualDim()
                                 }
-                            RoundedRectangle(cornerRadius: 25)
-                                .stroke(Color.background, lineWidth: 3)
-                                .frame(width: 80, height: 80)
+                            RoundedRectangle(cornerRadius: cellSizeL.width / 2.5)
+                                .stroke(Color.background, lineWidth: 2)
+                                .frame(width: frameSize.width, height: frameSize.height)
                                 .fixedSize()
                             Image(systemName: "chevron.right")
                                 .bold()

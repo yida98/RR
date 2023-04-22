@@ -18,7 +18,7 @@ struct DaySelector: View {
                     .strokedText(daysSelected[index])
                     .frame(maxWidth: .infinity)
                     .font(.body.weight(.heavy))
-                    .foregroundColor(daysSelected[index] ? .accentColor : .black)
+                    .foregroundColor(daysSelected[index] ? .dullNeutral : .black)
                     .onTapGesture {
                         daysSelected[index] = !daysSelected[index]
                         let impactHeptic = UIImpactFeedbackGenerator(style: .light)

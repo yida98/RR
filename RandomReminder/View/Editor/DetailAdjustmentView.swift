@@ -12,9 +12,9 @@ struct DetailAdjustmentView: View {
     @Binding var isOpen: Bool
     
     var body: some View {
-        VStack(spacing: 50) {
+        VStack {
             UtilityBar(viewModel: viewModel, isOpen: $isOpen)
-            VStack(spacing: 40) {
+            VStack {
                 ColorPicker(viewModel: viewModel)
                 TitleEditor(viewModel: viewModel)
                 FrequencyEditor(viewModel: viewModel)
