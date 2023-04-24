@@ -12,10 +12,9 @@ struct DetailAdjustmentView: View {
     @Binding var isOpen: Bool
     
     var body: some View {
-        VStack {
+        VStack(spacing: Constant.screenBounds.height / 26) {
             UtilityBar(viewModel: viewModel, isOpen: $isOpen)
-            Spacer()
-            VStack(spacing: Constant.screenBounds.height / 25) {
+            VStack(spacing: Constant.screenBounds.height / 26) {
                 ColorPicker(viewModel: viewModel)
                 VStack {
                     TitleEditor(viewModel: viewModel)
