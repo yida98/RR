@@ -15,7 +15,7 @@ struct DetailAdjustmentView: View {
         VStack {
             UtilityBar(viewModel: viewModel, isOpen: $isOpen)
             Spacer()
-            VStack(spacing: Constant.screenBounds.height / 20) {
+            VStack(spacing: Constant.screenBounds.height / 25) {
                 ColorPicker(viewModel: viewModel)
                 VStack {
                     TitleEditor(viewModel: viewModel)
