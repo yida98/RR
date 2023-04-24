@@ -14,10 +14,13 @@ struct DetailAdjustmentView: View {
     var body: some View {
         VStack {
             UtilityBar(viewModel: viewModel, isOpen: $isOpen)
-            VStack {
+            Spacer()
+            VStack(spacing: Constant.screenBounds.height / 20) {
                 ColorPicker(viewModel: viewModel)
-                TitleEditor(viewModel: viewModel)
-                FrequencyEditor(viewModel: viewModel)
+                VStack {
+                    TitleEditor(viewModel: viewModel)
+                    FrequencyEditor(viewModel: viewModel)
+                }
             }
             Spacer()
         }
