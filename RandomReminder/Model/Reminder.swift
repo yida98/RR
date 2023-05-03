@@ -129,3 +129,119 @@ extension DummyReminder: Equatable {
         lhs.id == rhs.id
     }
 }
+
+extension Reminder {
+    var totalHours: Double {
+        guard var timeFrames = reminderTimeFrames else { return 0 }
+        return timeFrames.reduce(0.0) { $0 + ($1 ? 1 : 0) }
+    }
+    
+    func getExecutionTimes() -> [DateComponents] {
+        var components = [DateComponents]()
+        
+        guard let reminderTimeFrames = reminderTimeFrames, let startingTimeAsIndex = reminderTimeFrames.firstIndex(of: true) else { return components }
+        
+        let occurenceCount = occurence(from: Int(frequency))
+        let timeBlockSize: Double = totalHours / Double(occurenceCount)
+        var currTime: Double = Double(startingTimeAsIndex)
+        
+        let availableRanges = availabilityRanges()
+        
+        for _ in 0..<occurenceCount {
+            var timeAsDouble = Double.random(in: 0..<timeBlockSize) + (currTime)
+            
+            var falses = 0.0
+            while timeAsDouble < 24.0 {
+                if valueInSortedRanges(timeAsDouble, ranges: availableRanges) {
+                    let hourAndMinute = timeAsDouble.asHourAndMinute
+                    // TODO: Day
+                    let currComponent = DateComponents(calendar: .current, day: 1, hour: hourAndMinute.0, minute: hourAndMinute.1)
+                    components.append(currComponent)
+                    break
+                } else {
+                    timeAsDouble += 1.0
+                    falses += 1
+                }
+            }
+            
+            currTime += timeBlockSize + falses
+        }
+        
+        return components
+    }
+    
+    private func valueInSortedRanges<V: Comparable>(_ value: V, ranges: [Range<V>]) -> Bool {
+        var i = 0
+        
+        while i < ranges.count {
+            if value < ranges[i].lowerBound {
+                return false
+            } else {
+                if ranges[i].contains(value) {
+                    return true
+                }
+                i += 1
+            }
+        }
+        
+        return false
+    }
+    
+    /// Could be empty
+    private func availabilityRanges() -> [Range<Double>] {
+        var result = [Range<Double>]()
+        
+        guard var reminderTimeFrames = reminderTimeFrames else { return result }
+        
+        reminderTimeFrames.append(false)
+        
+        var i = 0
+        var j = 0
+        
+        while i < reminderTimeFrames.count {
+            if !reminderTimeFrames[j] {
+                if i != j {
+                    let range = Double(i)..<Double(j)
+                    result.append(range)
+                }
+                i = j + 1
+            }
+            j += 1
+        }
+        
+        return result
+    }
+    
+    private func makeDateComponent(from weekday: Int, hour: Int, minute: Int, calendar: Calendar = .current) -> DateComponents {
+        var components = DateComponents()
+        components.calendar = calendar
+        components.weekday = weekday
+        components.hour = hour
+        components.minute = minute
+        
+        return components
+    }
+    
+    func occurence(from frequency: Int) -> Int {
+        if frequency == 0 {
+            return Int.random(in: 0..<1)
+        } else if frequency == 1 {
+            return Int.random(in: 1..<4)
+        } else if frequency == 2 {
+            return Int.random(in: 4..<8)
+        } else if frequency == 3 {
+            return Int.random(in: 8..<12)
+        } else if frequency == 4 {
+            return Int.random(in: 12..<20)
+        }
+        return 0
+    }
+}
+
+fileprivate extension Double {
+    var asHourAndMinute: (Int, Int) {
+        let hour = Int(self)
+        let minute = Int(self.truncatingRemainder(dividingBy: 1.0).rounded() * 60)
+        return (hour, minute)
+    }
+}

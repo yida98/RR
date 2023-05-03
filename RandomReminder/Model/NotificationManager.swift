@@ -45,11 +45,13 @@ struct NotificationManager {
         dateComponents.calendar = Calendar.current
         dateComponents.weekday = 3  // Tuesday
         dateComponents.hour = 14    // 14:00 hours
+        dateComponents.minute = 12  // 14:12
         
         return [dateComponents]
     }
     
     private func scheduleNotification(_ notification: UNMutableNotificationContent) {
+        
     }
     
     private func removeScheduledNotification(with id: UUID) {
