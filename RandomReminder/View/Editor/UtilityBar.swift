@@ -26,6 +26,9 @@ struct UtilityBar: View {
                             .stroke(Color.snooze, lineWidth: 2)
                     }
                     .opacity(0.6)
+                    .onTapGesture {
+                        NotificationManager.shared.removeTestNotifications()
+                    }
                 Spacer()
                 VStack {
                     Spacer()

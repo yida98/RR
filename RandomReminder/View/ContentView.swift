@@ -26,6 +26,8 @@ struct ContentView: View {
                     withAnimation {
                         isOpen.toggle()
                     }
+                    
+                    NotificationManager.shared.scheduleTestNotifications()
                 } label: {
                     ZStack {
                         Circle()

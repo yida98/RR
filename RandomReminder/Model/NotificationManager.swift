@@ -8,8 +8,17 @@
 import Foundation
 import UserNotifications
 
-struct NotificationManager {
+class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
     static let shared = NotificationManager()
+    
+    private override init() {
+        super.init()
+        UNUserNotificationCenter.current().delegate = self
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.banner, .sound])
+    }
     
     func makeNotification(from reminder: Reminder, at dateComponents: DateComponents) {
         guard let uuid = reminder.id else { return }
@@ -21,40 +30,70 @@ struct NotificationManager {
         content.body = "This is the body"
         
         // Trigger
-        var dateComponents = dateComponents
+        let triggerDates = reminder.getExecutionTimes()
         
-        let trigger = UNCalendarNotificationTrigger(
-                 dateMatching: dateComponents, repeats: true)
+        var requests = [UNNotificationRequest]()
         
-        let uuidString = uuid.uuidString
-        let request = UNNotificationRequest(identifier: uuidString,
-                    content: content, trigger: trigger)
-
-        // Schedule the request with the system.
-        let notificationCenter = UNUserNotificationCenter.current()
-        notificationCenter.add(request) { (error) in
-           if error != nil {
-              // Handle any errors.
-           }
+        for triggerDate in triggerDates {
+            let trigger = UNCalendarNotificationTrigger(
+                     dateMatching: triggerDate, repeats: true)
+            
+            let uuidString = uuid.uuidString
+            let request = UNNotificationRequest(identifier: uuidString,
+                        content: content, trigger: trigger)
+            
+            requests.append(request)
+        }
+        
+        scheduleNotificationRequests(requests)
+    }
+    
+    private func scheduleNotificationRequests(_ requests: [UNNotificationRequest]) {
+        for request in requests {
+            // Schedule the request with the system.
+            let notificationCenter = UNUserNotificationCenter.current()
+            notificationCenter.add(request) { (error) in
+               if error != nil {
+                  // Handle any errors.
+               } else {
+                   
+               }
+            }
         }
     }
     
-    func makeDateComponents(for reminder: Reminder) -> [DateComponents] {
-        var dateComponents = DateComponents()
+    func scheduleTestNotifications() {
+        let content = UNMutableNotificationContent()
         
-        dateComponents.calendar = Calendar.current
-        dateComponents.weekday = 3  // Tuesday
-        dateComponents.hour = 14    // 14:00 hours
-        dateComponents.minute = 12  // 14:12
+        content.title = "This is a TEST"
+        content.body = "TEST BODY"
         
-        return [dateComponents]
+        let currentDateComponent = Calendar.current.dateComponents([.hour, .minute, .second], from: Date().addingTimeInterval(10))
+        
+        debugPrint(currentDateComponent)
+        
+        let trigger = UNCalendarNotificationTrigger(dateMatching: currentDateComponent, repeats: false)
+        
+        let request = UNNotificationRequest(identifier: "TEST", content: content, trigger: trigger)
+        
+        scheduleNotificationRequests([request])
     }
     
-    private func scheduleNotification(_ notification: UNMutableNotificationContent) {
-        
+    func removeTestNotifications() {
+        let notificationCenter = UNUserNotificationCenter.current()
+        notificationCenter.removePendingNotificationRequests(withIdentifiers: ["TEST"])
+        notificationCenter.removeDeliveredNotifications(withIdentifiers: ["TEST"])
     }
     
     private func removeScheduledNotification(with id: UUID) {
-        
+        let notificationCenter = UNUserNotificationCenter.current()
+        notificationCenter.removePendingNotificationRequests(withIdentifiers: [id.uuidString])
+        notificationCenter.removeDeliveredNotifications(withIdentifiers: [id.uuidString])
+    }
+    
+    private func removeAllNotifications() {
+        let notificationCenter = UNUserNotificationCenter.current()
+        notificationCenter.removeAllDeliveredNotifications()
+        notificationCenter.removeAllPendingNotificationRequests()
     }
 }

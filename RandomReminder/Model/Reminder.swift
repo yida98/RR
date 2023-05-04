@@ -139,7 +139,9 @@ extension Reminder {
     func getExecutionTimes() -> [DateComponents] {
         var components = [DateComponents]()
         
-        guard let reminderTimeFrames = reminderTimeFrames, let startingTimeAsIndex = reminderTimeFrames.firstIndex(of: true) else { return components }
+        guard let reminderTimeFrames = reminderTimeFrames,
+                let startingTimeAsIndex = reminderTimeFrames.firstIndex(of: true),
+                let daysActive = daysActive else { return components }
         
         let occurenceCount = occurence(from: Int(frequency))
         let timeBlockSize: Double = totalHours / Double(occurenceCount)
@@ -147,24 +149,27 @@ extension Reminder {
         
         let availableRanges = availabilityRanges()
         
-        for _ in 0..<occurenceCount {
-            var timeAsDouble = Double.random(in: 0..<timeBlockSize) + (currTime)
-            
-            var falses = 0.0
-            while timeAsDouble < 24.0 {
-                if valueInSortedRanges(timeAsDouble, ranges: availableRanges) {
-                    let hourAndMinute = timeAsDouble.asHourAndMinute
-                    // TODO: Day
-                    let currComponent = DateComponents(calendar: .current, day: 1, hour: hourAndMinute.0, minute: hourAndMinute.1)
-                    components.append(currComponent)
-                    break
-                } else {
-                    timeAsDouble += 1.0
-                    falses += 1
+        for day in 1...daysActive.count {
+            if daysActive[day - 1] {
+                for _ in 0..<occurenceCount {
+                    var timeAsDouble = Double.random(in: 0..<timeBlockSize) + (currTime)
+                    
+                    var falses = 0.0
+                    while timeAsDouble < 24.0 {
+                        if valueInSortedRanges(timeAsDouble, ranges: availableRanges) {
+                            let hourAndMinute = timeAsDouble.asHourAndMinute
+                            let currComponent = DateComponents(calendar: .current, day: day, hour: hourAndMinute.0, minute: hourAndMinute.1)
+                            components.append(currComponent)
+                            break
+                        } else {
+                            timeAsDouble += 1.0
+                            falses += 1
+                        }
+                    }
+                    
+                    currTime += timeBlockSize + falses
                 }
             }
-            
-            currTime += timeBlockSize + falses
         }
         
         return components
