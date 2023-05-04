@@ -20,7 +20,13 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
         completionHandler([.banner, .sound])
     }
     
-    func makeNotification(from reminder: Reminder, at dateComponents: DateComponents) {
+    func scheduleNotifications(_ reminders: [Reminder]) {
+        for reminder in reminders {
+            makeNotification(from: reminder)
+        }
+    }
+    
+    private func makeNotification(from reminder: Reminder) {
         guard let uuid = reminder.id else { return }
         
         // Content
@@ -63,13 +69,13 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
         }
     }
     
-    private func removeScheduledNotification(with id: UUID) {
+    func removeScheduledNotification(with id: UUID) {
         let notificationCenter = UNUserNotificationCenter.current()
         notificationCenter.removePendingNotificationRequests(withIdentifiers: [id.uuidString])
         notificationCenter.removeDeliveredNotifications(withIdentifiers: [id.uuidString])
     }
     
-    private func removeAllNotifications() {
+    func removeAllNotifications() {
         let notificationCenter = UNUserNotificationCenter.current()
         notificationCenter.removeAllDeliveredNotifications()
         notificationCenter.removeAllPendingNotificationRequests()

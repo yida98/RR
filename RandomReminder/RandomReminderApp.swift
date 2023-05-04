@@ -29,14 +29,18 @@ class AppData: ObservableObject {
             
             // Enable or disable features based on the authorization.
         }
+        
+        AppData.scheduleRandomReminders()
     }
     
-    func scheduleRandomReminders() {
+    static func scheduleRandomReminders() {
         // Remove all existing reminders
-        
+        NotificationManager.shared.removeAllNotifications()
         
         // Fetch all reminders
-        
-        // Schedule every reminder
+        if let reminders = DataManager.shared.fetchAllReminders() {
+            // Reschedule every reminder
+            NotificationManager.shared.scheduleNotifications(reminders)
+        }
     }
 }
