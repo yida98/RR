@@ -30,4 +30,13 @@ class AppData: ObservableObject {
             // Enable or disable features based on the authorization.
         }
     }
+    
+    func scheduleRandomReminders() {
+        // Remove all existing reminders
+        
+        
+        // Fetch all reminders
+        
+        // Schedule every reminder
+    }
 }

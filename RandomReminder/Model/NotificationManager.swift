@@ -63,6 +63,21 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
         }
     }
     
+    private func removeScheduledNotification(with id: UUID) {
+        let notificationCenter = UNUserNotificationCenter.current()
+        notificationCenter.removePendingNotificationRequests(withIdentifiers: [id.uuidString])
+        notificationCenter.removeDeliveredNotifications(withIdentifiers: [id.uuidString])
+    }
+    
+    private func removeAllNotifications() {
+        let notificationCenter = UNUserNotificationCenter.current()
+        notificationCenter.removeAllDeliveredNotifications()
+        notificationCenter.removeAllPendingNotificationRequests()
+    }
+}
+
+// MARK: - Test
+extension NotificationManager {
     func scheduleTestNotifications() {
         let content = UNMutableNotificationContent()
         
@@ -85,17 +100,5 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
         let notificationCenter = UNUserNotificationCenter.current()
         notificationCenter.removePendingNotificationRequests(withIdentifiers: ["TEST"])
         notificationCenter.removeDeliveredNotifications(withIdentifiers: ["TEST"])
-    }
-    
-    private func removeScheduledNotification(with id: UUID) {
-        let notificationCenter = UNUserNotificationCenter.current()
-        notificationCenter.removePendingNotificationRequests(withIdentifiers: [id.uuidString])
-        notificationCenter.removeDeliveredNotifications(withIdentifiers: [id.uuidString])
-    }
-    
-    private func removeAllNotifications() {
-        let notificationCenter = UNUserNotificationCenter.current()
-        notificationCenter.removeAllDeliveredNotifications()
-        notificationCenter.removeAllPendingNotificationRequests()
     }
 }
