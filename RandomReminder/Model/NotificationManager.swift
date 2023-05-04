@@ -28,6 +28,7 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
         
         content.title = "This is the title"
         content.body = "This is the body"
+        content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: "alert.aif"))
         
         // Trigger
         let triggerDates = reminder.getExecutionTimes()
@@ -67,6 +68,7 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
         
         content.title = "This is a TEST"
         content.body = "TEST BODY"
+        content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: "alert.aif"))
         
         let currentDateComponent = Calendar.current.dateComponents([.hour, .minute, .second], from: Date().addingTimeInterval(10))
         
