@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject var appData: AppData
+    
     @StateObject var viewModel = ContentViewModel()
     @State var isOpen: Bool = false
     @Namespace var bellButton
@@ -18,7 +20,7 @@ struct ContentView: View {
             VStack(spacing: -20) {
                 RemindersView(viewModel: viewModel, isOpen: $isOpen)
                 Button {
-                    AppData.scheduleRandomReminders()
+                    appData.scheduleRandomReminders()
                     if isOpen {
                         viewModel.saveReminderUnderConstruction()
                     } else {
@@ -57,6 +59,7 @@ struct ContentView: View {
                     DetailAdjustmentView(viewModel: viewModel.getEditorViewModel(), isOpen: $isOpen)
                         .transition(.asymmetric(insertion: .push(from: .bottom), removal: .push(from: .top)))
                         .animation(.spring(), value: isOpen)
+                        .environmentObject(appData)
                 }
 
                 Spacer()

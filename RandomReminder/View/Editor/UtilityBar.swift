@@ -9,6 +9,8 @@ import Foundation
 import SwiftUI
 
 struct UtilityBar: View {
+    @EnvironmentObject var appData: AppData
+    
     @ObservedObject var viewModel: EditorViewModel
     @Binding var isOpen: Bool
     
@@ -18,16 +20,24 @@ struct UtilityBar: View {
             HStack {
                 Text("Snooze")
                     .font(.subheadline)
-                    .foregroundColor(.snooze)
+                    .foregroundColor(getSnoozeForeground())
                     .bold()
                     .frame(width: 80, height: 36)
                     .background {
-                        AsymmetricalRoundedRectangle(10, 16, 16, 16)
-                            .stroke(Color.snooze, lineWidth: 2)
+                        if let id = viewModel.reminder.id, appData.isSnoozed(id) {
+                            AsymmetricalRoundedRectangle(10, 16, 16, 16)
+                                .fill(getSnoozeBackground())
+                        } else {
+                            AsymmetricalRoundedRectangle(10, 16, 16, 16)
+                                .stroke(Color.snooze, lineWidth: 2)
+                        }
                     }
                     .opacity(0.6)
                     .onTapGesture {
-                        NotificationManager.shared.removeTestNotifications()
+                        if let id = viewModel.reminder.id {
+                            appData.snooze(id)
+                            NotificationManager.shared.removeScheduledNotification(with: id)
+                        }
                     }
                 Spacer()
                 VStack {
@@ -64,5 +74,19 @@ struct UtilityBar: View {
                     }
             }
             .padding(.horizontal, 30)
+    }
+    
+    private func getSnoozeForeground() -> Color {
+        if let id = viewModel.reminder.id, appData.isSnoozed(id) {
+            return .baseColor
+        }
+        return .snooze
+    }
+    
+    private func getSnoozeBackground() -> Color {
+        if let id = viewModel.reminder.id, appData.isSnoozed(id) {
+            return .snooze
+        }
+        return .baseColor
     }
 }

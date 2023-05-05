@@ -8,12 +8,15 @@
 import SwiftUI
 
 struct DetailAdjustmentView: View {
+    @EnvironmentObject var appData: AppData
+    
     @ObservedObject var viewModel: EditorViewModel
     @Binding var isOpen: Bool
     
     var body: some View {
         VStack(spacing: Constant.screenBounds.height / 26) {
             UtilityBar(viewModel: viewModel, isOpen: $isOpen)
+                .environmentObject(appData)
             VStack(spacing: Constant.screenBounds.height / 26) {
                 ColorPicker(viewModel: viewModel)
                 VStack {
