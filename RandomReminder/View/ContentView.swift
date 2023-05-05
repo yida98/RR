@@ -19,6 +19,7 @@ struct ContentView: View {
             Spacer()
             VStack(spacing: -20) {
                 RemindersView(viewModel: viewModel, isOpen: $isOpen)
+                    .shadow(radius: 10)
                 Button {
                     appData.scheduleRandomReminders()
                     if isOpen {

@@ -12,7 +12,7 @@ struct DynamicToolsBackdrop: View {
     var body: some View {
         GeometryReader { proxy in
             DynamicToolsBackdropShape(isOpen: $isOpen, frameWidth: proxy.frame(in: .global).width, frameHeight: proxy.frame(in: .global).height)
-                .fill(.linearGradient(colors: [.background, .accentColor], startPoint: .top, endPoint: .bottom))
+                .fill(.linearGradient(colors: [.background, .frequent], startPoint: .top, endPoint: .bottom))
 //                .fill(Color.background)
                 .animation(.spring(), value: isOpen)
         }
