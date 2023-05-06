@@ -37,7 +37,12 @@ class AppData: ObservableObject {
             
             // Enable or disable features based on the authorization.
         }
-//        scheduleRandomReminders()
+        //        scheduleRandomReminders()
+        
+        NotificationCenter.default.addObserver(forName: UIApplication.willTerminateNotification, object: nil, queue: .main) { [weak self] _ in
+            guard let strongSelf = self else { return }
+//            strongSelf.scheduleRandomReminders()
+        }
     }
     
     func scheduleRandomReminders() {
