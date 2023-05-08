@@ -31,11 +31,11 @@ class AppData: ObservableObject {
     
     init() {
         requestNotificationAuthorizationCheck()
-        //        scheduleRandomReminders()
+        scheduleRandomReminders()
         
         NotificationCenter.default.addObserver(forName: UIApplication.willTerminateNotification, object: nil, queue: .main) { [weak self] _ in
             guard let strongSelf = self else { return }
-//            strongSelf.scheduleRandomReminders()
+            strongSelf.scheduleRandomReminders()
         }
         
         NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: .main) { [weak self] _ in
@@ -80,8 +80,7 @@ class AppData: ObservableObject {
             snoozedReminders.append(id)
         }
         
-//        scheduleRandomReminders()
-        print("Reminders \(snoozedReminders)")
+        scheduleRandomReminders()
     }
     
     func isSnoozed(_ id: UUID) -> Bool {

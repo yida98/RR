@@ -31,7 +31,7 @@ struct ContentView: View {
                         isOpen.toggle()
                     }
                     
-                    NotificationManager.shared.scheduleTestNotifications()
+//                    NotificationManager.shared.scheduleTestNotifications()
                 } label: {
                     ZStack {
                         Circle()
@@ -68,21 +68,34 @@ struct ContentView: View {
         }
         .background(Color.baseColor.ignoresSafeArea())
         .unintrusiveAlert(trigger: !appData.authorization) {
-            VStack(spacing: 4) {
-                Text("Notifications disabled.")
-                    .font(.caption)
-                    .foregroundColor(.gray)
-                Button {
-                    UIApplication.shared.openSettings()
-                } label: {
-                    Text("Settings")
-                        .font(.caption)
-                        .padding(4)
-                        .background(RoundedRectangle(cornerRadius: 5).fill(.thinMaterial))
+            HStack {
+                VStack {
+                    Image(systemName: "exclamationmark.triangle")
+                        .foregroundColor(.bombardment)
+                }
+                VStack(spacing: 10) {
+                    Text("Notifications disabled.")
+                        .font(.footnote)
+                        .bold()
+                        .foregroundColor(.gray.opacity(0.8))
+                    Button {
+                        UIApplication.shared.openSettings()
+                    } label: {
+                        Text("Settings")
+                            .font(.caption)
+                            .bold()
+                            .padding(4)
+                            .background(RoundedRectangle(cornerRadius: 5).fill(.thinMaterial))
+                    }
+                }
+                VStack {
+                    Image(systemName: "exclamationmark.triangle")
+                        .foregroundColor(.clear)
                 }
             }
-            .padding(10)
-            .background(RoundedRectangle(cornerRadius: 10).fill(.thickMaterial).shadow(radius: 5))
+            .padding(.vertical, 12)
+            .padding(.horizontal, 24)
+            .background(RoundedRectangle(cornerRadius: 50).fill(.thickMaterial).shadow(radius: 5))
         }
     }
 }
