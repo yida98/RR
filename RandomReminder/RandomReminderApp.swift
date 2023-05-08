@@ -27,7 +27,26 @@ class AppData: ObservableObject {
         }
     }
     
+    @Published var authorization: Bool = true
+    
     init() {
+        requestNotificationAuthorizationCheck()
+        //        scheduleRandomReminders()
+        
+        NotificationCenter.default.addObserver(forName: UIApplication.willTerminateNotification, object: nil, queue: .main) { [weak self] _ in
+            guard let strongSelf = self else { return }
+//            strongSelf.scheduleRandomReminders()
+        }
+        
+        NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: .main) { [weak self] _ in
+            guard let strongSelf = self else { return }
+            DispatchQueue.main.async {
+                strongSelf.requestNotificationAuthorizationCheck()
+            }
+        }
+    }
+    
+    private func requestNotificationAuthorizationCheck() {
         let center = UNUserNotificationCenter.current()
         center.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
             
@@ -36,12 +55,9 @@ class AppData: ObservableObject {
             }
             
             // Enable or disable features based on the authorization.
-        }
-        //        scheduleRandomReminders()
-        
-        NotificationCenter.default.addObserver(forName: UIApplication.willTerminateNotification, object: nil, queue: .main) { [weak self] _ in
-            guard let strongSelf = self else { return }
-//            strongSelf.scheduleRandomReminders()
+            DispatchQueue.main.async {
+                self.authorization = granted
+            }
         }
     }
     

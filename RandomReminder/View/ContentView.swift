@@ -62,11 +62,49 @@ struct ContentView: View {
                         .animation(.spring(), value: isOpen)
                         .environmentObject(appData)
                 }
-
                 Spacer()
             }
             Spacer()
         }
         .background(Color.baseColor.ignoresSafeArea())
+        .unintrusiveAlert(trigger: !appData.authorization) {
+            VStack(spacing: 4) {
+                Text("Notifications disabled.")
+                    .font(.caption)
+                    .foregroundColor(.gray)
+                Button {
+                    UIApplication.shared.openSettings()
+                } label: {
+                    Text("Settings")
+                        .font(.caption)
+                        .padding(4)
+                        .background(RoundedRectangle(cornerRadius: 5).fill(.thinMaterial))
+                }
+            }
+            .padding(10)
+            .background(RoundedRectangle(cornerRadius: 10).fill(.thickMaterial).shadow(radius: 5))
+        }
+    }
+}
+
+extension View {
+    func unintrusiveAlert<Alert: View>(trigger: Bool, @ViewBuilder _ alertView: () -> Alert) -> some View {
+        modifier(UnintrusiveAlert(trigger: trigger, alertView: alertView()))
+    }
+}
+
+struct UnintrusiveAlert<Alert: View>: ViewModifier {
+    let trigger: Bool
+    let alertView: Alert
+    func body(content: Content) -> some View {
+        ZStack {
+            content
+            if trigger {
+                VStack {
+                    alertView.transition(.asymmetric(insertion: .push(from: .top), removal: .push(from: .bottom)))
+                    Spacer()
+                }.padding()
+            }
+        }
     }
 }
