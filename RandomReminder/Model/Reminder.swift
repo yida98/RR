@@ -246,7 +246,7 @@ extension Reminder {
 fileprivate extension Double {
     var asHourAndMinute: (Int, Int) {
         let hour = Int(self)
-        let minute = Int(self.truncatingRemainder(dividingBy: 1.0).rounded() * 60)
+        let minute = Int((self.truncatingRemainder(dividingBy: 1.0) * 60).rounded())
         return (hour, minute)
     }
 }
