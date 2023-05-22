@@ -152,27 +152,34 @@ extension Reminder {
         for day in 1...daysActive.count {
             if daysActive[day - 1] {
                 for _ in 0..<occurenceCount {
-                    var timeAsDouble = Double.random(in: 0..<timeBlockSize) + (currTime)
-                    
-                    var falses = 0.0
-                    while timeAsDouble < 24.0 {
-                        if valueInSortedRanges(timeAsDouble, ranges: availableRanges) {
-                            let hourAndMinute = timeAsDouble.asHourAndMinute
-                            let currComponent = DateComponents(calendar: .current, day: day, hour: hourAndMinute.0, minute: hourAndMinute.1)
-                            components.append(currComponent)
-                            break
-                        } else {
-                            timeAsDouble += 1.0
-                            falses += 1
-                        }
+                    if let component = findNextComponent(timeBlockSize: timeBlockSize, startTime: currTime, availableRanges: availableRanges, day: day) {
+                        components.append(component)
                     }
-                    
-                    currTime += timeBlockSize + falses
                 }
             }
         }
         
         return components
+    }
+    
+    private func findNextComponent(timeBlockSize: Double, startTime: Double, availableRanges: [Range<Double>], day: Int) -> DateComponents? {
+        var currTime = startTime
+        var timeAsDouble = Double.random(in: 0..<timeBlockSize) + (currTime)
+        
+        var falses = 0.0
+        while timeAsDouble < 24.0 {
+            if valueInSortedRanges(timeAsDouble, ranges: availableRanges) {
+                let hourAndMinute = timeAsDouble.asHourAndMinute
+                let currComponent = DateComponents(calendar: .current, day: day, hour: hourAndMinute.0, minute: hourAndMinute.1)
+                return currComponent
+            } else {
+                timeAsDouble += 1.0
+                falses += 1
+            }
+        }
+        
+        currTime += timeBlockSize + falses
+        return nil
     }
     
     private func valueInSortedRanges<V: Comparable>(_ value: V, ranges: [Range<V>]) -> Bool {

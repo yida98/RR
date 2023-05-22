@@ -63,7 +63,7 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
                if error != nil {
                   // Handle any errors.
                } else {
-                   
+                   debugPrint("scheduled request \(request)")
                }
             }
         }
