@@ -145,14 +145,14 @@ extension Reminder {
         
         let occurenceCount = occurence(from: Int(frequency))
         let timeBlockSize: Double = totalHours / Double(occurenceCount)
-        var currTime: Double = Double(startingTimeAsIndex)
         
         let availableRanges = availabilityRanges()
         
         for day in 1...daysActive.count {
+            var currTime: Double = Double(startingTimeAsIndex)
             if daysActive[day - 1] {
                 for _ in 0..<occurenceCount {
-                    if let component = findNextComponent(timeBlockSize: timeBlockSize, startTime: currTime, availableRanges: availableRanges, day: day) {
+                    if let component = findNextComponent(timeBlockSize: timeBlockSize, currTime: &currTime, availableRanges: availableRanges, day: day) {
                         components.append(component)
                     }
                 }
@@ -162,16 +162,18 @@ extension Reminder {
         return components
     }
     
-    private func findNextComponent(timeBlockSize: Double, startTime: Double, availableRanges: [Range<Double>], day: Int) -> DateComponents? {
-        var currTime = startTime
+    private func findNextComponent(timeBlockSize: Double, currTime: inout Double, availableRanges: [Range<Double>], day: Int) -> DateComponents? {
         var timeAsDouble = Double.random(in: 0..<timeBlockSize) + (currTime)
+        var component: DateComponents?
         
         var falses = 0.0
-        while timeAsDouble < 24.0 {
+        var hasValue = false
+        while timeAsDouble < 24.0 && !hasValue {
             if valueInSortedRanges(timeAsDouble, ranges: availableRanges) {
                 let hourAndMinute = timeAsDouble.asHourAndMinute
                 let currComponent = DateComponents(calendar: .current, day: day, hour: hourAndMinute.0, minute: hourAndMinute.1)
-                return currComponent
+                component = currComponent
+                hasValue = true
             } else {
                 timeAsDouble += 1.0
                 falses += 1
@@ -179,7 +181,7 @@ extension Reminder {
         }
         
         currTime += timeBlockSize + falses
-        return nil
+        return component
     }
     
     private func valueInSortedRanges<V: Comparable>(_ value: V, ranges: [Range<V>]) -> Bool {
