@@ -27,6 +27,7 @@ struct ContentView: View {
                     } else {
                         viewModel.makeNewReminder()
                     }
+                    viewModel.setupEditor()
                     withAnimation {
                         isOpen.toggle()
                     }

@@ -53,9 +53,12 @@ class ContentViewModel: ObservableObject {
         reminders = ContentViewModel.fetchReminders()
     }
     
+    func setupEditor() {
+        editorViewModel = nil
+    }
+    
     func makeNewReminder() {
-        self.reminderUnderConstruction = DummyReminder()
-        self.editorViewModel = nil
+        reminderUnderConstruction = DummyReminder()
     }
     
     func updateReminder(_ id: UUID, reminder: DummyReminder) {
@@ -67,5 +70,10 @@ class ContentViewModel: ObservableObject {
             reminders[index].frequency = Int16(reminder.frequency)
             reminders[index].reminderTimeFrames = reminder.reminderTimeFrames
         }
+    }
+    
+    func setDummyReminder(_ reminder: Reminder) {
+        setupEditor()
+        reminderUnderConstruction = DummyReminder(reminder: reminder)
     }
 }

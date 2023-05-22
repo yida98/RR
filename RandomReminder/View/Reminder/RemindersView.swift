@@ -25,7 +25,7 @@ struct RemindersView: View {
                         ForEach(viewModel.reminders, id: \.id) { reminder in
                             makeReminderCell(for: reminder.id)
                                 .onTapGesture {
-                                    viewModel.reminderUnderConstruction = DummyReminder(reminder: reminder)
+                                    viewModel.setDummyReminder(reminder)
                                     withAnimation {
                                         isOpen = true
                                     }
