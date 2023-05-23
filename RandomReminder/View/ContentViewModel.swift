@@ -8,11 +8,14 @@
 import Foundation
 import UIKit
 import SwiftUI
+import Combine
 
 class ContentViewModel: ObservableObject {
     
     @Published var reminders: [Reminder]
     @Published var reminderUnderConstruction: DummyReminder
+    
+    var dataManagerSubscriber: AnyCancellable?
     
     init() {
         self.reminders = ContentViewModel.fetchReminders()
@@ -25,6 +28,13 @@ class ContentViewModel: ObservableObject {
             guard let strongSelf = self else { return }
             for reminder in strongSelf.reminders {
                 DataManager.shared.saveReminder(reminder: reminder)
+            }
+        }
+        
+        self.dataManagerSubscriber = DataManager.shared.objectWillChange.sink { [weak self] _ in
+            guard let strongSelf = self else { return }
+            DispatchQueue.main.async {
+                strongSelf.reminders = ContentViewModel.fetchReminders()
             }
         }
     }

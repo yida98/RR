@@ -91,7 +91,7 @@ class DataManager: ObservableObject {
     }
     
     func deleteReminder(with id: UUID) {
-        guard let reminder = fetchReminder(id) else { return }
+        guard let reminder = fetchReminder(id) else { debugPrint("unable to delete \(id)"); return }
         let context = getContext()
         context.delete(reminder)
         

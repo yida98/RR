@@ -20,6 +20,10 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
         completionHandler([.banner, .sound, .list])
     }
     
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        
+    }
+    
     func scheduleNotifications(_ reminders: [Reminder]) {
         for reminder in reminders {
             makeNotification(from: reminder)

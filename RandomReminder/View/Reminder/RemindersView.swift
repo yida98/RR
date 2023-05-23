@@ -35,6 +35,16 @@ struct RemindersView: View {
                     }
                 }.transition(.asymmetric(insertion: .push(from: .top), removal: .push(from: .bottom)))
             }
+            if viewModel.reminders.count == 0 && !isOpen {
+                VStack {
+                    Spacer(minLength: 0)
+                    Image("tapHere")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .padding(.bottom, 30)
+                        .padding(.horizontal, 80)
+                }
+            }
         }
         .frame(width: Constant.screenBounds.width - 60)
         .padding(20)
