@@ -9,17 +9,16 @@ import SwiftUI
 
 @main
 struct RandomReminderApp: App {
-    @StateObject var appData = AppData()
+    @UIApplicationDelegateAdaptor var delegate: AppData
     
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environmentObject(appData)
         }
     }
 }
 
-class AppData: ObservableObject {
+class AppData: NSObject, ObservableObject, UIApplicationDelegate {
     @UserDefault(.snoozedReminders)
     private var snoozedReminders: [UUID] = [UUID]() {
         willSet {
@@ -29,7 +28,9 @@ class AppData: ObservableObject {
     
     @Published var authorization: Bool = true
     
-    init() {
+    override init() {
+        super.init()
+        
         requestNotificationAuthorizationCheck()
         scheduleRandomReminders()
         
@@ -46,17 +47,19 @@ class AppData: ObservableObject {
         }
     }
     
+    func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        return true
+    }
+    
     private func requestNotificationAuthorizationCheck() {
-        let center = UNUserNotificationCenter.current()
-        center.requestAuthorization(options: [.alert, .sound, .providesAppNotificationSettings]) { granted, error in
-            
+        NotificationManager.requestNotificationPermission { success, error in
             if let error = error {
                 // Handle the error here.
             }
             
             // Enable or disable features based on the authorization.
             DispatchQueue.main.async {
-                self.authorization = granted
+                self.authorization = success
             }
         }
     }

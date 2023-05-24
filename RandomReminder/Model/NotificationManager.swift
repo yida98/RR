@@ -17,11 +17,15 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler([.banner, .sound, .list])
+        completionHandler([.banner, .sound])
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        
+        completionHandler()
+    }
+    
+    static func requestNotificationPermission(_ completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound], completionHandler: completion)
     }
     
     func scheduleNotifications(_ reminders: [Reminder]) {
@@ -45,11 +49,11 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
         
         var requests = [UNNotificationRequest]()
         
-        for triggerDate in triggerDates {
+        for triggerDateIndex in 0..<triggerDates.count {
             let trigger = UNCalendarNotificationTrigger(
-                     dateMatching: triggerDate, repeats: true)
+                     dateMatching: triggerDates[triggerDateIndex], repeats: true)
             
-            let uuidString = uuid.uuidString
+            let uuidString = uuid.uuidString + String(triggerDateIndex)
             let request = UNNotificationRequest(identifier: uuidString,
                         content: content, trigger: trigger)
             
@@ -60,6 +64,7 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
     }
     
     private func scheduleNotificationRequests(_ requests: [UNNotificationRequest]) {
+        debugPrint("schedule")
         for request in requests {
             // Schedule the request with the system.
             let notificationCenter = UNUserNotificationCenter.current()
@@ -67,7 +72,7 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
                if error != nil {
                   // Handle any errors.
                } else {
-                   debugPrint("scheduled request \(request)")
+//                   debugPrint("scheduled request \(request)")
                }
             }
         }
@@ -96,9 +101,7 @@ extension NotificationManager {
         content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: "alert.aif"))
         
         let currentDateComponent = Calendar.current.dateComponents([.hour, .minute, .second], from: Date().addingTimeInterval(10))
-        
-        debugPrint(currentDateComponent)
-        
+                
         let trigger = UNCalendarNotificationTrigger(dateMatching: currentDateComponent, repeats: false)
         
         let request = UNNotificationRequest(identifier: "TEST", content: content, trigger: trigger)

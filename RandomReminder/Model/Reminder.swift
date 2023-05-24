@@ -171,7 +171,7 @@ extension Reminder {
         while timeAsDouble < 24.0 && !hasValue {
             if valueInSortedRanges(timeAsDouble, ranges: availableRanges) {
                 let hourAndMinute = timeAsDouble.asHourAndMinute
-                let currComponent = DateComponents(calendar: .current, day: day, hour: hourAndMinute.0, minute: hourAndMinute.1)
+                let currComponent = DateComponents(calendar: .current, hour: hourAndMinute.0, minute: hourAndMinute.1, weekday: day)
                 component = currComponent
                 hasValue = true
             } else {

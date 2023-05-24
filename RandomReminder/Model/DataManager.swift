@@ -125,7 +125,6 @@ class DataManager: ObservableObject {
                 try persistentContainer.persistentStoreCoordinator.execute(deleteRequest, with: getContext())
             } catch {
                 // TODO: handle the error
-                debugPrint("error")
                 return
             }
         }
