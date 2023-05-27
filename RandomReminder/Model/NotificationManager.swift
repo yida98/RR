@@ -80,8 +80,11 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
     
     func removeScheduledNotification(with id: UUID) {
         let notificationCenter = UNUserNotificationCenter.current()
-        notificationCenter.removePendingNotificationRequests(withIdentifiers: [id.uuidString])
-        notificationCenter.removeDeliveredNotifications(withIdentifiers: [id.uuidString])
+        notificationCenter.getPendingNotificationRequests { requests in
+            let filteredRequestsIdentifiers = requests.filter { $0.identifier.hasPrefix(id.uuidString) }.map { $0.identifier }
+            notificationCenter.removePendingNotificationRequests(withIdentifiers: filteredRequestsIdentifiers)
+            notificationCenter.removeDeliveredNotifications(withIdentifiers: filteredRequestsIdentifiers)
+        }
     }
     
     func removeAllNotifications() {
