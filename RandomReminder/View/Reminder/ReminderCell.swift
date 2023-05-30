@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ReminderCell: View {
+    @EnvironmentObject var delegate: AppData
     @Binding private var reminder: DummyReminder
     
     init(reminder: Binding<DummyReminder>) {
@@ -30,7 +31,7 @@ struct ReminderCell: View {
                     ScrollView(.horizontal, showsIndicators: false) {
                         Text(reminder.title)
                             .font(.headline)
-                            .foregroundColor(.accentColor)
+                            .foregroundColor(titleColor)
                             .lineLimit(1)
                             .minimumScaleFactor(0.7)
                             .frame(height: 20)
@@ -55,13 +56,58 @@ struct ReminderCell: View {
                         .foregroundStyle(reminder.daysActive[index] ? Color.dullNeutral.opacity(0.5) : .background.opacity(0.5))
                 }
             }
-            FrequencySlider(currentFrequency: $reminder.frequency)
+            FrequencySlider(currentFrequency: $reminder.frequency, baseColor: frequencySliderColor)
         }
         .padding()
         .background(RoundedRectangle(cornerRadius: 20).fill(.white))
+        .snoozeOverlay(isSnoozed, shape: RoundedRectangle(cornerRadius: 20))
+    }
+    
+    private var isSnoozed: Bool {
+        guard let id = reminder.id else { return false }
+        return delegate.isSnoozed(id)
     }
     
     private func color(for choice: Int) -> Color {
         return Reminder.colors[(choice) % 8]
+    }
+    
+    private var titleColor: Color {
+        guard let id = reminder.id, delegate.isSnoozed(id) else { return .accentColor }
+        return .gray
+    }
+    
+    private var frequencySliderColor: Color {
+        guard let id = reminder.id, delegate.isSnoozed(id) else { return .bombardment }
+        return .gray
+    }
+}
+
+extension View {
+    func snoozeOverlay<S: Shape>(_ snoozed: Bool, shape: S) -> some View {
+        modifier(SnoozeOverlay(snoozed: snoozed, shape: shape))
+    }
+}
+
+struct SnoozeOverlay<S: Shape>: ViewModifier {
+    var snoozed: Bool
+    var shape: S
+    
+    func body(content: Content) -> some View {
+        if snoozed {
+            content
+                .overlay {
+                    shape
+                        .fill(Color.gray.opacity(0.8)).overlay {
+                            Image(systemName: "moon.zzz.fill")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 40)
+                                .foregroundColor(Color.white.opacity(0.5))
+                        }
+                }
+        } else {
+            content
+        }
     }
 }

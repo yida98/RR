@@ -19,10 +19,12 @@ struct RandomReminderApp: App {
 }
 
 class AppData: NSObject, ObservableObject, UIApplicationDelegate {
+    @Published var publishedSnoozedReminders: [UUID] = [UUID]()
+    
     @UserDefault(.snoozedReminders)
     private var snoozedReminders: [UUID] = [UUID]() {
         willSet {
-            self.objectWillChange.send()
+            publishedSnoozedReminders = newValue
         }
     }
     

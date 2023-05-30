@@ -10,9 +10,11 @@ import SwiftUI
 struct FrequencySlider: View {
     @GestureState var dragLocation: CGPoint = .zero
     @Binding var currentFrequency: Int
+    var baseColor: Color
     
-    init(currentFrequency: Binding<Int>) {
+    init(currentFrequency: Binding<Int>, baseColor: Color = .bombardment) {
         self._currentFrequency = currentFrequency
+        self.baseColor = baseColor
     }
     
     var body: some View {
@@ -46,7 +48,7 @@ struct FrequencySlider: View {
     }
     
     private func getFill(for frequency: Int) -> some ShapeStyle {
-        return frequency <= currentFrequency ? Color.bombardment.opacity(Double((Double(frequency + 1) / Double(10)) + 0.5)) : Color.neutral.opacity(0.5)
+        return frequency <= currentFrequency ? baseColor.opacity(Double((Double(frequency + 1) / Double(10)) + 0.5)) : Color.neutral.opacity(0.5)
     }
     
     private func dragObserver(_ id: Int) -> some View {
