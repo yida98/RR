@@ -46,7 +46,7 @@ struct ContentView: View {
                                 .foregroundColor(.accentColor)
                                 .matchedGeometryEffect(id: "label", in: bellButton)
                         } else {
-                            Image(systemName: "bell.fill")
+                            Image("Bell")
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 30, height: 30)
