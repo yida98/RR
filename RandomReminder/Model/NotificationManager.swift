@@ -41,7 +41,11 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
         let content = UNMutableNotificationContent()
         
         content.title = reminder.icon ?? "🔔"
-        content.body =  reminder.title ?? "Random reminder"
+        if let title = reminder.title, !title.isEmpty {
+            content.body = title
+        } else {
+            content.body = "!"
+        }
         content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: "alert.aif"))
         
         // Trigger
